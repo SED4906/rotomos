@@ -62,7 +62,6 @@ void page_fault_handler(size_t error) {
 __attribute__ ((no_caller_saved_registers))
 void irq_handler() {
     pic_eoi(16);
-    return;
 }
 __attribute__ ((no_caller_saved_registers))
 void pit_handler() {

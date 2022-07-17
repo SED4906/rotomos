@@ -36,4 +36,5 @@ void exit_task() {
     kdemalloc(contexts);
     contexts = context->next;
     context_switch_nosave(contexts->c.rsp,contexts->c.cr3);
+    for(;;) __asm__ volatile("hlt");
 }
