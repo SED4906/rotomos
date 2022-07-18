@@ -3,6 +3,7 @@ extern exception_no_err_handler
 extern page_fault_handler
 extern irq_handler
 extern pit_handler
+extern keyb_handler
 
 global isr_err_stub:function
 isr_err_stub:
@@ -62,6 +63,11 @@ isr_irq_stub:
     call irq_handler
     iretq
 
+global isr_keyb_stub:function
+isr_keyb_stub:
+    call keyb_handler
+    iretq
+
 global isr_stub_table:data
 isr_stub_table:
     dq 8 dup isr_no_err_stub wrt ..sym
@@ -75,4 +81,5 @@ isr_stub_table:
     dq isr_err_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
     dq isr_pit_stub wrt ..sym
-    dq 15 dup isr_irq_stub wrt ..sym
+    dq isr_keyb_stub wrt ..sym
+    dq 14 dup isr_irq_stub wrt ..sym

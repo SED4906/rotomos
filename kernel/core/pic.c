@@ -1,5 +1,6 @@
 #include <kernel/cpu.h>
-#include <kernel/pic.h>
+#include <kernel/core.h>
+#include <kernel/libc.h>
 #include <stdint.h>
 
 /// PIC Set Mask
@@ -70,4 +71,5 @@ void init_pit(size_t frequency) {
     outb(0x43, 0x36);
     outb(0x40, reload&0xFF);
     outb(0x40, (reload>>8)&0xFF);
+    printf("Initialized PIT at frequency %dHz\n", frequency);
 }

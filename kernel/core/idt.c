@@ -1,6 +1,4 @@
-#include <kernel/idt.h>
-#include <kernel/pic.h>
-#include <kernel/task.h>
+#include <kernel/core.h>
 #include <kernel/libc.h>
 #include <stddef.h>
 #define GDT_OFFSET_KERNEL_CODE 0x28

@@ -1,43 +1,9 @@
-#include <kernel/libc.h>
-#include <kernel/tty.h>
 #include <limits.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stddef.h>
-
-void* memcpy(void* dstptr, const void* srcptr, size_t size) {
-	unsigned char* dst = (unsigned char*) dstptr;
-	const unsigned char* src = (const unsigned char*) srcptr;
-	for (size_t i = 0; i < size; i++)
-		dst[i] = src[i];
-	return dstptr;
-}
-
-void* memset(void* bufptr, int value, size_t size) {
-	unsigned char* buf = (unsigned char*) bufptr;
-	for (size_t i = 0; i < size; i++)
-		buf[i] = (unsigned char) value;
-	return bufptr;
-}
-
-void* memmove(void* dstptr, const void* srcptr, size_t size) {
-	unsigned char* dst = (unsigned char*) dstptr;
-	const unsigned char* src = (const unsigned char*) srcptr;
-	if (dst < src) {
-		for (size_t i = 0; i < size; i++)
-			dst[i] = src[i];
-	} else {
-		for (size_t i = size; i != 0; i--)
-			dst[i-1] = src[i-1];
-	}
-	return dstptr;
-}
-
-int strlen(const char* str) {
-	size_t len = 0;
-	while (str[len])
-		len++;
-	return len;
-}
+#include <kernel/libc.h>
+#include <kernel/tty.h>
 
 char hexmake(unsigned int v) {
 	if(v>9) return v+55;
@@ -116,6 +82,33 @@ int printf(const char* format, ...) {
 					return -1;
 				}
 				written++;
+			}
+		} else if (*format == 'd') {
+			format++;
+			long long int dvs = va_arg(parameters, long long int);
+			char dm='-';
+			if(dvs < 0) {if(!tty_write(&dm,1)) return -1; written++;}
+			unsigned long long int dv = (unsigned long long int)(dvs >= 0 ? dvs : -dvs);
+			bool first=true;
+			if(dv == 0) {
+				char dd='0';
+				if(!tty_write(&dd,1)) return -1;
+				written++;
+			} else {
+				size_t mul = 10;
+				written++;
+				while(dv / mul > 0) {
+					mul *= 10;
+				}
+				while(mul >= 1) {
+					char dd='0'+((dv/mul)%10);
+					mul /= 10;
+					if((first && dd != '0') || (!first)) {
+						if(!tty_write(&dd,1)) return -1;
+						written++;
+					}
+					if(first) first = false;
+				}
 			}
 		} else {
 			format = format_begun_at;

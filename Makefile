@@ -7,6 +7,7 @@ KERNEL := rotomos.elf
 # the host system's toolchain, but this is not guaranteed.
 #CC := x86_64-elf-gcc
 CC := clang
+CPP := clang++
 # Likewise, "ld" here is just a placeholder and your mileage may vary if using the
 # host's "ld".
 #LD := x86_64-elf-ld
@@ -16,6 +17,7 @@ AS := nasm
 
 # User controllable CFLAGS.
 CFLAGS ?= -Wall -Wextra -Os -pipe -Iinclude
+CPPFLAGS ?= -Wall -Wextra -Os -pipe -Iinclude
 
 # User controllable linker flags. We set none by default.
 LDFLAGS ?= 	-Tkernel/linker.ld \
@@ -40,8 +42,24 @@ CFLAGS +=            \
 	-target x86_64-elf \
 	-g
 
+CPPFLAGS +=            \
+	-I.                  \
+	-std=c++20           \
+	-ffreestanding       \
+	-fno-stack-protector \
+	-fpie                \
+	-fPIC \
+	-mno-80387           \
+	-mno-mmx             \
+	-mno-3dnow           \
+	-mno-sse             \
+	-mno-sse2            \
+	-mno-red-zone        \
+	-target x86_64-elf \
+	-g
 
-OBJ := kernel/context.o kernel/idt.o kernel/isr.o kernel/libc.o kernel/main.o kernel/mm.o kernel/pic.o kernel/task.o kernel/tty.o
+
+OBJ := kernel/core/context.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/core/mm.o kernel/core/pic.o kernel/printf.o kernel/core/task.o kernel/tty.o
 
 # Default target.
 .PHONY: all
@@ -50,6 +68,9 @@ all: $(KERNEL)
 # Link rules for the final kernel executable.
 $(KERNEL): $(OBJ)
 	$(LD) $(OBJ) $(LDFLAGS) -o $@
+
+%.o: %.cpp
+	$(CPP) $(CFLAGS) -c $< -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

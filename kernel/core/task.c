@@ -1,6 +1,4 @@
-#include <kernel/mm.h>
-#include <kernel/pic.h>
-#include <kernel/task.h>
+#include <kernel/core.h>
 #include <stddef.h>
 context_list* contexts;
 

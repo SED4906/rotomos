@@ -1,6 +1,5 @@
-#include <kernel/mm.h>
+#include <kernel/core.h>
 #include <kernel/libc.h>
-#include <kernel/task.h>
 #include <stddef.h>
 
 size_t create_pagemap() {
