@@ -1,0 +1,24 @@
+\hypertarget{cpu_8h_source}{}\doxysection{cpu.\+h}
+\label{cpu_8h_source}\index{include/kernel/cpu.h@{include/kernel/cpu.h}}
+\mbox{\hyperlink{cpu_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once }}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{3 \textcolor{keyword}{static} \textcolor{keyword}{inline} uint8\_t inb(uint16\_t port)}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     uint8\_t ret;}
+\DoxyCodeLine{6     \_\_asm\_\_ \textcolor{keyword}{volatile} ( \textcolor{stringliteral}{"{}inb \%1, \%0"{}}}
+\DoxyCodeLine{7                    : \textcolor{stringliteral}{"{}=a"{}}(ret)}
+\DoxyCodeLine{8                    : \textcolor{stringliteral}{"{}Nd"{}}(port) );}
+\DoxyCodeLine{9     \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{10 \}}
+\DoxyCodeLine{11 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} outb(uint16\_t port, uint8\_t val)}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13     \_\_asm\_\_ \textcolor{keyword}{volatile} ( \textcolor{stringliteral}{"{}outb \%0, \%1"{}} : : \textcolor{stringliteral}{"{}a"{}}(val), \textcolor{stringliteral}{"{}Nd"{}}(port) );}
+\DoxyCodeLine{14     \textcolor{comment}{/* There's an outb \%al, \$imm8  encoding, for compile-\/time constant port numbers that fit in 8b.  (N constraint).}}
+\DoxyCodeLine{15 \textcolor{comment}{     * Wider immediate constants would be truncated at assemble-\/time (e.g. "{}i"{} constraint).}}
+\DoxyCodeLine{16 \textcolor{comment}{     * The  outb  \%al, \%dx  encoding is the only option for all other cases.}}
+\DoxyCodeLine{17 \textcolor{comment}{     * \%1 expands to \%dx because  port  is a uint16\_t.  \%w1 could be used if we had the port number a wider C type */}}
+\DoxyCodeLine{18 \}}
+
+\end{DoxyCode}

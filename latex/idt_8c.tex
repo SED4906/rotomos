@@ -1,0 +1,94 @@
+\hypertarget{idt_8c}{}\doxysection{kernel/core/idt.c File Reference}
+\label{idt_8c}\index{kernel/core/idt.c@{kernel/core/idt.c}}
+{\ttfamily \#include $<$kernel/core.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/libc.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{idt_8c_a22d77a7466a2d60b3df72c2a847a3490}{GDT\+\_\+\+OFFSET\+\_\+\+KERNEL\+\_\+\+CODE}}~0x28
+\item 
+\#define \mbox{\hyperlink{idt_8c_ab58a3361c8ce224a66e91a9f20811699}{IDT\+\_\+\+MAX\+\_\+\+DESCRIPTORS}}~256
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{idt_8c_a4c2b1a2d2bda842d1dd15e59a735b060}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((aligned(0x10)))
+\item 
+void \mbox{\hyperlink{idt_8c_a35fe413107af682030ab7a4b6dff19b8}{init\+\_\+idt}} ()
+\begin{DoxyCompactList}\small\item\em 
+\begin{DoxyItemize}
+\item Sets default IDT entries, 
+\end{DoxyItemize}\end{DoxyCompactList}\item 
+\mbox{\hyperlink{idt_8c_a1b6824bfd4ec0404a4f875ed8db0274e}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((noreturn))
+\item 
+\mbox{\hyperlink{idt_8c_ababfafa9f5b6fb1c6d47334b63ab5aa0}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((no\+\_\+caller\+\_\+saved\+\_\+registers))
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{idt_8c_ac9e46ccd941608592bc2734f738059d6}{isr\+\_\+stub\+\_\+table}} \mbox{[}48\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{idt_8c_a22d77a7466a2d60b3df72c2a847a3490}\label{idt_8c_a22d77a7466a2d60b3df72c2a847a3490}} 
+\index{idt.c@{idt.c}!GDT\_OFFSET\_KERNEL\_CODE@{GDT\_OFFSET\_KERNEL\_CODE}}
+\index{GDT\_OFFSET\_KERNEL\_CODE@{GDT\_OFFSET\_KERNEL\_CODE}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{GDT\_OFFSET\_KERNEL\_CODE}{GDT\_OFFSET\_KERNEL\_CODE}}
+{\footnotesize\ttfamily \#define GDT\+\_\+\+OFFSET\+\_\+\+KERNEL\+\_\+\+CODE~0x28}
+
+\mbox{\Hypertarget{idt_8c_ab58a3361c8ce224a66e91a9f20811699}\label{idt_8c_ab58a3361c8ce224a66e91a9f20811699}} 
+\index{idt.c@{idt.c}!IDT\_MAX\_DESCRIPTORS@{IDT\_MAX\_DESCRIPTORS}}
+\index{IDT\_MAX\_DESCRIPTORS@{IDT\_MAX\_DESCRIPTORS}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{IDT\_MAX\_DESCRIPTORS}{IDT\_MAX\_DESCRIPTORS}}
+{\footnotesize\ttfamily \#define IDT\+\_\+\+MAX\+\_\+\+DESCRIPTORS~256}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{idt_8c_a4c2b1a2d2bda842d1dd15e59a735b060}\label{idt_8c_a4c2b1a2d2bda842d1dd15e59a735b060}} 
+\index{idt.c@{idt.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct____attribute____}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} (\begin{DoxyParamCaption}\item[{(aligned(0x10))}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{idt_8c_ababfafa9f5b6fb1c6d47334b63ab5aa0}\label{idt_8c_ababfafa9f5b6fb1c6d47334b63ab5aa0}} 
+\index{idt.c@{idt.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct____attribute____}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} (\begin{DoxyParamCaption}\item[{(no\+\_\+caller\+\_\+saved\+\_\+registers)}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{idt_8c_a1b6824bfd4ec0404a4f875ed8db0274e}\label{idt_8c_a1b6824bfd4ec0404a4f875ed8db0274e}} 
+\index{idt.c@{idt.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct____attribute____}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} (\begin{DoxyParamCaption}\item[{(noreturn)}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{idt_8c_a35fe413107af682030ab7a4b6dff19b8}\label{idt_8c_a35fe413107af682030ab7a4b6dff19b8}} 
+\index{idt.c@{idt.c}!init\_idt@{init\_idt}}
+\index{init\_idt@{init\_idt}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{init\_idt()}{init\_idt()}}
+{\footnotesize\ttfamily void init\+\_\+idt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+
+\begin{DoxyItemize}
+\item Sets default IDT entries, 
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item initializes the PIC,
+\item loads the IDT,
+\item and enables interrupts. 
+\end{DoxyItemize}
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{idt_8c_ac9e46ccd941608592bc2734f738059d6}\label{idt_8c_ac9e46ccd941608592bc2734f738059d6}} 
+\index{idt.c@{idt.c}!isr\_stub\_table@{isr\_stub\_table}}
+\index{isr\_stub\_table@{isr\_stub\_table}!idt.c@{idt.c}}
+\doxysubsubsection{\texorpdfstring{isr\_stub\_table}{isr\_stub\_table}}
+{\footnotesize\ttfamily void$\ast$ isr\+\_\+stub\+\_\+table\mbox{[}48\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+

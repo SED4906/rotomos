@@ -1,0 +1,49 @@
+\hypertarget{exec_8c}{}\doxysection{kernel/exec.c File Reference}
+\label{exec_8c}\index{kernel/exec.c@{kernel/exec.c}}
+{\ttfamily \#include $<$kernel/core.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/libc.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{exec_8c_a4807d7dfdbb8ee6595d64732c9f447b8}{PROCESS\+\_\+\+LOAD\+\_\+\+START}}~((size\+\_\+t)1 $<$$<$ 39)
+\item 
+\#define \mbox{\hyperlink{exec_8c_a1763c9556bd80b7806528729edc98a05}{STACK\+\_\+\+START}}~((size\+\_\+t)2 $<$$<$ 39)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{exec_8c_aa3d16619f461de060764d87c4512f1d8}{create\+\_\+pagemap}} ()
+\item 
+void \mbox{\hyperlink{exec_8c_a31e6c47730550a4a67e31c847fa8719f}{aout\+\_\+exec}} (void $\ast$data, size\+\_\+t len)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{exec_8c_a4807d7dfdbb8ee6595d64732c9f447b8}\label{exec_8c_a4807d7dfdbb8ee6595d64732c9f447b8}} 
+\index{exec.c@{exec.c}!PROCESS\_LOAD\_START@{PROCESS\_LOAD\_START}}
+\index{PROCESS\_LOAD\_START@{PROCESS\_LOAD\_START}!exec.c@{exec.c}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_LOAD\_START}{PROCESS\_LOAD\_START}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+LOAD\+\_\+\+START~((size\+\_\+t)1 $<$$<$ 39)}
+
+\mbox{\Hypertarget{exec_8c_a1763c9556bd80b7806528729edc98a05}\label{exec_8c_a1763c9556bd80b7806528729edc98a05}} 
+\index{exec.c@{exec.c}!STACK\_START@{STACK\_START}}
+\index{STACK\_START@{STACK\_START}!exec.c@{exec.c}}
+\doxysubsubsection{\texorpdfstring{STACK\_START}{STACK\_START}}
+{\footnotesize\ttfamily \#define STACK\+\_\+\+START~((size\+\_\+t)2 $<$$<$ 39)}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{exec_8c_a31e6c47730550a4a67e31c847fa8719f}\label{exec_8c_a31e6c47730550a4a67e31c847fa8719f}} 
+\index{exec.c@{exec.c}!aout\_exec@{aout\_exec}}
+\index{aout\_exec@{aout\_exec}!exec.c@{exec.c}}
+\doxysubsubsection{\texorpdfstring{aout\_exec()}{aout\_exec()}}
+{\footnotesize\ttfamily void aout\+\_\+exec (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{exec_8c_aa3d16619f461de060764d87c4512f1d8}\label{exec_8c_aa3d16619f461de060764d87c4512f1d8}} 
+\index{exec.c@{exec.c}!create\_pagemap@{create\_pagemap}}
+\index{create\_pagemap@{create\_pagemap}!exec.c@{exec.c}}
+\doxysubsubsection{\texorpdfstring{create\_pagemap()}{create\_pagemap()}}
+{\footnotesize\ttfamily size\+\_\+t create\+\_\+pagemap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

@@ -1,0 +1,449 @@
+\hypertarget{limine_8h_source}{}\doxysection{limine.\+h}
+\label{limine_8h_source}\index{include/limine.h@{include/limine.h}}
+\mbox{\hyperlink{limine_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef \_LIMINE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define \_LIMINE\_H 1}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{5 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}} \{}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{comment}{/* Misc */}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifdef LIMINE\_NO\_POINTERS}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#  define LIMINE\_PTR(TYPE) uint64\_t}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#  define LIMINE\_PTR(TYPE) TYPE}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define LIMINE\_COMMON\_MAGIC 0xc7b1dd30df4c8b88, 0x0a82e883a194f07b}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__uuid}{limine\_uuid}} \{}
+\DoxyCodeLine{21     uint32\_t \mbox{\hyperlink{structlimine__uuid_a55b285bb785129f70c546d0919320141}{a}};}
+\DoxyCodeLine{22     uint16\_t \mbox{\hyperlink{structlimine__uuid_a3e2198ef1488deb36a087a866a45280b}{b}};}
+\DoxyCodeLine{23     uint16\_t \mbox{\hyperlink{structlimine__uuid_ac7fb971ebe96210f205a0a96e52bce60}{c}};}
+\DoxyCodeLine{24     uint8\_t \mbox{\hyperlink{structlimine__uuid_a357fec43584ba3b80d60c2a38d195f02}{d}}[8];}
+\DoxyCodeLine{25 \};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define LIMINE\_MEDIA\_TYPE\_GENERIC 0}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define LIMINE\_MEDIA\_TYPE\_OPTICAL 1}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define LIMINE\_MEDIA\_TYPE\_TFTP 2}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__file}{limine\_file}} \{}
+\DoxyCodeLine{32     uint64\_t \mbox{\hyperlink{structlimine__file_a808aa0304880f6cb22da41a139a33ef2}{revision}};}
+\DoxyCodeLine{33     \mbox{\hyperlink{structlimine__file_aae75086a50847d53d1f0ee264b3dee6b}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) address;}
+\DoxyCodeLine{34     uint64\_t \mbox{\hyperlink{structlimine__file_abde6f4e1977437a0d7091442b46161dc}{size}};}
+\DoxyCodeLine{35     \mbox{\hyperlink{structlimine__file_abcddd7497e755ae1fcb7ee6d7a5f0ca4}{LIMINE\_PTR}}(\textcolor{keywordtype}{char} *) path;}
+\DoxyCodeLine{36     \mbox{\hyperlink{structlimine__file_ab8461c3420baf7aee6965de6f67761f6}{LIMINE\_PTR}}(\textcolor{keywordtype}{char} *) cmdline;}
+\DoxyCodeLine{37     uint32\_t \mbox{\hyperlink{structlimine__file_a16af2eb2688d5dbc3cf273fdb071bd29}{media\_type}};}
+\DoxyCodeLine{38     uint32\_t \mbox{\hyperlink{structlimine__file_ab12af7e4d780036c111ba07311ee8cf5}{unused}};}
+\DoxyCodeLine{39     uint32\_t \mbox{\hyperlink{structlimine__file_a9d4093867da52e1f27d08be784212a67}{tftp\_ip}};}
+\DoxyCodeLine{40     uint32\_t \mbox{\hyperlink{structlimine__file_a949f13c2f063dee81d733bbf380c16fb}{tftp\_port}};}
+\DoxyCodeLine{41     uint32\_t \mbox{\hyperlink{structlimine__file_a88f3e551b32e49b182f9e47b215fe20b}{partition\_index}};}
+\DoxyCodeLine{42     uint32\_t \mbox{\hyperlink{structlimine__file_a557ab86b3cac99a59c9f5fc4de645df3}{mbr\_disk\_id}};}
+\DoxyCodeLine{43     \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__uuid}{limine\_uuid}} \mbox{\hyperlink{structlimine__file_a9a712fe0344396f6d48113ad15b5dd0d}{gpt\_disk\_uuid}};}
+\DoxyCodeLine{44     \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__uuid}{limine\_uuid}} \mbox{\hyperlink{structlimine__file_ab067ccacc13594ccbbb0d2284223b35c}{gpt\_part\_uuid}};}
+\DoxyCodeLine{45     \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__uuid}{limine\_uuid}} \mbox{\hyperlink{structlimine__file_a76f0d8f40ecbfb3fad45d035baf4cdc6}{part\_uuid}};}
+\DoxyCodeLine{46 \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{comment}{/* Boot info */}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#define LIMINE\_BOOTLOADER\_INFO\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0xf55038d8e2a1202f, 0x279426fcf5f59740 \}}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__bootloader__info__response}{limine\_bootloader\_info\_response}} \{}
+\DoxyCodeLine{53     uint64\_t \mbox{\hyperlink{structlimine__bootloader__info__response_a50de512e53b9aa12f1496d1a6004a897}{revision}};}
+\DoxyCodeLine{54     \mbox{\hyperlink{structlimine__bootloader__info__response_a1ed2c37a8453f5d71e80af10592f90b7}{LIMINE\_PTR}}(\textcolor{keywordtype}{char} *) name;}
+\DoxyCodeLine{55     \mbox{\hyperlink{structlimine__bootloader__info__response_a5e419e1bc61acda11951695e445cf2ad}{LIMINE\_PTR}}(\textcolor{keywordtype}{char} *) version;}
+\DoxyCodeLine{56 \};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__bootloader__info__request}{limine\_bootloader\_info\_request}} \{}
+\DoxyCodeLine{59     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{60     uint64\_t \mbox{\hyperlink{structlimine__bootloader__info__request_a1643c1df7b2de6bc939499867cdaa575}{revision}};}
+\DoxyCodeLine{61     \mbox{\hyperlink{structlimine__bootloader__info__request_a30c667dee4dbf7241303b9f304f804bd}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__bootloader__info__response}{limine\_bootloader\_info\_response}} *) response;}
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{comment}{/* Stack size */}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#define LIMINE\_STACK\_SIZE\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x224ef0460a8e8926, 0xe1cb0fc25f46ea3d \}}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__stack__size__response}{limine\_stack\_size\_response}} \{}
+\DoxyCodeLine{69     uint64\_t \mbox{\hyperlink{structlimine__stack__size__response_afe7ee68e34ba6fe7ad5a58d84463fc37}{revision}};}
+\DoxyCodeLine{70 \};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__stack__size__request}{limine\_stack\_size\_request}} \{}
+\DoxyCodeLine{73     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{74     uint64\_t \mbox{\hyperlink{structlimine__stack__size__request_a533d86014bcd476b701a6b553ba5f885}{revision}};}
+\DoxyCodeLine{75     \mbox{\hyperlink{structlimine__stack__size__request_afbf3eaf26c0da4af74fd85cc25898a9a}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__stack__size__response}{limine\_stack\_size\_response}} *) response;}
+\DoxyCodeLine{76     uint64\_t \mbox{\hyperlink{structlimine__stack__size__request_afa37f8104bb28136e202e8633e1e01b3}{stack\_size}};}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{comment}{/* HHDM */}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#define LIMINE\_HHDM\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x48dcf1cb8ad2b852, 0x63984e959a98244b \}}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__hhdm__response}{limine\_hhdm\_response}} \{}
+\DoxyCodeLine{84     uint64\_t \mbox{\hyperlink{structlimine__hhdm__response_a42f7e193bae89c65881a83d046767cd6}{revision}};}
+\DoxyCodeLine{85     uint64\_t \mbox{\hyperlink{structlimine__hhdm__response_a9689f75278eabb364187affbf923a79e}{offset}};}
+\DoxyCodeLine{86 \};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__hhdm__request}{limine\_hhdm\_request}} \{}
+\DoxyCodeLine{89     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{90     uint64\_t \mbox{\hyperlink{structlimine__hhdm__request_aa7631f543edb0965de8f4dfc631f4445}{revision}};}
+\DoxyCodeLine{91     \mbox{\hyperlink{structlimine__hhdm__request_a161b252e13e9c8de8559f2e4fad63362}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__hhdm__response}{limine\_hhdm\_response}} *) response;}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{comment}{/* Framebuffer */}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#define LIMINE\_FRAMEBUFFER\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x9d5827dcd881dd75, 0xa3148604f6fab11b \}}}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \textcolor{preprocessor}{\#define LIMINE\_FRAMEBUFFER\_RGB 1}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__framebuffer}{limine\_framebuffer}} \{}
+\DoxyCodeLine{101     \mbox{\hyperlink{structlimine__framebuffer_a3d9da38f5708cee3b478f5c7babfcc44}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) address;}
+\DoxyCodeLine{102     uint64\_t \mbox{\hyperlink{structlimine__framebuffer_ad7e3e9a8a701f5bf814053d4d3628351}{width}};}
+\DoxyCodeLine{103     uint64\_t \mbox{\hyperlink{structlimine__framebuffer_ab5467ac66f12a6072f1268ade1cef4fe}{height}};}
+\DoxyCodeLine{104     uint64\_t \mbox{\hyperlink{structlimine__framebuffer_aeb59aad798c9422e1ff1eac95f5b1af4}{pitch}};}
+\DoxyCodeLine{105     uint16\_t \mbox{\hyperlink{structlimine__framebuffer_aa32c271905e117417a6ab1107190d4ae}{bpp}};}
+\DoxyCodeLine{106     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_aaf898b5e5c86c8fb28e79f569112048f}{memory\_model}};}
+\DoxyCodeLine{107     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_a36b1a1a603b64941306b64aab8cde484}{red\_mask\_size}};}
+\DoxyCodeLine{108     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_a71011f4f2722af9b3a36063d92e98856}{red\_mask\_shift}};}
+\DoxyCodeLine{109     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_ad2844bcfc736a1a8ea33892d273048e7}{green\_mask\_size}};}
+\DoxyCodeLine{110     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_a3acea0b874c92b46cb2de5b8c8fa9cf1}{green\_mask\_shift}};}
+\DoxyCodeLine{111     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_a64962e7919b48842f912724327309fc1}{blue\_mask\_size}};}
+\DoxyCodeLine{112     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_aa1fb35dd595815689bac0ea43ef15998}{blue\_mask\_shift}};}
+\DoxyCodeLine{113     uint8\_t \mbox{\hyperlink{structlimine__framebuffer_a58a024c31ecddb2a783336b3d83921b6}{unused}}[7];}
+\DoxyCodeLine{114     uint64\_t \mbox{\hyperlink{structlimine__framebuffer_a4537b7ec9e3c3c837b327f49b9ceaf04}{edid\_size}};}
+\DoxyCodeLine{115     \mbox{\hyperlink{structlimine__framebuffer_a03ef8b92b0f4ccc5d9f6e5b7fc9086ea}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) edid;}
+\DoxyCodeLine{116 \};}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__framebuffer__response}{limine\_framebuffer\_response}} \{}
+\DoxyCodeLine{119     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__response_a7edf417e231818a66a2e1de8a8fe16a9}{revision}};}
+\DoxyCodeLine{120     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__response_a13bb5cf3dc1eebe8500f1ebfee5694e9}{framebuffer\_count}};}
+\DoxyCodeLine{121     \mbox{\hyperlink{structlimine__framebuffer__response_ac85b3f886236420a4bf22b623fb6829b}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__framebuffer}{limine\_framebuffer}} **) framebuffers;}
+\DoxyCodeLine{122 \};}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__framebuffer__request}{limine\_framebuffer\_request}} \{}
+\DoxyCodeLine{125     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{126     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__request_ad09f6e5a67918f7d12035236a7b0fa6d}{revision}};}
+\DoxyCodeLine{127     \mbox{\hyperlink{structlimine__framebuffer__request_a31fe8267b309980b9b72421dfd70f673}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__framebuffer__response}{limine\_framebuffer\_response}} *) response;}
+\DoxyCodeLine{128 \};}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130 \textcolor{comment}{/* Framebuffer (legacy) */}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132 \textcolor{preprocessor}{\#define LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0xcbfe81d7dd2d1977, 0x063150319ebc9b71 \}}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__framebuffer__legacy}{limine\_framebuffer\_legacy}} \{}
+\DoxyCodeLine{135     \mbox{\hyperlink{structlimine__framebuffer__legacy_a902781d74be3b1e06a043b64b126c60b}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) address;}
+\DoxyCodeLine{136     uint16\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a07ca3018962882b9175a3f2290252573}{width}};}
+\DoxyCodeLine{137     uint16\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a8c976531dbdc529283a94d7627aab3a7}{height}};}
+\DoxyCodeLine{138     uint16\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a7eabc955359d7699aac56a1340c7a955}{pitch}};}
+\DoxyCodeLine{139     uint16\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a306cf546f3e4af82e4440fdebac587e7}{bpp}};}
+\DoxyCodeLine{140     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a108c585ee3e81fb665b575d85753c606}{memory\_model}};}
+\DoxyCodeLine{141     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a33855bc3cd5567c97020b5b7a703bb9d}{red\_mask\_size}};}
+\DoxyCodeLine{142     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_abf4945deb934d31a113dac286bfa8783}{red\_mask\_shift}};}
+\DoxyCodeLine{143     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a953a0ed3120a4635f4016bc9e593da64}{green\_mask\_size}};}
+\DoxyCodeLine{144     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_ae82d1ce920edc0f8436b3d90e3dca749}{green\_mask\_shift}};}
+\DoxyCodeLine{145     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a36520c9c37339c5d3037b3f9bb1994b9}{blue\_mask\_size}};}
+\DoxyCodeLine{146     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_adaaf32263600f2357f8c19d694ce4985}{blue\_mask\_shift}};}
+\DoxyCodeLine{147     uint8\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_abcc1fbf4e866b00648ccacadc0241950}{unused}};}
+\DoxyCodeLine{148     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__legacy_a9b76434b094edc3c203e12006857f20e}{edid\_size}};}
+\DoxyCodeLine{149     \mbox{\hyperlink{structlimine__framebuffer__legacy_ad0c723acb3d3f7bbe6d0dd3278ebb51e}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) edid;}
+\DoxyCodeLine{150 \};}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__framebuffer__legacy__response}{limine\_framebuffer\_legacy\_response}} \{}
+\DoxyCodeLine{153     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__legacy__response_a2a778893d6be09b5ef6332b2afe05806}{revision}};}
+\DoxyCodeLine{154     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__legacy__response_ae74e88482510a83256818256dceb86b5}{framebuffer\_count}};}
+\DoxyCodeLine{155     \mbox{\hyperlink{structlimine__framebuffer__legacy__response_af94809db65a418ff618ffcf6e89f9fd1}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__framebuffer__legacy}{limine\_framebuffer\_legacy}} **) framebuffers;}
+\DoxyCodeLine{156 \};}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__framebuffer__legacy__request}{limine\_framebuffer\_legacy\_request}} \{}
+\DoxyCodeLine{159     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{160     uint64\_t \mbox{\hyperlink{structlimine__framebuffer__legacy__request_a5cd38f98a95843266d8ecd1904db8b70}{revision}};}
+\DoxyCodeLine{161     \mbox{\hyperlink{structlimine__framebuffer__legacy__request_ad5a5dd76573010f569b712bd27454448}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__framebuffer__legacy__response}{limine\_framebuffer\_legacy\_response}} *) response;}
+\DoxyCodeLine{162 \};}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164 \textcolor{comment}{/* Terminal */}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0xc8ac59310c2b0844, 0xa68d0c7265d38878 \}}}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_DEC 10}}
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_BELL 20}}
+\DoxyCodeLine{170 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_PRIVATE\_ID 30}}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_STATUS\_REPORT 40}}
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_POS\_REPORT 50}}
+\DoxyCodeLine{173 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_KBD\_LEDS 60}}
+\DoxyCodeLine{174 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_MODE 70}}
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CB\_LINUX 80}}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CTX\_SIZE ((uint64\_t)(-\/1))}}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CTX\_SAVE ((uint64\_t)(-\/2))}}
+\DoxyCodeLine{179 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_CTX\_RESTORE ((uint64\_t)(-\/3))}}
+\DoxyCodeLine{180 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_FULL\_REFRESH ((uint64\_t)(-\/4))}}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal}{limine\_terminal}};}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{limine_8h_ab6fa49376e88c66aa2fee0b90902036d}{limine\_terminal\_write}})(\textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal}{limine\_terminal}} *, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *, uint64\_t);}
+\DoxyCodeLine{185 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{limine_8h_a5c93b9d8f76415e192f0058d9db3e8a0}{limine\_terminal\_callback}})(\textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal}{limine\_terminal}} *, uint64\_t, uint64\_t, uint64\_t, uint64\_t);}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal}{limine\_terminal}} \{}
+\DoxyCodeLine{188     uint64\_t \mbox{\hyperlink{structlimine__terminal_ae6373fe1e31e28e8c509b38866233848}{columns}};}
+\DoxyCodeLine{189     uint64\_t \mbox{\hyperlink{structlimine__terminal_ac02dd103aa77c1cf90a04256661d4901}{rows}};}
+\DoxyCodeLine{190     \mbox{\hyperlink{structlimine__terminal_a71fec78f0cae222ea4af90a5dd172852}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__framebuffer}{limine\_framebuffer}} *) framebuffer;}
+\DoxyCodeLine{191 \};}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__response}{limine\_terminal\_response}} \{}
+\DoxyCodeLine{194     uint64\_t \mbox{\hyperlink{structlimine__terminal__response_a0f264185c0cf4764fd02b8fc36a37d21}{revision}};}
+\DoxyCodeLine{195     uint64\_t \mbox{\hyperlink{structlimine__terminal__response_abd8d4bef9b80b265aacbac2ec4bee2c8}{terminal\_count}};}
+\DoxyCodeLine{196     \mbox{\hyperlink{structlimine__terminal__response_aaaa4d83a9ecfd023a18ac19202691247}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__terminal}{limine\_terminal}} **) terminals;}
+\DoxyCodeLine{197     \mbox{\hyperlink{structlimine__terminal__response_ada1c4200fe9ee103fdde4fc6b7fd9d2e}{LIMINE\_PTR}}(\mbox{\hyperlink{limine_8h_ab6fa49376e88c66aa2fee0b90902036d}{limine\_terminal\_write}}) write;}
+\DoxyCodeLine{198 \};}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__request}{limine\_terminal\_request}} \{}
+\DoxyCodeLine{201     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{202     uint64\_t \mbox{\hyperlink{structlimine__terminal__request_a6592687b12381419f1f9ffb4b65e286e}{revision}};}
+\DoxyCodeLine{203     \mbox{\hyperlink{structlimine__terminal__request_a2cbaecfedeec966e847e47580f80eb7f}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__terminal__response}{limine\_terminal\_response}} *) response;}
+\DoxyCodeLine{204     \mbox{\hyperlink{structlimine__terminal__request_a5d986270c61dced10ffd14f845d890d6}{LIMINE\_PTR}}(\mbox{\hyperlink{limine_8h_a5c93b9d8f76415e192f0058d9db3e8a0}{limine\_terminal\_callback}}) callback;}
+\DoxyCodeLine{205 \};}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207 \textcolor{comment}{/* Terminal (legacy) */}}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{209 \textcolor{preprocessor}{\#define LIMINE\_TERMINAL\_LEGACY\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x0785a0aea5d0750f, 0x1c1936fee0d6cf6e \}}}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__legacy}{limine\_terminal\_legacy}};}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{limine_8h_aed9b620b4ab081d6743db7dd811912ee}{limine\_terminal\_legacy\_write}})(\textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__legacy}{limine\_terminal\_legacy}} *, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *, uint64\_t);}
+\DoxyCodeLine{214 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{limine_8h_ab43c1699fed28ff5308e252678ac6ba5}{limine\_terminal\_legacy\_callback}})(\textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__legacy}{limine\_terminal\_legacy}} *, uint64\_t, uint64\_t, uint64\_t, uint64\_t);}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__legacy}{limine\_terminal\_legacy}} \{}
+\DoxyCodeLine{217     uint32\_t \mbox{\hyperlink{structlimine__terminal__legacy_aeb6d012a85e9e3f4485e03c8d95b9903}{columns}};}
+\DoxyCodeLine{218     uint32\_t \mbox{\hyperlink{structlimine__terminal__legacy_a308333490297660f497ef89a96fab232}{rows}};}
+\DoxyCodeLine{219     \mbox{\hyperlink{structlimine__terminal__legacy_afaf7d3afb2bef0e167c125e734449ecb}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__framebuffer__legacy}{limine\_framebuffer\_legacy}} *) framebuffer;}
+\DoxyCodeLine{220 \};}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__legacy__response}{limine\_terminal\_legacy\_response}} \{}
+\DoxyCodeLine{223     uint64\_t \mbox{\hyperlink{structlimine__terminal__legacy__response_ae0dd6beff0ccc32274ea9db027129f2c}{revision}};}
+\DoxyCodeLine{224     uint64\_t \mbox{\hyperlink{structlimine__terminal__legacy__response_a8ce12e501c13b51273f75f70d75b3539}{terminal\_count}};}
+\DoxyCodeLine{225     \mbox{\hyperlink{structlimine__terminal__legacy__response_a67391028aeec169b65b0d134964686fe}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__terminal__legacy}{limine\_terminal\_legacy}} **) terminals;}
+\DoxyCodeLine{226     \mbox{\hyperlink{structlimine__terminal__legacy__response_ad1a88aed22cafcfd50a9576857fe2ac3}{LIMINE\_PTR}}(\mbox{\hyperlink{limine_8h_aed9b620b4ab081d6743db7dd811912ee}{limine\_terminal\_legacy\_write}}) write;}
+\DoxyCodeLine{227 \};}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__terminal__legacy__request}{limine\_terminal\_legacy\_request}} \{}
+\DoxyCodeLine{230     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{231     uint64\_t \mbox{\hyperlink{structlimine__terminal__legacy__request_a7bb56ccbd15cb0fe646638c3a20d501c}{revision}};}
+\DoxyCodeLine{232     \mbox{\hyperlink{structlimine__terminal__legacy__request_ab942eae6178ec364ac0c72dc17b8c39d}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__terminal__legacy__response}{limine\_terminal\_legacy\_response}} *) response;}
+\DoxyCodeLine{233     \mbox{\hyperlink{structlimine__terminal__legacy__request_a24104aa67379d147e7b89f72d7322731}{LIMINE\_PTR}}(\mbox{\hyperlink{limine_8h_ab43c1699fed28ff5308e252678ac6ba5}{limine\_terminal\_legacy\_callback}}) callback;}
+\DoxyCodeLine{234 \};}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236 \textcolor{comment}{/* 5-\/level paging */}}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238 \textcolor{preprocessor}{\#define LIMINE\_5\_LEVEL\_PAGING\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x94469551da9b3192, 0xebe5e86db7382888 \}}}
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__5__level__paging__response}{limine\_5\_level\_paging\_response}} \{}
+\DoxyCodeLine{241     uint64\_t \mbox{\hyperlink{structlimine__5__level__paging__response_a7517ea7b123dccce114d3b893505e075}{revision}};}
+\DoxyCodeLine{242 \};}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__5__level__paging__request}{limine\_5\_level\_paging\_request}} \{}
+\DoxyCodeLine{245     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{246     uint64\_t \mbox{\hyperlink{structlimine__5__level__paging__request_abfc614cd9e531898775e2273815f4d86}{revision}};}
+\DoxyCodeLine{247     \mbox{\hyperlink{structlimine__5__level__paging__request_a29957130064b1475d831183af0e2aaf3}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__5__level__paging__response}{limine\_5\_level\_paging\_response}} *) response;}
+\DoxyCodeLine{248 \};}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250 \textcolor{comment}{/* SMP */}}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252 \textcolor{preprocessor}{\#define LIMINE\_SMP\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x95a67b819a1b857e, 0xa0b61b723b6a73e0 \}}}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254 \textcolor{preprocessor}{\#define LIMINE\_SMP\_X2APIC (1 << 0)}}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smp__info}{limine\_smp\_info}};}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{limine_8h_adebde0ad391eec16f6ddcfbf68293412}{limine\_goto\_address}})(\textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smp__info}{limine\_smp\_info}} *);}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smp__info}{limine\_smp\_info}} \{}
+\DoxyCodeLine{261     uint32\_t \mbox{\hyperlink{structlimine__smp__info_a953f186504542d199c4f93a853cc8ccf}{processor\_id}};}
+\DoxyCodeLine{262     uint32\_t \mbox{\hyperlink{structlimine__smp__info_a4a3d1559347cb1ab567899d7115d40c8}{lapic\_id}};}
+\DoxyCodeLine{263     uint64\_t \mbox{\hyperlink{structlimine__smp__info_a24a071a949d8870774b32e98df6a628e}{reserved}};}
+\DoxyCodeLine{264     \mbox{\hyperlink{structlimine__smp__info_aaff7aebb12746b15cd601785a4a6bdd8}{LIMINE\_PTR}}(\mbox{\hyperlink{limine_8h_adebde0ad391eec16f6ddcfbf68293412}{limine\_goto\_address}}) goto\_address;}
+\DoxyCodeLine{265     uint64\_t \mbox{\hyperlink{structlimine__smp__info_a82945f541d8cf7c69718449151803771}{extra\_argument}};}
+\DoxyCodeLine{266 \};}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smp__response}{limine\_smp\_response}} \{}
+\DoxyCodeLine{269     uint64\_t \mbox{\hyperlink{structlimine__smp__response_a6e82f78761b1846f0fb623e5e75d0132}{revision}};}
+\DoxyCodeLine{270     uint32\_t \mbox{\hyperlink{structlimine__smp__response_aae246b6cb8c84e45f389dcb0aa6c7fb1}{flags}};}
+\DoxyCodeLine{271     uint32\_t \mbox{\hyperlink{structlimine__smp__response_ae3bde9d4bbb662f51948a485401e0117}{bsp\_lapic\_id}};}
+\DoxyCodeLine{272     uint64\_t \mbox{\hyperlink{structlimine__smp__response_ae4e52c8cc142dca687b623b7764c49a1}{cpu\_count}};}
+\DoxyCodeLine{273     \mbox{\hyperlink{structlimine__smp__response_a2fa24f8d909e9a1579331328dafb4e8f}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__smp__info}{limine\_smp\_info}} **) cpus;}
+\DoxyCodeLine{274 \};}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smp__request}{limine\_smp\_request}} \{}
+\DoxyCodeLine{277     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{278     uint64\_t \mbox{\hyperlink{structlimine__smp__request_a1748abf79cde3f0bb863f98d251847f5}{revision}};}
+\DoxyCodeLine{279     \mbox{\hyperlink{structlimine__smp__request_ae466030d6488106f78627b17e4cf59d5}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__smp__response}{limine\_smp\_response}} *) response;}
+\DoxyCodeLine{280     uint64\_t \mbox{\hyperlink{structlimine__smp__request_a9d5a22f14cc4bf6458ef07150cb8e86b}{flags}};}
+\DoxyCodeLine{281 \};}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283 \textcolor{comment}{/* Memory map */}}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x67cf3d9d378a806f, 0xe304acdfc50c3c62 \}}}
+\DoxyCodeLine{286 }
+\DoxyCodeLine{287 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_USABLE                 0}}
+\DoxyCodeLine{288 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_RESERVED               1}}
+\DoxyCodeLine{289 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE       2}}
+\DoxyCodeLine{290 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_ACPI\_NVS               3}}
+\DoxyCodeLine{291 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_BAD\_MEMORY             4}}
+\DoxyCodeLine{292 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE 5}}
+\DoxyCodeLine{293 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES     6}}
+\DoxyCodeLine{294 \textcolor{preprocessor}{\#define LIMINE\_MEMMAP\_FRAMEBUFFER            7}}
+\DoxyCodeLine{295 }
+\DoxyCodeLine{296 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__memmap__entry}{limine\_memmap\_entry}} \{}
+\DoxyCodeLine{297     uint64\_t \mbox{\hyperlink{structlimine__memmap__entry_a27ffe8338bdc73b6ae4f491914117af7}{base}};}
+\DoxyCodeLine{298     uint64\_t \mbox{\hyperlink{structlimine__memmap__entry_a34c1e960716f18d50e6b19bba21457f6}{length}};}
+\DoxyCodeLine{299     uint64\_t \mbox{\hyperlink{structlimine__memmap__entry_ac553330b3a732a61e4639940dbb085f1}{type}};}
+\DoxyCodeLine{300 \};}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{302 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__memmap__response}{limine\_memmap\_response}} \{}
+\DoxyCodeLine{303     uint64\_t \mbox{\hyperlink{structlimine__memmap__response_a8e8d84f58c219bfd9c9225d42ed4306f}{revision}};}
+\DoxyCodeLine{304     uint64\_t \mbox{\hyperlink{structlimine__memmap__response_a4b7e339a67682337dcc5bbcdd47a1d0e}{entry\_count}};}
+\DoxyCodeLine{305     \mbox{\hyperlink{structlimine__memmap__response_a3347f9af929619e9b55f0b768090ce12}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__memmap__entry}{limine\_memmap\_entry}} **) entries;}
+\DoxyCodeLine{306 \};}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__memmap__request}{limine\_memmap\_request}} \{}
+\DoxyCodeLine{309     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{310     uint64\_t \mbox{\hyperlink{structlimine__memmap__request_a7754903530b59387507d23d2b68d767b}{revision}};}
+\DoxyCodeLine{311     \mbox{\hyperlink{structlimine__memmap__request_a8f1a2c634acc1255e3bc1671b0a53d67}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__memmap__response}{limine\_memmap\_response}} *) response;}
+\DoxyCodeLine{312 \};}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314 \textcolor{comment}{/* Entry point */}}
+\DoxyCodeLine{315 }
+\DoxyCodeLine{316 \textcolor{preprocessor}{\#define LIMINE\_ENTRY\_POINT\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x13d86c035a1cd3e1, 0x2b0caa89d8f3026a \}}}
+\DoxyCodeLine{317 }
+\DoxyCodeLine{318 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{limine_8h_a4b9a7070926c40c446ca6252c769fdd7}{limine\_entry\_point}})(void);}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{320 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__entry__point__response}{limine\_entry\_point\_response}} \{}
+\DoxyCodeLine{321     uint64\_t \mbox{\hyperlink{structlimine__entry__point__response_a767e95e2d7cd598d950a42042e821b4f}{revision}};}
+\DoxyCodeLine{322 \};}
+\DoxyCodeLine{323 }
+\DoxyCodeLine{324 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__entry__point__request}{limine\_entry\_point\_request}} \{}
+\DoxyCodeLine{325     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{326     uint64\_t \mbox{\hyperlink{structlimine__entry__point__request_aa0ac4eb2db40d0b36290d6e932234a4d}{revision}};}
+\DoxyCodeLine{327     \mbox{\hyperlink{structlimine__entry__point__request_ab6eb55b9de593036f7ec8b7313af06ee}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__entry__point__response}{limine\_entry\_point\_response}} *) response;}
+\DoxyCodeLine{328     \mbox{\hyperlink{structlimine__entry__point__request_a11c57791081f1674b9c0500dcd64eeb4}{LIMINE\_PTR}}(\mbox{\hyperlink{limine_8h_a4b9a7070926c40c446ca6252c769fdd7}{limine\_entry\_point}}) entry;}
+\DoxyCodeLine{329 \};}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331 \textcolor{comment}{/* Kernel File */}}
+\DoxyCodeLine{332 }
+\DoxyCodeLine{333 \textcolor{preprocessor}{\#define LIMINE\_KERNEL\_FILE\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0xad97e90e83f1ed67, 0x31eb5d1c5ff23b69 \}}}
+\DoxyCodeLine{334 }
+\DoxyCodeLine{335 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__kernel__file__response}{limine\_kernel\_file\_response}} \{}
+\DoxyCodeLine{336     uint64\_t \mbox{\hyperlink{structlimine__kernel__file__response_a57bcdb73ec34958d50917546ad10ce18}{revision}};}
+\DoxyCodeLine{337     \mbox{\hyperlink{structlimine__kernel__file__response_ae9e342ea7e1a4af872c7ec99f5abc88d}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__file}{limine\_file}} *) kernel\_file;}
+\DoxyCodeLine{338 \};}
+\DoxyCodeLine{339 }
+\DoxyCodeLine{340 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__kernel__file__request}{limine\_kernel\_file\_request}} \{}
+\DoxyCodeLine{341     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{342     uint64\_t \mbox{\hyperlink{structlimine__kernel__file__request_a917ea3dfc8958965fda11f03439c7ba0}{revision}};}
+\DoxyCodeLine{343     \mbox{\hyperlink{structlimine__kernel__file__request_a944261d6bab235390d13beef20a9c51f}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__kernel__file__response}{limine\_kernel\_file\_response}} *) response;}
+\DoxyCodeLine{344 \};}
+\DoxyCodeLine{345 }
+\DoxyCodeLine{346 \textcolor{comment}{/* Module */}}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348 \textcolor{preprocessor}{\#define LIMINE\_MODULE\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x3e7e279702be32af, 0xca1c4f3bd1280cee \}}}
+\DoxyCodeLine{349 }
+\DoxyCodeLine{350 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__module__response}{limine\_module\_response}} \{}
+\DoxyCodeLine{351     uint64\_t \mbox{\hyperlink{structlimine__module__response_afa2734dc4c7cf4e2b5a491551a7f5a43}{revision}};}
+\DoxyCodeLine{352     uint64\_t \mbox{\hyperlink{structlimine__module__response_a115826eb71620af287fb0376f75d6895}{module\_count}};}
+\DoxyCodeLine{353     \mbox{\hyperlink{structlimine__module__response_af2cf2ea18a8c4b5a4e0186308d7e1701}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__file}{limine\_file}} **) modules;}
+\DoxyCodeLine{354 \};}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{356 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__module__request}{limine\_module\_request}} \{}
+\DoxyCodeLine{357     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{358     uint64\_t \mbox{\hyperlink{structlimine__module__request_a88311e25361289ec234a59008baecf0c}{revision}};}
+\DoxyCodeLine{359     \mbox{\hyperlink{structlimine__module__request_a962400933e70169cf18fc0c0fa11d72a}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__module__response}{limine\_module\_response}} *) response;}
+\DoxyCodeLine{360 \};}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362 \textcolor{comment}{/* RSDP */}}
+\DoxyCodeLine{363 }
+\DoxyCodeLine{364 \textcolor{preprocessor}{\#define LIMINE\_RSDP\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0xc5e77b6b397e7b43, 0x27637845accdcf3c \}}}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{366 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__rsdp__response}{limine\_rsdp\_response}} \{}
+\DoxyCodeLine{367     uint64\_t \mbox{\hyperlink{structlimine__rsdp__response_a2ec65b92d3dd524e6aab790be7a4d17f}{revision}};}
+\DoxyCodeLine{368     \mbox{\hyperlink{structlimine__rsdp__response_a870dc4b2a49fede004964795f0e655a9}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) address;}
+\DoxyCodeLine{369 \};}
+\DoxyCodeLine{370 }
+\DoxyCodeLine{371 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__rsdp__request}{limine\_rsdp\_request}} \{}
+\DoxyCodeLine{372     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{373     uint64\_t \mbox{\hyperlink{structlimine__rsdp__request_a3b33458cc2cb49877e1a2a87a6982141}{revision}};}
+\DoxyCodeLine{374     \mbox{\hyperlink{structlimine__rsdp__request_a4725cd14f363afb2d120b9424d3e085c}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__rsdp__response}{limine\_rsdp\_response}} *) response;}
+\DoxyCodeLine{375 \};}
+\DoxyCodeLine{376 }
+\DoxyCodeLine{377 \textcolor{comment}{/* SMBIOS */}}
+\DoxyCodeLine{378 }
+\DoxyCodeLine{379 \textcolor{preprocessor}{\#define LIMINE\_SMBIOS\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x9e9046f11e095391, 0xaa4a520fefbde5ee \}}}
+\DoxyCodeLine{380 }
+\DoxyCodeLine{381 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smbios__response}{limine\_smbios\_response}} \{}
+\DoxyCodeLine{382     uint64\_t \mbox{\hyperlink{structlimine__smbios__response_a2c62515169451f2bfaec56a4bc658d9e}{revision}};}
+\DoxyCodeLine{383     \mbox{\hyperlink{structlimine__smbios__response_a9d235dbecaad4be81342b75b682cf77c}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) entry\_32;}
+\DoxyCodeLine{384     \mbox{\hyperlink{structlimine__smbios__response_a9ff6bb040785f4fe3d44ae43c13e7c27}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) entry\_64;}
+\DoxyCodeLine{385 \};}
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__smbios__request}{limine\_smbios\_request}} \{}
+\DoxyCodeLine{388     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{389     uint64\_t \mbox{\hyperlink{structlimine__smbios__request_a1496e79a097c94028481ffd0d85181a1}{revision}};}
+\DoxyCodeLine{390     \mbox{\hyperlink{structlimine__smbios__request_aa7c13457c2b7c343763d07d8718af0e6}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__smbios__response}{limine\_smbios\_response}} *) response;}
+\DoxyCodeLine{391 \};}
+\DoxyCodeLine{392 }
+\DoxyCodeLine{393 \textcolor{comment}{/* EFI system table */}}
+\DoxyCodeLine{394 }
+\DoxyCodeLine{395 \textcolor{preprocessor}{\#define LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x5ceba5163eaaf6d6, 0x0a6981610cf65fcc \}}}
+\DoxyCodeLine{396 }
+\DoxyCodeLine{397 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__efi__system__table__response}{limine\_efi\_system\_table\_response}} \{}
+\DoxyCodeLine{398     uint64\_t \mbox{\hyperlink{structlimine__efi__system__table__response_ad9336f62f307c005ac9fe90af805b97d}{revision}};}
+\DoxyCodeLine{399     \mbox{\hyperlink{structlimine__efi__system__table__response_a350904c35686e178bad482b200aedb20}{LIMINE\_PTR}}(\textcolor{keywordtype}{void} *) address;}
+\DoxyCodeLine{400 \};}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__efi__system__table__request}{limine\_efi\_system\_table\_request}} \{}
+\DoxyCodeLine{403     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{404     uint64\_t \mbox{\hyperlink{structlimine__efi__system__table__request_ad905bca90fab9eaab2abff2673d465b6}{revision}};}
+\DoxyCodeLine{405     \mbox{\hyperlink{structlimine__efi__system__table__request_afd4b8c2980df9d86e845b4aa78aeed56}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__efi__system__table__response}{limine\_efi\_system\_table\_response}} *) response;}
+\DoxyCodeLine{406 \};}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408 \textcolor{comment}{/* Boot time */}}
+\DoxyCodeLine{409 }
+\DoxyCodeLine{410 \textcolor{preprocessor}{\#define LIMINE\_BOOT\_TIME\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x502746e184c088aa, 0xfbc5ec83e6327893 \}}}
+\DoxyCodeLine{411 }
+\DoxyCodeLine{412 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__boot__time__response}{limine\_boot\_time\_response}} \{}
+\DoxyCodeLine{413     uint64\_t \mbox{\hyperlink{structlimine__boot__time__response_af63a28446e9ff6e8b7274bd4f6439756}{revision}};}
+\DoxyCodeLine{414     int64\_t \mbox{\hyperlink{structlimine__boot__time__response_afd90e4d04eb15b0bdaecc48017e2096b}{boot\_time}};}
+\DoxyCodeLine{415 \};}
+\DoxyCodeLine{416 }
+\DoxyCodeLine{417 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__boot__time__request}{limine\_boot\_time\_request}} \{}
+\DoxyCodeLine{418     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{419     uint64\_t \mbox{\hyperlink{structlimine__boot__time__request_a2bb33bdedf13293c833b3387fd0f9996}{revision}};}
+\DoxyCodeLine{420     \mbox{\hyperlink{structlimine__boot__time__request_aed4a3ea21df499fdcfc270dbdf2c2a1d}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__boot__time__response}{limine\_boot\_time\_response}} *) response;}
+\DoxyCodeLine{421 \};}
+\DoxyCodeLine{422 }
+\DoxyCodeLine{423 \textcolor{comment}{/* Kernel address */}}
+\DoxyCodeLine{424 }
+\DoxyCodeLine{425 \textcolor{preprocessor}{\#define LIMINE\_KERNEL\_ADDRESS\_REQUEST \{ LIMINE\_COMMON\_MAGIC, 0x71ba76863cc55f63, 0xb2644a48c516a487 \}}}
+\DoxyCodeLine{426 }
+\DoxyCodeLine{427 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__kernel__address__response}{limine\_kernel\_address\_response}} \{}
+\DoxyCodeLine{428     uint64\_t \mbox{\hyperlink{structlimine__kernel__address__response_a224683518a6a6cb411111d0885a99ee6}{revision}};}
+\DoxyCodeLine{429     uint64\_t \mbox{\hyperlink{structlimine__kernel__address__response_a29f73b12cf0a427cec60e21a7663b86e}{physical\_base}};}
+\DoxyCodeLine{430     uint64\_t \mbox{\hyperlink{structlimine__kernel__address__response_ade872c60ef827862eb6771acd0a65ce5}{virtual\_base}};}
+\DoxyCodeLine{431 \};}
+\DoxyCodeLine{432 }
+\DoxyCodeLine{433 \textcolor{keyword}{struct }\mbox{\hyperlink{structlimine__kernel__address__request}{limine\_kernel\_address\_request}} \{}
+\DoxyCodeLine{434     uint64\_t \textcolor{keywordtype}{id}[4];}
+\DoxyCodeLine{435     uint64\_t \mbox{\hyperlink{structlimine__kernel__address__request_abf3529a7fbe9910de8b94f37572f841e}{revision}};}
+\DoxyCodeLine{436     \mbox{\hyperlink{structlimine__kernel__address__request_a211a99f1f59b643e4270dc1532cd59d0}{LIMINE\_PTR}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structlimine__kernel__address__response}{limine\_kernel\_address\_response}} *) response;}
+\DoxyCodeLine{437 \};}
+\DoxyCodeLine{438 }
+\DoxyCodeLine{439 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{440 \}}
+\DoxyCodeLine{441 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{443 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,102 @@
+\hypertarget{task_8c}{}\doxysection{kernel/core/task.c File Reference}
+\label{task_8c}\index{kernel/core/task.c@{kernel/core/task.c}}
+{\ttfamily \#include $<$kernel/core.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structcontext}{context}} \mbox{\hyperlink{task_8c_a997595f3c422ddca01b9114d58f5e549}{switch\+\_\+task}} (size\+\_\+t rsp, size\+\_\+t cr3)
+\begin{DoxyCompactList}\small\item\em Stores the arguments in the current task\textquotesingle{}s structure, then traverses to the next element of the list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{task_8c_ac5ccd621b05e31fb4516ad9a2604a3dd}{init\+\_\+task}} ()
+\begin{DoxyCompactList}\small\item\em 
+\begin{DoxyItemize}
+\item Sets up a circular list of tasks, 
+\end{DoxyItemize}\end{DoxyCompactList}\item 
+void \mbox{\hyperlink{task_8c_a2503ce52905b6e48a650efc798873b5c}{add\+\_\+task}} (size\+\_\+t rsp, size\+\_\+t cr3)
+\begin{DoxyCompactList}\small\item\em Adds a task to the list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{task_8c_a2b7ec5250e784d82546ea3e2476bb0bc}{exit\+\_\+task}} ()
+\begin{DoxyCompactList}\small\item\em Removes the current task from the list, and switches to the next task up. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structcontext__list}{context\+\_\+list}} $\ast$ \mbox{\hyperlink{task_8c_a1060237645a68c179e02e23d9a2f3b6c}{contexts}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{task_8c_a2503ce52905b6e48a650efc798873b5c}\label{task_8c_a2503ce52905b6e48a650efc798873b5c}} 
+\index{task.c@{task.c}!add\_task@{add\_task}}
+\index{add\_task@{add\_task}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{add\_task()}{add\_task()}}
+{\footnotesize\ttfamily void add\+\_\+task (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rsp,  }\item[{size\+\_\+t}]{cr3 }\end{DoxyParamCaption})}
+
+
+
+Adds a task to the list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rsp} & A stack pointer \\
+\hline
+{\em cr3} & A page map. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{task_8c_a2b7ec5250e784d82546ea3e2476bb0bc}\label{task_8c_a2b7ec5250e784d82546ea3e2476bb0bc}} 
+\index{task.c@{task.c}!exit\_task@{exit\_task}}
+\index{exit\_task@{exit\_task}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{exit\_task()}{exit\_task()}}
+{\footnotesize\ttfamily void exit\+\_\+task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Removes the current task from the list, and switches to the next task up. 
+
+\begin{DoxyReturn}{Returns}
+Does not return. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{task_8c_ac5ccd621b05e31fb4516ad9a2604a3dd}\label{task_8c_ac5ccd621b05e31fb4516ad9a2604a3dd}} 
+\index{task.c@{task.c}!init\_task@{init\_task}}
+\index{init\_task@{init\_task}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{init\_task()}{init\_task()}}
+{\footnotesize\ttfamily void init\+\_\+task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+
+\begin{DoxyItemize}
+\item Sets up a circular list of tasks, 
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item context switches to initialize the first item,
+\item and enables a timer for further pre-\/emptive switches. 
+\end{DoxyItemize}\mbox{\Hypertarget{task_8c_a997595f3c422ddca01b9114d58f5e549}\label{task_8c_a997595f3c422ddca01b9114d58f5e549}} 
+\index{task.c@{task.c}!switch\_task@{switch\_task}}
+\index{switch\_task@{switch\_task}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{switch\_task()}{switch\_task()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcontext}{context}} switch\+\_\+task (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rsp,  }\item[{size\+\_\+t}]{cr3 }\end{DoxyParamCaption})}
+
+
+
+Stores the arguments in the current task\textquotesingle{}s structure, then traverses to the next element of the list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rsp} & A stack pointer \\
+\hline
+{\em cr3} & A page map. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A stack pointer and page map. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{task_8c_a1060237645a68c179e02e23d9a2f3b6c}\label{task_8c_a1060237645a68c179e02e23d9a2f3b6c}} 
+\index{task.c@{task.c}!contexts@{contexts}}
+\index{contexts@{contexts}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{contexts}{contexts}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcontext__list}{context\+\_\+list}}$\ast$ contexts}
+

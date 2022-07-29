@@ -1,0 +1,173 @@
+\hypertarget{mm_8c}{}\doxysection{kernel/core/mm.c File Reference}
+\label{mm_8c}\index{kernel/core/mm.c@{kernel/core/mm.c}}
+{\ttfamily \#include $<$kernel/libc.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/core.\+h$>$}\newline
+{\ttfamily \#include $<$limine.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void $\ast$ \mbox{\hyperlink{mm_8c_ad1cfc764c4c5a9ddb3ff9691ffba7bd8}{freelist}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{mm_8c_ae79862d11e6051b015d5621afdd71226}{alloc\+\_\+page}} ()
+\begin{DoxyCompactList}\small\item\em Unlink page from freelist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mm_8c_ad6a6e7f9e7b2d98b46b06512b93dc1f8}{dealloc\+\_\+page}} (size\+\_\+t page)
+\begin{DoxyCompactList}\small\item\em Links page to freelist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mm_8c_a2b360a159ce61210cf0f7f21de543eba}{init\+\_\+mm}} ()
+\begin{DoxyCompactList}\small\item\em If a map of physical memory is unavailable, halts. All usable memory should be added to the freelist. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mm_8c_a714e937e7a528ad7e3a41b35ffdbd8cd}{map\+\_\+page\+\_\+step}} (size\+\_\+t pmap, size\+\_\+t entry)
+\item 
+size\+\_\+t \mbox{\hyperlink{mm_8c_a5b200ca96668a1852bedf0bccafe42a6}{map\+\_\+page}} (size\+\_\+t pmap, size\+\_\+t vaddr, size\+\_\+t paddr, size\+\_\+t flags)
+\begin{DoxyCompactList}\small\item\em Sets/updates a memory mapping, allocating memory if necessary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mm_8c_a5c6f6a33dc98ce913752d3e95946ee14}{unmap\+\_\+page}} (size\+\_\+t pmap, size\+\_\+t vaddr)
+\begin{DoxyCompactList}\small\item\em Removes a memory mapping if it exists. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{mm_8c_a2fcfe2b6210c991356944d2d382d4d07}{kmalloc}} (size\+\_\+t bytes)
+\item 
+void \mbox{\hyperlink{mm_8c_a1338785df32507bdf2c6f7c086c07154}{kdemalloc}} (void $\ast$data)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mm_8c_ad1cfc764c4c5a9ddb3ff9691ffba7bd8}{freelist}} $\ast$ \mbox{\hyperlink{mm_8c_acde39fc7ddf5c64953ee6f77cfcf6645}{free\+\_\+pages}}
+\item 
+struct \mbox{\hyperlink{structlimine__memmap__request}{limine\+\_\+memmap\+\_\+request}} \mbox{\hyperlink{mm_8c_a2181b6b01545cb433319a58c8762c60f}{memmap\+\_\+request}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{mm_8c_ad1cfc764c4c5a9ddb3ff9691ffba7bd8}\label{mm_8c_ad1cfc764c4c5a9ddb3ff9691ffba7bd8}} 
+\index{mm.c@{mm.c}!freelist@{freelist}}
+\index{freelist@{freelist}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{freelist}{freelist}}
+{\footnotesize\ttfamily typedef void$\ast$ \mbox{\hyperlink{mm_8c_ad1cfc764c4c5a9ddb3ff9691ffba7bd8}{freelist}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mm_8c_ae79862d11e6051b015d5621afdd71226}\label{mm_8c_ae79862d11e6051b015d5621afdd71226}} 
+\index{mm.c@{mm.c}!alloc\_page@{alloc\_page}}
+\index{alloc\_page@{alloc\_page}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{alloc\_page()}{alloc\_page()}}
+{\footnotesize\ttfamily size\+\_\+t alloc\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Unlink page from freelist. 
+
+\begin{DoxyReturn}{Returns}
+A page-\/aligned address in physical memory. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mm_8c_ad6a6e7f9e7b2d98b46b06512b93dc1f8}\label{mm_8c_ad6a6e7f9e7b2d98b46b06512b93dc1f8}} 
+\index{mm.c@{mm.c}!dealloc\_page@{dealloc\_page}}
+\index{dealloc\_page@{dealloc\_page}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{dealloc\_page()}{dealloc\_page()}}
+{\footnotesize\ttfamily void dealloc\+\_\+page (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{page }\end{DoxyParamCaption})}
+
+
+
+Links page to freelist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em page} & A page-\/aligned address in physical memory. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mm_8c_a2b360a159ce61210cf0f7f21de543eba}\label{mm_8c_a2b360a159ce61210cf0f7f21de543eba}} 
+\index{mm.c@{mm.c}!init\_mm@{init\_mm}}
+\index{init\_mm@{init\_mm}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{init\_mm()}{init\_mm()}}
+{\footnotesize\ttfamily void init\+\_\+mm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+If a map of physical memory is unavailable, halts. All usable memory should be added to the freelist. 
+
+\mbox{\Hypertarget{mm_8c_a1338785df32507bdf2c6f7c086c07154}\label{mm_8c_a1338785df32507bdf2c6f7c086c07154}} 
+\index{mm.c@{mm.c}!kdemalloc@{kdemalloc}}
+\index{kdemalloc@{kdemalloc}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{kdemalloc()}{kdemalloc()}}
+{\footnotesize\ttfamily void kdemalloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]Implement a proper heap. \end{DoxyRefDesc}
+\mbox{\Hypertarget{mm_8c_a2fcfe2b6210c991356944d2d382d4d07}\label{mm_8c_a2fcfe2b6210c991356944d2d382d4d07}} 
+\index{mm.c@{mm.c}!kmalloc@{kmalloc}}
+\index{kmalloc@{kmalloc}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{kmalloc()}{kmalloc()}}
+{\footnotesize\ttfamily void $\ast$ kmalloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{bytes }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Implement a proper heap. \end{DoxyRefDesc}
+\mbox{\Hypertarget{mm_8c_a5b200ca96668a1852bedf0bccafe42a6}\label{mm_8c_a5b200ca96668a1852bedf0bccafe42a6}} 
+\index{mm.c@{mm.c}!map\_page@{map\_page}}
+\index{map\_page@{map\_page}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{map\_page()}{map\_page()}}
+{\footnotesize\ttfamily size\+\_\+t map\+\_\+page (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{pmap,  }\item[{size\+\_\+t}]{vaddr,  }\item[{size\+\_\+t}]{paddr,  }\item[{size\+\_\+t}]{flags }\end{DoxyParamCaption})}
+
+
+
+Sets/updates a memory mapping, allocating memory if necessary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pmap} & A page map. \\
+\hline
+{\em vaddr} & A virtual address. \\
+\hline
+{\em paddr} & A physical address. \\
+\hline
+{\em flags} & Flags. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The same virtual address. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mm_8c_a714e937e7a528ad7e3a41b35ffdbd8cd}\label{mm_8c_a714e937e7a528ad7e3a41b35ffdbd8cd}} 
+\index{mm.c@{mm.c}!map\_page\_step@{map\_page\_step}}
+\index{map\_page\_step@{map\_page\_step}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{map\_page\_step()}{map\_page\_step()}}
+{\footnotesize\ttfamily size\+\_\+t map\+\_\+page\+\_\+step (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{pmap,  }\item[{size\+\_\+t}]{entry }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mm_8c_a5c6f6a33dc98ce913752d3e95946ee14}\label{mm_8c_a5c6f6a33dc98ce913752d3e95946ee14}} 
+\index{mm.c@{mm.c}!unmap\_page@{unmap\_page}}
+\index{unmap\_page@{unmap\_page}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{unmap\_page()}{unmap\_page()}}
+{\footnotesize\ttfamily void unmap\+\_\+page (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{pmap,  }\item[{size\+\_\+t}]{vaddr }\end{DoxyParamCaption})}
+
+
+
+Removes a memory mapping if it exists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pmap} & A page map. \\
+\hline
+{\em vaddr} & A virtual address. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{mm_8c_acde39fc7ddf5c64953ee6f77cfcf6645}\label{mm_8c_acde39fc7ddf5c64953ee6f77cfcf6645}} 
+\index{mm.c@{mm.c}!free\_pages@{free\_pages}}
+\index{free\_pages@{free\_pages}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{free\_pages}{free\_pages}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mm_8c_ad1cfc764c4c5a9ddb3ff9691ffba7bd8}{freelist}}$\ast$ free\+\_\+pages}
+
+\mbox{\Hypertarget{mm_8c_a2181b6b01545cb433319a58c8762c60f}\label{mm_8c_a2181b6b01545cb433319a58c8762c60f}} 
+\index{mm.c@{mm.c}!memmap\_request@{memmap\_request}}
+\index{memmap\_request@{memmap\_request}!mm.c@{mm.c}}
+\doxysubsubsection{\texorpdfstring{memmap\_request}{memmap\_request}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structlimine__memmap__request}{limine\+\_\+memmap\+\_\+request}} memmap\+\_\+request}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .id = \mbox{\hyperlink{limine_8h_ac7c4a3f14b33deba97e1752662747e70}{LIMINE\_MEMMAP\_REQUEST}},}
+\DoxyCodeLine{    .revision = 0, .response = 0}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

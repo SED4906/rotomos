@@ -1,0 +1,528 @@
+\hypertarget{core_8h}{}\doxysection{include/kernel/core.h File Reference}
+\label{core_8h}\index{include/kernel/core.h@{include/kernel/core.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct____attribute____}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\item 
+struct \mbox{\hyperlink{structcontext}{context}}
+\item 
+struct \mbox{\hyperlink{structcontext__list}{context\+\_\+list}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}{PIC1}}~0x20  /$\ast$ IO base address for master PIC $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_ac90003f52c8d736193efc954ece08e58}{PIC2}}~0x\+A0  /$\ast$ IO base address for slave PIC $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_ad1ba81484ab03e762d2e09f851c0901f}{PIC1\+\_\+\+COMMAND}}~\mbox{\hyperlink{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}{PIC1}}
+\item 
+\#define \mbox{\hyperlink{core_8h_af27e966ec947ca1172f30ae301c5f24b}{PIC1\+\_\+\+DATA}}~(\mbox{\hyperlink{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}{PIC1}}+1)
+\item 
+\#define \mbox{\hyperlink{core_8h_a11d8793812c9d340e9a64cce26ee0570}{PIC2\+\_\+\+COMMAND}}~\mbox{\hyperlink{core_8h_ac90003f52c8d736193efc954ece08e58}{PIC2}}
+\item 
+\#define \mbox{\hyperlink{core_8h_ab6d3b9f6f427357310896adf176145f1}{PIC2\+\_\+\+DATA}}~(\mbox{\hyperlink{core_8h_ac90003f52c8d736193efc954ece08e58}{PIC2}}+1)
+\item 
+\#define \mbox{\hyperlink{core_8h_a170d8eebdb48c16cfcd60cbd46760cb2}{PIC\+\_\+\+EOI}}~0x20  /$\ast$ End-\/of-\/interrupt command code $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a964d12193d2b36e8a7ec7fa57438e313}{ICW1\+\_\+\+ICW4}}~0x01  /$\ast$ ICW4 (not) needed $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a6c092603fb5e22cc80954531ae319d01}{ICW1\+\_\+\+SINGLE}}~0x02  /$\ast$ Single (cascade) mode $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a6ba324062a88dc9ff1e2916abdcde17e}{ICW1\+\_\+\+INTERVAL4}}~0x04  /$\ast$ Call address interval 4 (8) $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a8b06fbc75942c0a61e6ad80ea4736bd3}{ICW1\+\_\+\+LEVEL}}~0x08  /$\ast$ Level triggered (edge) mode $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a286dc251f3d73c08e08a53a4696f31ef}{ICW1\+\_\+\+INIT}}~0x10  /$\ast$ Initialization -\/ required! $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a42803c5ddcec9e120a6dbf7bc5c1b7af}{ICW4\+\_\+8086}}~0x01  /$\ast$ 8086/88 (MCS-\/80/85) mode $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a16777bf654a4c5630e4f53902a25235a}{ICW4\+\_\+\+AUTO}}~0x02  /$\ast$ Auto (normal) EOI $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_af5443900cdd9096e97898e5584c316bb}{ICW4\+\_\+\+BUF\+\_\+\+SLAVE}}~0x08  /$\ast$ Buffered mode/slave $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_af3f1b53c727d98166710d198aca13411}{ICW4\+\_\+\+BUF\+\_\+\+MASTER}}~0x0C  /$\ast$ Buffered mode/master $\ast$/
+\item 
+\#define \mbox{\hyperlink{core_8h_a0ecb67a3f71d1d10502fbd834b0292f1}{ICW4\+\_\+\+SFNM}}~0x10 /$\ast$ Special fully nested (not) $\ast$/
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structcontext__list}{context\+\_\+list}} \mbox{\hyperlink{core_8h_aaedf61eec62b0af2b84128a4717a0aba}{context\+\_\+list}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{core_8h_a35fe413107af682030ab7a4b6dff19b8}{init\+\_\+idt}} ()
+\begin{DoxyCompactList}\small\item\em 
+\begin{DoxyItemize}
+\item Sets default IDT entries, 
+\end{DoxyItemize}\end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_ab051141b3c1de87582bb745e9e3c11ce}{load\+\_\+idt}} (idtr $\ast$idtr\+\_\+val)
+\item 
+void \mbox{\hyperlink{core_8h_aea469a7fa391e9572820349d766f0b17}{set\+\_\+idt\+\_\+entry}} (uint8\+\_\+t vector, void $\ast$isr, uint8\+\_\+t flags)
+\item 
+void \mbox{\hyperlink{core_8h_adbca1797cdefb6cbd00e3b9e647c1786}{hang\+\_\+forever}} ()
+\item 
+void \mbox{\hyperlink{core_8h_a1c74f1405c82b147fa7f1141ca6530a5}{hang\+\_\+idle}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{core_8h_ae79862d11e6051b015d5621afdd71226}{alloc\+\_\+page}} ()
+\begin{DoxyCompactList}\small\item\em Unlink page from freelist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_ad6a6e7f9e7b2d98b46b06512b93dc1f8}{dealloc\+\_\+page}} (size\+\_\+t page)
+\begin{DoxyCompactList}\small\item\em Links page to freelist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a2b360a159ce61210cf0f7f21de543eba}{init\+\_\+mm}} ()
+\begin{DoxyCompactList}\small\item\em If a map of physical memory is unavailable, halts. All usable memory should be added to the freelist. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{core_8h_a5b200ca96668a1852bedf0bccafe42a6}{map\+\_\+page}} (size\+\_\+t pmap, size\+\_\+t vaddr, size\+\_\+t paddr, size\+\_\+t flags)
+\begin{DoxyCompactList}\small\item\em Sets/updates a memory mapping, allocating memory if necessary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a5c6f6a33dc98ce913752d3e95946ee14}{unmap\+\_\+page}} (size\+\_\+t pmap, size\+\_\+t vaddr)
+\begin{DoxyCompactList}\small\item\em Removes a memory mapping if it exists. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{core_8h_a2fcfe2b6210c991356944d2d382d4d07}{kmalloc}} (size\+\_\+t bytes)
+\item 
+void \mbox{\hyperlink{core_8h_a1338785df32507bdf2c6f7c086c07154}{kdemalloc}} (void $\ast$data)
+\item 
+void \mbox{\hyperlink{core_8h_a3d2351dc43aa72ef709d00f868343819}{tlb\+\_\+invalidate}} (size\+\_\+t page)
+\item 
+void \mbox{\hyperlink{core_8h_a147e36ec1bc0988f1b6c680bdbacf1e7}{context\+\_\+switch}} ()
+\item 
+void \mbox{\hyperlink{core_8h_a6dc1963cfed2cf045dde92a6a4f4f550}{context\+\_\+switch\+\_\+nosave}} (size\+\_\+t rsp, size\+\_\+t cr3)
+\item 
+\mbox{\hyperlink{structcontext}{context}} \mbox{\hyperlink{core_8h_a997595f3c422ddca01b9114d58f5e549}{switch\+\_\+task}} (size\+\_\+t rsp, size\+\_\+t cr3)
+\begin{DoxyCompactList}\small\item\em Stores the arguments in the current task\textquotesingle{}s structure, then traverses to the next element of the list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_ac5ccd621b05e31fb4516ad9a2604a3dd}{init\+\_\+task}} ()
+\begin{DoxyCompactList}\small\item\em 
+\begin{DoxyItemize}
+\item Sets up a circular list of tasks, 
+\end{DoxyItemize}\end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a2503ce52905b6e48a650efc798873b5c}{add\+\_\+task}} (size\+\_\+t rsp, size\+\_\+t cr3)
+\begin{DoxyCompactList}\small\item\em Adds a task to the list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a2b7ec5250e784d82546ea3e2476bb0bc}{exit\+\_\+task}} ()
+\begin{DoxyCompactList}\small\item\em Removes the current task from the list, and switches to the next task up. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a71dbe8d1aeaa96aa6c95e1979f6223b0}{pic\+\_\+set\+\_\+mask}} (unsigned char IRQline)
+\begin{DoxyCompactList}\small\item\em Disallow IRQs from specified line. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a8b4530d17819e3ba7ce901775cf21f93}{pic\+\_\+clear\+\_\+mask}} (unsigned char IRQline)
+\begin{DoxyCompactList}\small\item\em Allow IRQs from specified line. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a89d1bea4eca2e8abb05e20511aa3ada4}{pic\+\_\+eoi}} (unsigned char irq)
+\begin{DoxyCompactList}\small\item\em Send end of interrupt signal to PIC. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_adb6fc3a8ed060fac06eebf72ebda6cb0}{init\+\_\+pic}} (int offset1, int offset2)
+\begin{DoxyCompactList}\small\item\em Set up PIC to use specified vectors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a42e251faf3f381370bc48b9fe5c1685f}{init\+\_\+pit}} (size\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Sets the divider and mode of the PIT. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{core_8h_a964d12193d2b36e8a7ec7fa57438e313}\label{core_8h_a964d12193d2b36e8a7ec7fa57438e313}} 
+\index{core.h@{core.h}!ICW1\_ICW4@{ICW1\_ICW4}}
+\index{ICW1\_ICW4@{ICW1\_ICW4}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW1\_ICW4}{ICW1\_ICW4}}
+{\footnotesize\ttfamily \#define ICW1\+\_\+\+ICW4~0x01  /$\ast$ ICW4 (not) needed $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a286dc251f3d73c08e08a53a4696f31ef}\label{core_8h_a286dc251f3d73c08e08a53a4696f31ef}} 
+\index{core.h@{core.h}!ICW1\_INIT@{ICW1\_INIT}}
+\index{ICW1\_INIT@{ICW1\_INIT}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW1\_INIT}{ICW1\_INIT}}
+{\footnotesize\ttfamily \#define ICW1\+\_\+\+INIT~0x10  /$\ast$ Initialization -\/ required! $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a6ba324062a88dc9ff1e2916abdcde17e}\label{core_8h_a6ba324062a88dc9ff1e2916abdcde17e}} 
+\index{core.h@{core.h}!ICW1\_INTERVAL4@{ICW1\_INTERVAL4}}
+\index{ICW1\_INTERVAL4@{ICW1\_INTERVAL4}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW1\_INTERVAL4}{ICW1\_INTERVAL4}}
+{\footnotesize\ttfamily \#define ICW1\+\_\+\+INTERVAL4~0x04  /$\ast$ Call address interval 4 (8) $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a8b06fbc75942c0a61e6ad80ea4736bd3}\label{core_8h_a8b06fbc75942c0a61e6ad80ea4736bd3}} 
+\index{core.h@{core.h}!ICW1\_LEVEL@{ICW1\_LEVEL}}
+\index{ICW1\_LEVEL@{ICW1\_LEVEL}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW1\_LEVEL}{ICW1\_LEVEL}}
+{\footnotesize\ttfamily \#define ICW1\+\_\+\+LEVEL~0x08  /$\ast$ Level triggered (edge) mode $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a6c092603fb5e22cc80954531ae319d01}\label{core_8h_a6c092603fb5e22cc80954531ae319d01}} 
+\index{core.h@{core.h}!ICW1\_SINGLE@{ICW1\_SINGLE}}
+\index{ICW1\_SINGLE@{ICW1\_SINGLE}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW1\_SINGLE}{ICW1\_SINGLE}}
+{\footnotesize\ttfamily \#define ICW1\+\_\+\+SINGLE~0x02  /$\ast$ Single (cascade) mode $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a42803c5ddcec9e120a6dbf7bc5c1b7af}\label{core_8h_a42803c5ddcec9e120a6dbf7bc5c1b7af}} 
+\index{core.h@{core.h}!ICW4\_8086@{ICW4\_8086}}
+\index{ICW4\_8086@{ICW4\_8086}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW4\_8086}{ICW4\_8086}}
+{\footnotesize\ttfamily \#define ICW4\+\_\+8086~0x01  /$\ast$ 8086/88 (MCS-\/80/85) mode $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a16777bf654a4c5630e4f53902a25235a}\label{core_8h_a16777bf654a4c5630e4f53902a25235a}} 
+\index{core.h@{core.h}!ICW4\_AUTO@{ICW4\_AUTO}}
+\index{ICW4\_AUTO@{ICW4\_AUTO}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW4\_AUTO}{ICW4\_AUTO}}
+{\footnotesize\ttfamily \#define ICW4\+\_\+\+AUTO~0x02  /$\ast$ Auto (normal) EOI $\ast$/}
+
+\mbox{\Hypertarget{core_8h_af3f1b53c727d98166710d198aca13411}\label{core_8h_af3f1b53c727d98166710d198aca13411}} 
+\index{core.h@{core.h}!ICW4\_BUF\_MASTER@{ICW4\_BUF\_MASTER}}
+\index{ICW4\_BUF\_MASTER@{ICW4\_BUF\_MASTER}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW4\_BUF\_MASTER}{ICW4\_BUF\_MASTER}}
+{\footnotesize\ttfamily \#define ICW4\+\_\+\+BUF\+\_\+\+MASTER~0x0C  /$\ast$ Buffered mode/master $\ast$/}
+
+\mbox{\Hypertarget{core_8h_af5443900cdd9096e97898e5584c316bb}\label{core_8h_af5443900cdd9096e97898e5584c316bb}} 
+\index{core.h@{core.h}!ICW4\_BUF\_SLAVE@{ICW4\_BUF\_SLAVE}}
+\index{ICW4\_BUF\_SLAVE@{ICW4\_BUF\_SLAVE}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW4\_BUF\_SLAVE}{ICW4\_BUF\_SLAVE}}
+{\footnotesize\ttfamily \#define ICW4\+\_\+\+BUF\+\_\+\+SLAVE~0x08  /$\ast$ Buffered mode/slave $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a0ecb67a3f71d1d10502fbd834b0292f1}\label{core_8h_a0ecb67a3f71d1d10502fbd834b0292f1}} 
+\index{core.h@{core.h}!ICW4\_SFNM@{ICW4\_SFNM}}
+\index{ICW4\_SFNM@{ICW4\_SFNM}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{ICW4\_SFNM}{ICW4\_SFNM}}
+{\footnotesize\ttfamily \#define ICW4\+\_\+\+SFNM~0x10 /$\ast$ Special fully nested (not) $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}\label{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}} 
+\index{core.h@{core.h}!PIC1@{PIC1}}
+\index{PIC1@{PIC1}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC1}{PIC1}}
+{\footnotesize\ttfamily \#define PIC1~0x20  /$\ast$ IO base address for master PIC $\ast$/}
+
+\mbox{\Hypertarget{core_8h_ad1ba81484ab03e762d2e09f851c0901f}\label{core_8h_ad1ba81484ab03e762d2e09f851c0901f}} 
+\index{core.h@{core.h}!PIC1\_COMMAND@{PIC1\_COMMAND}}
+\index{PIC1\_COMMAND@{PIC1\_COMMAND}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC1\_COMMAND}{PIC1\_COMMAND}}
+{\footnotesize\ttfamily \#define PIC1\+\_\+\+COMMAND~\mbox{\hyperlink{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}{PIC1}}}
+
+\mbox{\Hypertarget{core_8h_af27e966ec947ca1172f30ae301c5f24b}\label{core_8h_af27e966ec947ca1172f30ae301c5f24b}} 
+\index{core.h@{core.h}!PIC1\_DATA@{PIC1\_DATA}}
+\index{PIC1\_DATA@{PIC1\_DATA}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC1\_DATA}{PIC1\_DATA}}
+{\footnotesize\ttfamily \#define PIC1\+\_\+\+DATA~(\mbox{\hyperlink{core_8h_a6b115109e4a0d3c5fb6252d091e86bfe}{PIC1}}+1)}
+
+\mbox{\Hypertarget{core_8h_ac90003f52c8d736193efc954ece08e58}\label{core_8h_ac90003f52c8d736193efc954ece08e58}} 
+\index{core.h@{core.h}!PIC2@{PIC2}}
+\index{PIC2@{PIC2}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC2}{PIC2}}
+{\footnotesize\ttfamily \#define PIC2~0x\+A0  /$\ast$ IO base address for slave PIC $\ast$/}
+
+\mbox{\Hypertarget{core_8h_a11d8793812c9d340e9a64cce26ee0570}\label{core_8h_a11d8793812c9d340e9a64cce26ee0570}} 
+\index{core.h@{core.h}!PIC2\_COMMAND@{PIC2\_COMMAND}}
+\index{PIC2\_COMMAND@{PIC2\_COMMAND}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC2\_COMMAND}{PIC2\_COMMAND}}
+{\footnotesize\ttfamily \#define PIC2\+\_\+\+COMMAND~\mbox{\hyperlink{core_8h_ac90003f52c8d736193efc954ece08e58}{PIC2}}}
+
+\mbox{\Hypertarget{core_8h_ab6d3b9f6f427357310896adf176145f1}\label{core_8h_ab6d3b9f6f427357310896adf176145f1}} 
+\index{core.h@{core.h}!PIC2\_DATA@{PIC2\_DATA}}
+\index{PIC2\_DATA@{PIC2\_DATA}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC2\_DATA}{PIC2\_DATA}}
+{\footnotesize\ttfamily \#define PIC2\+\_\+\+DATA~(\mbox{\hyperlink{core_8h_ac90003f52c8d736193efc954ece08e58}{PIC2}}+1)}
+
+\mbox{\Hypertarget{core_8h_a170d8eebdb48c16cfcd60cbd46760cb2}\label{core_8h_a170d8eebdb48c16cfcd60cbd46760cb2}} 
+\index{core.h@{core.h}!PIC\_EOI@{PIC\_EOI}}
+\index{PIC\_EOI@{PIC\_EOI}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PIC\_EOI}{PIC\_EOI}}
+{\footnotesize\ttfamily \#define PIC\+\_\+\+EOI~0x20  /$\ast$ End-\/of-\/interrupt command code $\ast$/}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{core_8h_aaedf61eec62b0af2b84128a4717a0aba}\label{core_8h_aaedf61eec62b0af2b84128a4717a0aba}} 
+\index{core.h@{core.h}!context\_list@{context\_list}}
+\index{context\_list@{context\_list}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{context\_list}{context\_list}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structcontext__list}{context\+\_\+list}} \mbox{\hyperlink{structcontext__list}{context\+\_\+list}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{core_8h_a2503ce52905b6e48a650efc798873b5c}\label{core_8h_a2503ce52905b6e48a650efc798873b5c}} 
+\index{core.h@{core.h}!add\_task@{add\_task}}
+\index{add\_task@{add\_task}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{add\_task()}{add\_task()}}
+{\footnotesize\ttfamily void add\+\_\+task (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rsp,  }\item[{size\+\_\+t}]{cr3 }\end{DoxyParamCaption})}
+
+
+
+Adds a task to the list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rsp} & A stack pointer \\
+\hline
+{\em cr3} & A page map. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_ae79862d11e6051b015d5621afdd71226}\label{core_8h_ae79862d11e6051b015d5621afdd71226}} 
+\index{core.h@{core.h}!alloc\_page@{alloc\_page}}
+\index{alloc\_page@{alloc\_page}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{alloc\_page()}{alloc\_page()}}
+{\footnotesize\ttfamily size\+\_\+t alloc\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Unlink page from freelist. 
+
+\begin{DoxyReturn}{Returns}
+A page-\/aligned address in physical memory. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{core_8h_a147e36ec1bc0988f1b6c680bdbacf1e7}\label{core_8h_a147e36ec1bc0988f1b6c680bdbacf1e7}} 
+\index{core.h@{core.h}!context\_switch@{context\_switch}}
+\index{context\_switch@{context\_switch}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{context\_switch()}{context\_switch()}}
+{\footnotesize\ttfamily void context\+\_\+switch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_a6dc1963cfed2cf045dde92a6a4f4f550}\label{core_8h_a6dc1963cfed2cf045dde92a6a4f4f550}} 
+\index{core.h@{core.h}!context\_switch\_nosave@{context\_switch\_nosave}}
+\index{context\_switch\_nosave@{context\_switch\_nosave}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{context\_switch\_nosave()}{context\_switch\_nosave()}}
+{\footnotesize\ttfamily void context\+\_\+switch\+\_\+nosave (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rsp,  }\item[{size\+\_\+t}]{cr3 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_ad6a6e7f9e7b2d98b46b06512b93dc1f8}\label{core_8h_ad6a6e7f9e7b2d98b46b06512b93dc1f8}} 
+\index{core.h@{core.h}!dealloc\_page@{dealloc\_page}}
+\index{dealloc\_page@{dealloc\_page}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{dealloc\_page()}{dealloc\_page()}}
+{\footnotesize\ttfamily void dealloc\+\_\+page (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{page }\end{DoxyParamCaption})}
+
+
+
+Links page to freelist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em page} & A page-\/aligned address in physical memory. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_a2b7ec5250e784d82546ea3e2476bb0bc}\label{core_8h_a2b7ec5250e784d82546ea3e2476bb0bc}} 
+\index{core.h@{core.h}!exit\_task@{exit\_task}}
+\index{exit\_task@{exit\_task}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{exit\_task()}{exit\_task()}}
+{\footnotesize\ttfamily void exit\+\_\+task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Removes the current task from the list, and switches to the next task up. 
+
+\begin{DoxyReturn}{Returns}
+Does not return. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{core_8h_adbca1797cdefb6cbd00e3b9e647c1786}\label{core_8h_adbca1797cdefb6cbd00e3b9e647c1786}} 
+\index{core.h@{core.h}!hang\_forever@{hang\_forever}}
+\index{hang\_forever@{hang\_forever}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{hang\_forever()}{hang\_forever()}}
+{\footnotesize\ttfamily void hang\+\_\+forever (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_a1c74f1405c82b147fa7f1141ca6530a5}\label{core_8h_a1c74f1405c82b147fa7f1141ca6530a5}} 
+\index{core.h@{core.h}!hang\_idle@{hang\_idle}}
+\index{hang\_idle@{hang\_idle}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{hang\_idle()}{hang\_idle()}}
+{\footnotesize\ttfamily void hang\+\_\+idle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_a35fe413107af682030ab7a4b6dff19b8}\label{core_8h_a35fe413107af682030ab7a4b6dff19b8}} 
+\index{core.h@{core.h}!init\_idt@{init\_idt}}
+\index{init\_idt@{init\_idt}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{init\_idt()}{init\_idt()}}
+{\footnotesize\ttfamily void init\+\_\+idt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+
+\begin{DoxyItemize}
+\item Sets default IDT entries, 
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item initializes the PIC,
+\item loads the IDT,
+\item and enables interrupts. 
+\end{DoxyItemize}\mbox{\Hypertarget{core_8h_a2b360a159ce61210cf0f7f21de543eba}\label{core_8h_a2b360a159ce61210cf0f7f21de543eba}} 
+\index{core.h@{core.h}!init\_mm@{init\_mm}}
+\index{init\_mm@{init\_mm}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{init\_mm()}{init\_mm()}}
+{\footnotesize\ttfamily void init\+\_\+mm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+If a map of physical memory is unavailable, halts. All usable memory should be added to the freelist. 
+
+\mbox{\Hypertarget{core_8h_adb6fc3a8ed060fac06eebf72ebda6cb0}\label{core_8h_adb6fc3a8ed060fac06eebf72ebda6cb0}} 
+\index{core.h@{core.h}!init\_pic@{init\_pic}}
+\index{init\_pic@{init\_pic}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{init\_pic()}{init\_pic()}}
+{\footnotesize\ttfamily void init\+\_\+pic (\begin{DoxyParamCaption}\item[{int}]{offset1,  }\item[{int}]{offset2 }\end{DoxyParamCaption})}
+
+
+
+Set up PIC to use specified vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset1} & Master PIC base vector. \\
+\hline
+{\em offset2} & Slave PIC base vector. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_a42e251faf3f381370bc48b9fe5c1685f}\label{core_8h_a42e251faf3f381370bc48b9fe5c1685f}} 
+\index{core.h@{core.h}!init\_pit@{init\_pit}}
+\index{init\_pit@{init\_pit}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{init\_pit()}{init\_pit()}}
+{\footnotesize\ttfamily void init\+\_\+pit (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Sets the divider and mode of the PIT. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency} & A frequency in hertz. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_ac5ccd621b05e31fb4516ad9a2604a3dd}\label{core_8h_ac5ccd621b05e31fb4516ad9a2604a3dd}} 
+\index{core.h@{core.h}!init\_task@{init\_task}}
+\index{init\_task@{init\_task}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{init\_task()}{init\_task()}}
+{\footnotesize\ttfamily void init\+\_\+task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+
+\begin{DoxyItemize}
+\item Sets up a circular list of tasks, 
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item context switches to initialize the first item,
+\item and enables a timer for further pre-\/emptive switches. 
+\end{DoxyItemize}\mbox{\Hypertarget{core_8h_a1338785df32507bdf2c6f7c086c07154}\label{core_8h_a1338785df32507bdf2c6f7c086c07154}} 
+\index{core.h@{core.h}!kdemalloc@{kdemalloc}}
+\index{kdemalloc@{kdemalloc}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{kdemalloc()}{kdemalloc()}}
+{\footnotesize\ttfamily void kdemalloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]Implement a proper heap. \end{DoxyRefDesc}
+\mbox{\Hypertarget{core_8h_a2fcfe2b6210c991356944d2d382d4d07}\label{core_8h_a2fcfe2b6210c991356944d2d382d4d07}} 
+\index{core.h@{core.h}!kmalloc@{kmalloc}}
+\index{kmalloc@{kmalloc}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{kmalloc()}{kmalloc()}}
+{\footnotesize\ttfamily void $\ast$ kmalloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{bytes }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Implement a proper heap. \end{DoxyRefDesc}
+\mbox{\Hypertarget{core_8h_ab051141b3c1de87582bb745e9e3c11ce}\label{core_8h_ab051141b3c1de87582bb745e9e3c11ce}} 
+\index{core.h@{core.h}!load\_idt@{load\_idt}}
+\index{load\_idt@{load\_idt}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{load\_idt()}{load\_idt()}}
+{\footnotesize\ttfamily void load\+\_\+idt (\begin{DoxyParamCaption}\item[{idtr $\ast$}]{idtr\+\_\+val }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_a5b200ca96668a1852bedf0bccafe42a6}\label{core_8h_a5b200ca96668a1852bedf0bccafe42a6}} 
+\index{core.h@{core.h}!map\_page@{map\_page}}
+\index{map\_page@{map\_page}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{map\_page()}{map\_page()}}
+{\footnotesize\ttfamily size\+\_\+t map\+\_\+page (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{pmap,  }\item[{size\+\_\+t}]{vaddr,  }\item[{size\+\_\+t}]{paddr,  }\item[{size\+\_\+t}]{flags }\end{DoxyParamCaption})}
+
+
+
+Sets/updates a memory mapping, allocating memory if necessary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pmap} & A page map. \\
+\hline
+{\em vaddr} & A virtual address. \\
+\hline
+{\em paddr} & A physical address. \\
+\hline
+{\em flags} & Flags. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The same virtual address. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{core_8h_a8b4530d17819e3ba7ce901775cf21f93}\label{core_8h_a8b4530d17819e3ba7ce901775cf21f93}} 
+\index{core.h@{core.h}!pic\_clear\_mask@{pic\_clear\_mask}}
+\index{pic\_clear\_mask@{pic\_clear\_mask}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{pic\_clear\_mask()}{pic\_clear\_mask()}}
+{\footnotesize\ttfamily void pic\+\_\+clear\+\_\+mask (\begin{DoxyParamCaption}\item[{unsigned char}]{IRQline }\end{DoxyParamCaption})}
+
+
+
+Allow IRQs from specified line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em IRQline} & An IRQ line number. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_a89d1bea4eca2e8abb05e20511aa3ada4}\label{core_8h_a89d1bea4eca2e8abb05e20511aa3ada4}} 
+\index{core.h@{core.h}!pic\_eoi@{pic\_eoi}}
+\index{pic\_eoi@{pic\_eoi}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{pic\_eoi()}{pic\_eoi()}}
+{\footnotesize\ttfamily void pic\+\_\+eoi (\begin{DoxyParamCaption}\item[{unsigned char}]{irq }\end{DoxyParamCaption})}
+
+
+
+Send end of interrupt signal to PIC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq} & An IRQ line number. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_a71dbe8d1aeaa96aa6c95e1979f6223b0}\label{core_8h_a71dbe8d1aeaa96aa6c95e1979f6223b0}} 
+\index{core.h@{core.h}!pic\_set\_mask@{pic\_set\_mask}}
+\index{pic\_set\_mask@{pic\_set\_mask}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{pic\_set\_mask()}{pic\_set\_mask()}}
+{\footnotesize\ttfamily void pic\+\_\+set\+\_\+mask (\begin{DoxyParamCaption}\item[{unsigned char}]{IRQline }\end{DoxyParamCaption})}
+
+
+
+Disallow IRQs from specified line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em IRQline} & An IRQ line number. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{core_8h_aea469a7fa391e9572820349d766f0b17}\label{core_8h_aea469a7fa391e9572820349d766f0b17}} 
+\index{core.h@{core.h}!set\_idt\_entry@{set\_idt\_entry}}
+\index{set\_idt\_entry@{set\_idt\_entry}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{set\_idt\_entry()}{set\_idt\_entry()}}
+{\footnotesize\ttfamily void set\+\_\+idt\+\_\+entry (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{vector,  }\item[{void $\ast$}]{isr,  }\item[{uint8\+\_\+t}]{flags }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_a997595f3c422ddca01b9114d58f5e549}\label{core_8h_a997595f3c422ddca01b9114d58f5e549}} 
+\index{core.h@{core.h}!switch\_task@{switch\_task}}
+\index{switch\_task@{switch\_task}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{switch\_task()}{switch\_task()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcontext}{context}} switch\+\_\+task (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{rsp,  }\item[{size\+\_\+t}]{cr3 }\end{DoxyParamCaption})}
+
+
+
+Stores the arguments in the current task\textquotesingle{}s structure, then traverses to the next element of the list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rsp} & A stack pointer \\
+\hline
+{\em cr3} & A page map. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A stack pointer and page map. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{core_8h_a3d2351dc43aa72ef709d00f868343819}\label{core_8h_a3d2351dc43aa72ef709d00f868343819}} 
+\index{core.h@{core.h}!tlb\_invalidate@{tlb\_invalidate}}
+\index{tlb\_invalidate@{tlb\_invalidate}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{tlb\_invalidate()}{tlb\_invalidate()}}
+{\footnotesize\ttfamily void tlb\+\_\+invalidate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{page }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{core_8h_a5c6f6a33dc98ce913752d3e95946ee14}\label{core_8h_a5c6f6a33dc98ce913752d3e95946ee14}} 
+\index{core.h@{core.h}!unmap\_page@{unmap\_page}}
+\index{unmap\_page@{unmap\_page}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{unmap\_page()}{unmap\_page()}}
+{\footnotesize\ttfamily void unmap\+\_\+page (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{pmap,  }\item[{size\+\_\+t}]{vaddr }\end{DoxyParamCaption})}
+
+
+
+Removes a memory mapping if it exists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pmap} & A page map. \\
+\hline
+{\em vaddr} & A virtual address. \\
+\hline
+\end{DoxyParams}

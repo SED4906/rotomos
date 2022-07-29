@@ -1,0 +1,514 @@
+\hypertarget{limine_8h}{}\doxysection{include/limine.h File Reference}
+\label{limine_8h}\index{include/limine.h@{include/limine.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlimine__uuid}{limine\+\_\+uuid}}
+\item 
+struct \mbox{\hyperlink{structlimine__file}{limine\+\_\+file}}
+\item 
+struct \mbox{\hyperlink{structlimine__bootloader__info__response}{limine\+\_\+bootloader\+\_\+info\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__bootloader__info__request}{limine\+\_\+bootloader\+\_\+info\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__stack__size__response}{limine\+\_\+stack\+\_\+size\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__stack__size__request}{limine\+\_\+stack\+\_\+size\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__hhdm__response}{limine\+\_\+hhdm\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__hhdm__request}{limine\+\_\+hhdm\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__framebuffer}{limine\+\_\+framebuffer}}
+\item 
+struct \mbox{\hyperlink{structlimine__framebuffer__response}{limine\+\_\+framebuffer\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__framebuffer__request}{limine\+\_\+framebuffer\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__framebuffer__legacy}{limine\+\_\+framebuffer\+\_\+legacy}}
+\item 
+struct \mbox{\hyperlink{structlimine__framebuffer__legacy__response}{limine\+\_\+framebuffer\+\_\+legacy\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__framebuffer__legacy__request}{limine\+\_\+framebuffer\+\_\+legacy\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal}{limine\+\_\+terminal}}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal__response}{limine\+\_\+terminal\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal__request}{limine\+\_\+terminal\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal__legacy}{limine\+\_\+terminal\+\_\+legacy}}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal__legacy__response}{limine\+\_\+terminal\+\_\+legacy\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal__legacy__request}{limine\+\_\+terminal\+\_\+legacy\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__5__level__paging__response}{limine\+\_\+5\+\_\+level\+\_\+paging\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__5__level__paging__request}{limine\+\_\+5\+\_\+level\+\_\+paging\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__smp__info}{limine\+\_\+smp\+\_\+info}}
+\item 
+struct \mbox{\hyperlink{structlimine__smp__response}{limine\+\_\+smp\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__smp__request}{limine\+\_\+smp\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__memmap__entry}{limine\+\_\+memmap\+\_\+entry}}
+\item 
+struct \mbox{\hyperlink{structlimine__memmap__response}{limine\+\_\+memmap\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__memmap__request}{limine\+\_\+memmap\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__entry__point__response}{limine\+\_\+entry\+\_\+point\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__entry__point__request}{limine\+\_\+entry\+\_\+point\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__kernel__file__response}{limine\+\_\+kernel\+\_\+file\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__kernel__file__request}{limine\+\_\+kernel\+\_\+file\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__module__response}{limine\+\_\+module\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__module__request}{limine\+\_\+module\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__rsdp__response}{limine\+\_\+rsdp\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__rsdp__request}{limine\+\_\+rsdp\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__smbios__response}{limine\+\_\+smbios\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__smbios__request}{limine\+\_\+smbios\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__efi__system__table__response}{limine\+\_\+efi\+\_\+system\+\_\+table\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__efi__system__table__request}{limine\+\_\+efi\+\_\+system\+\_\+table\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__boot__time__response}{limine\+\_\+boot\+\_\+time\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__boot__time__request}{limine\+\_\+boot\+\_\+time\+\_\+request}}
+\item 
+struct \mbox{\hyperlink{structlimine__kernel__address__response}{limine\+\_\+kernel\+\_\+address\+\_\+response}}
+\item 
+struct \mbox{\hyperlink{structlimine__kernel__address__request}{limine\+\_\+kernel\+\_\+address\+\_\+request}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{limine_8h_ae207468a74ef8f3e998f6646cb365f8f}{LIMINE\+\_\+\+PTR}}(TYPE)~TYPE
+\item 
+\#define \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}~0xc7b1dd30df4c8b88, 0x0a82e883a194f07b
+\item 
+\#define \mbox{\hyperlink{limine_8h_a413df26f24a15a002fa00781f6853a71}{LIMINE\+\_\+\+MEDIA\+\_\+\+TYPE\+\_\+\+GENERIC}}~0
+\item 
+\#define \mbox{\hyperlink{limine_8h_a990d7bbdb53695b5aab63aec27ce9aa7}{LIMINE\+\_\+\+MEDIA\+\_\+\+TYPE\+\_\+\+OPTICAL}}~1
+\item 
+\#define \mbox{\hyperlink{limine_8h_a61729c4454219248875bd2023c105467}{LIMINE\+\_\+\+MEDIA\+\_\+\+TYPE\+\_\+\+TFTP}}~2
+\item 
+\#define \mbox{\hyperlink{limine_8h_a40a4f27d03994f4df1204e79c13c0ba2}{LIMINE\+\_\+\+BOOTLOADER\+\_\+\+INFO\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xf55038d8e2a1202f, 0x279426fcf5f59740 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a2686c76452b859aba0f77bff0ba6742a}{LIMINE\+\_\+\+STACK\+\_\+\+SIZE\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x224ef0460a8e8926, 0xe1cb0fc25f46ea3d \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a68118f4871132a203fb40d9e7a29493c}{LIMINE\+\_\+\+HHDM\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x48dcf1cb8ad2b852, 0x63984e959a98244b \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_ae000f357567574209f0e51768ab80433}{LIMINE\+\_\+\+FRAMEBUFFER\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x9d5827dcd881dd75, 0xa3148604f6fab11b \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a930b468d5ef7f8915ba69f55ee1eac2c}{LIMINE\+\_\+\+FRAMEBUFFER\+\_\+\+RGB}}~1
+\item 
+\#define \mbox{\hyperlink{limine_8h_a66ff84bb113ce0c30f099059caa31508}{LIMINE\+\_\+\+FRAMEBUFFER\+\_\+\+LEGACY\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xcbfe81d7dd2d1977, 0x063150319ebc9b71 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_aea2d5faed6022afec72fa3b896f47711}{LIMINE\+\_\+\+TERMINAL\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xc8ac59310c2b0844, 0xa68d0c7265d38878 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a6ef2c8572f902d9b5b99d9bcd3d143b1}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+DEC}}~10
+\item 
+\#define \mbox{\hyperlink{limine_8h_a17e61bc1823f6d748506800d404e8a2d}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+BELL}}~20
+\item 
+\#define \mbox{\hyperlink{limine_8h_a3eb72ba6c953d5cc5328b1ccd17f784b}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+PRIVATE\+\_\+\+ID}}~30
+\item 
+\#define \mbox{\hyperlink{limine_8h_aae034fbbeccf92464169ada275e6d285}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+STATUS\+\_\+\+REPORT}}~40
+\item 
+\#define \mbox{\hyperlink{limine_8h_a32559a72539157a6838216959954c3cb}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+POS\+\_\+\+REPORT}}~50
+\item 
+\#define \mbox{\hyperlink{limine_8h_a2a2a595a6d1c05cf148b7fd26584ffd7}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+KBD\+\_\+\+LEDS}}~60
+\item 
+\#define \mbox{\hyperlink{limine_8h_a28f79cf340fd288df6138f5c2c3fe9a5}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+MODE}}~70
+\item 
+\#define \mbox{\hyperlink{limine_8h_a764769497a770238dbd2810daa3490e5}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+LINUX}}~80
+\item 
+\#define \mbox{\hyperlink{limine_8h_a9251e28e1f60e76dcc32318dcc64b572}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CTX\+\_\+\+SIZE}}~((uint64\+\_\+t)(-\/1))
+\item 
+\#define \mbox{\hyperlink{limine_8h_a50eb3080463b13744d5f2ef501bbbc57}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CTX\+\_\+\+SAVE}}~((uint64\+\_\+t)(-\/2))
+\item 
+\#define \mbox{\hyperlink{limine_8h_af114d6e6116452e311b8464229d8267e}{LIMINE\+\_\+\+TERMINAL\+\_\+\+CTX\+\_\+\+RESTORE}}~((uint64\+\_\+t)(-\/3))
+\item 
+\#define \mbox{\hyperlink{limine_8h_a5080f8389434a9969d245e6e5704a548}{LIMINE\+\_\+\+TERMINAL\+\_\+\+FULL\+\_\+\+REFRESH}}~((uint64\+\_\+t)(-\/4))
+\item 
+\#define \mbox{\hyperlink{limine_8h_acf059eca185dd280c98170d388aeff50}{LIMINE\+\_\+\+TERMINAL\+\_\+\+LEGACY\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x0785a0aea5d0750f, 0x1c1936fee0d6cf6e \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a493482c4075e2a73894d82e2b627eccf}{LIMINE\+\_\+5\+\_\+\+LEVEL\+\_\+\+PAGING\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x94469551da9b3192, 0xebe5e86db7382888 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_aad7cc1bec20aa9a6ffc92a761d8747e1}{LIMINE\+\_\+\+SMP\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x95a67b819a1b857e, 0xa0b61b723b6a73e0 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_aab8f478ec6458d943371ac2a12be97d7}{LIMINE\+\_\+\+SMP\+\_\+\+X2\+APIC}}~(1 $<$$<$ 0)
+\item 
+\#define \mbox{\hyperlink{limine_8h_ac7c4a3f14b33deba97e1752662747e70}{LIMINE\+\_\+\+MEMMAP\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x67cf3d9d378a806f, 0xe304acdfc50c3c62 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_ad0826c1e61380edf155d5b82c06f3bcf}{LIMINE\+\_\+\+MEMMAP\+\_\+\+USABLE}}~0
+\item 
+\#define \mbox{\hyperlink{limine_8h_a1b0cb81b148837b25e0f47f402022c8a}{LIMINE\+\_\+\+MEMMAP\+\_\+\+RESERVED}}~1
+\item 
+\#define \mbox{\hyperlink{limine_8h_aaf0c8e8bd5628eecde2e298f2b8a974b}{LIMINE\+\_\+\+MEMMAP\+\_\+\+ACPI\+\_\+\+RECLAIMABLE}}~2
+\item 
+\#define \mbox{\hyperlink{limine_8h_a301e596e044bf48b428977bccd6b6208}{LIMINE\+\_\+\+MEMMAP\+\_\+\+ACPI\+\_\+\+NVS}}~3
+\item 
+\#define \mbox{\hyperlink{limine_8h_af2598700b83962150932aac7570e1cf8}{LIMINE\+\_\+\+MEMMAP\+\_\+\+BAD\+\_\+\+MEMORY}}~4
+\item 
+\#define \mbox{\hyperlink{limine_8h_ae12f0828c70abbc73c0de237fd5935e7}{LIMINE\+\_\+\+MEMMAP\+\_\+\+BOOTLOADER\+\_\+\+RECLAIMABLE}}~5
+\item 
+\#define \mbox{\hyperlink{limine_8h_a65df7392d97b83086f82afb00122fb24}{LIMINE\+\_\+\+MEMMAP\+\_\+\+KERNEL\+\_\+\+AND\+\_\+\+MODULES}}~6
+\item 
+\#define \mbox{\hyperlink{limine_8h_a9b1043c43bf43d59d1220ed992d1013a}{LIMINE\+\_\+\+MEMMAP\+\_\+\+FRAMEBUFFER}}~7
+\item 
+\#define \mbox{\hyperlink{limine_8h_a31ce5d415baae9ff1a1bb8963695b73e}{LIMINE\+\_\+\+ENTRY\+\_\+\+POINT\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x13d86c035a1cd3e1, 0x2b0caa89d8f3026a \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_ac2c7ffe2c398c2af97f7bdb7017c1ed8}{LIMINE\+\_\+\+KERNEL\+\_\+\+FILE\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xad97e90e83f1ed67, 0x31eb5d1c5ff23b69 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a7cd9ae29570688e9d7bf7e838021752b}{LIMINE\+\_\+\+MODULE\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x3e7e279702be32af, 0xca1c4f3bd1280cee \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a9292255548cfac30e78b77444b53822b}{LIMINE\+\_\+\+RSDP\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xc5e77b6b397e7b43, 0x27637845accdcf3c \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a51797e1398c279496630d28854bd688d}{LIMINE\+\_\+\+SMBIOS\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x9e9046f11e095391, 0xaa4a520fefbde5ee \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a27ed1ad9c13e80946a2b292b95eb458b}{LIMINE\+\_\+\+EFI\+\_\+\+SYSTEM\+\_\+\+TABLE\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x5ceba5163eaaf6d6, 0x0a6981610cf65fcc \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a56576e64da699ee469e4ff3366ff2357}{LIMINE\+\_\+\+BOOT\+\_\+\+TIME\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x502746e184c088aa, 0xfbc5ec83e6327893 \}
+\item 
+\#define \mbox{\hyperlink{limine_8h_a1c64ec9d52c5247e52dd294fc294875c}{LIMINE\+\_\+\+KERNEL\+\_\+\+ADDRESS\+\_\+\+REQUEST}}~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x71ba76863cc55f63, 0xb2644a48c516a487 \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{limine_8h_ab6fa49376e88c66aa2fee0b90902036d}{limine\+\_\+terminal\+\_\+write}}) (struct \mbox{\hyperlink{structlimine__terminal}{limine\+\_\+terminal}} $\ast$, const char $\ast$, uint64\+\_\+t)
+\item 
+typedef void($\ast$ \mbox{\hyperlink{limine_8h_a5c93b9d8f76415e192f0058d9db3e8a0}{limine\+\_\+terminal\+\_\+callback}}) (struct \mbox{\hyperlink{structlimine__terminal}{limine\+\_\+terminal}} $\ast$, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t)
+\item 
+typedef void($\ast$ \mbox{\hyperlink{limine_8h_aed9b620b4ab081d6743db7dd811912ee}{limine\+\_\+terminal\+\_\+legacy\+\_\+write}}) (struct \mbox{\hyperlink{structlimine__terminal__legacy}{limine\+\_\+terminal\+\_\+legacy}} $\ast$, const char $\ast$, uint64\+\_\+t)
+\item 
+typedef void($\ast$ \mbox{\hyperlink{limine_8h_ab43c1699fed28ff5308e252678ac6ba5}{limine\+\_\+terminal\+\_\+legacy\+\_\+callback}}) (struct \mbox{\hyperlink{structlimine__terminal__legacy}{limine\+\_\+terminal\+\_\+legacy}} $\ast$, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t)
+\item 
+typedef void($\ast$ \mbox{\hyperlink{limine_8h_adebde0ad391eec16f6ddcfbf68293412}{limine\+\_\+goto\+\_\+address}}) (struct \mbox{\hyperlink{structlimine__smp__info}{limine\+\_\+smp\+\_\+info}} $\ast$)
+\item 
+typedef void($\ast$ \mbox{\hyperlink{limine_8h_a4b9a7070926c40c446ca6252c769fdd7}{limine\+\_\+entry\+\_\+point}}) (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{limine_8h_a493482c4075e2a73894d82e2b627eccf}\label{limine_8h_a493482c4075e2a73894d82e2b627eccf}} 
+\index{limine.h@{limine.h}!LIMINE\_5\_LEVEL\_PAGING\_REQUEST@{LIMINE\_5\_LEVEL\_PAGING\_REQUEST}}
+\index{LIMINE\_5\_LEVEL\_PAGING\_REQUEST@{LIMINE\_5\_LEVEL\_PAGING\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_5\_LEVEL\_PAGING\_REQUEST}{LIMINE\_5\_LEVEL\_PAGING\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+5\+\_\+\+LEVEL\+\_\+\+PAGING\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x94469551da9b3192, 0xebe5e86db7382888 \}}
+
+\mbox{\Hypertarget{limine_8h_a56576e64da699ee469e4ff3366ff2357}\label{limine_8h_a56576e64da699ee469e4ff3366ff2357}} 
+\index{limine.h@{limine.h}!LIMINE\_BOOT\_TIME\_REQUEST@{LIMINE\_BOOT\_TIME\_REQUEST}}
+\index{LIMINE\_BOOT\_TIME\_REQUEST@{LIMINE\_BOOT\_TIME\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_BOOT\_TIME\_REQUEST}{LIMINE\_BOOT\_TIME\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+BOOT\+\_\+\+TIME\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x502746e184c088aa, 0xfbc5ec83e6327893 \}}
+
+\mbox{\Hypertarget{limine_8h_a40a4f27d03994f4df1204e79c13c0ba2}\label{limine_8h_a40a4f27d03994f4df1204e79c13c0ba2}} 
+\index{limine.h@{limine.h}!LIMINE\_BOOTLOADER\_INFO\_REQUEST@{LIMINE\_BOOTLOADER\_INFO\_REQUEST}}
+\index{LIMINE\_BOOTLOADER\_INFO\_REQUEST@{LIMINE\_BOOTLOADER\_INFO\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_BOOTLOADER\_INFO\_REQUEST}{LIMINE\_BOOTLOADER\_INFO\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+BOOTLOADER\+\_\+\+INFO\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xf55038d8e2a1202f, 0x279426fcf5f59740 \}}
+
+\mbox{\Hypertarget{limine_8h_a87a9619f1cb8e674a32e7392d4391976}\label{limine_8h_a87a9619f1cb8e674a32e7392d4391976}} 
+\index{limine.h@{limine.h}!LIMINE\_COMMON\_MAGIC@{LIMINE\_COMMON\_MAGIC}}
+\index{LIMINE\_COMMON\_MAGIC@{LIMINE\_COMMON\_MAGIC}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_COMMON\_MAGIC}{LIMINE\_COMMON\_MAGIC}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC~0xc7b1dd30df4c8b88, 0x0a82e883a194f07b}
+
+\mbox{\Hypertarget{limine_8h_a27ed1ad9c13e80946a2b292b95eb458b}\label{limine_8h_a27ed1ad9c13e80946a2b292b95eb458b}} 
+\index{limine.h@{limine.h}!LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST@{LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST}}
+\index{LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST@{LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST}{LIMINE\_EFI\_SYSTEM\_TABLE\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+EFI\+\_\+\+SYSTEM\+\_\+\+TABLE\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x5ceba5163eaaf6d6, 0x0a6981610cf65fcc \}}
+
+\mbox{\Hypertarget{limine_8h_a31ce5d415baae9ff1a1bb8963695b73e}\label{limine_8h_a31ce5d415baae9ff1a1bb8963695b73e}} 
+\index{limine.h@{limine.h}!LIMINE\_ENTRY\_POINT\_REQUEST@{LIMINE\_ENTRY\_POINT\_REQUEST}}
+\index{LIMINE\_ENTRY\_POINT\_REQUEST@{LIMINE\_ENTRY\_POINT\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_ENTRY\_POINT\_REQUEST}{LIMINE\_ENTRY\_POINT\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+ENTRY\+\_\+\+POINT\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x13d86c035a1cd3e1, 0x2b0caa89d8f3026a \}}
+
+\mbox{\Hypertarget{limine_8h_a66ff84bb113ce0c30f099059caa31508}\label{limine_8h_a66ff84bb113ce0c30f099059caa31508}} 
+\index{limine.h@{limine.h}!LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST@{LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST}}
+\index{LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST@{LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST}{LIMINE\_FRAMEBUFFER\_LEGACY\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+FRAMEBUFFER\+\_\+\+LEGACY\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xcbfe81d7dd2d1977, 0x063150319ebc9b71 \}}
+
+\mbox{\Hypertarget{limine_8h_ae000f357567574209f0e51768ab80433}\label{limine_8h_ae000f357567574209f0e51768ab80433}} 
+\index{limine.h@{limine.h}!LIMINE\_FRAMEBUFFER\_REQUEST@{LIMINE\_FRAMEBUFFER\_REQUEST}}
+\index{LIMINE\_FRAMEBUFFER\_REQUEST@{LIMINE\_FRAMEBUFFER\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_FRAMEBUFFER\_REQUEST}{LIMINE\_FRAMEBUFFER\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+FRAMEBUFFER\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x9d5827dcd881dd75, 0xa3148604f6fab11b \}}
+
+\mbox{\Hypertarget{limine_8h_a930b468d5ef7f8915ba69f55ee1eac2c}\label{limine_8h_a930b468d5ef7f8915ba69f55ee1eac2c}} 
+\index{limine.h@{limine.h}!LIMINE\_FRAMEBUFFER\_RGB@{LIMINE\_FRAMEBUFFER\_RGB}}
+\index{LIMINE\_FRAMEBUFFER\_RGB@{LIMINE\_FRAMEBUFFER\_RGB}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_FRAMEBUFFER\_RGB}{LIMINE\_FRAMEBUFFER\_RGB}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+FRAMEBUFFER\+\_\+\+RGB~1}
+
+\mbox{\Hypertarget{limine_8h_a68118f4871132a203fb40d9e7a29493c}\label{limine_8h_a68118f4871132a203fb40d9e7a29493c}} 
+\index{limine.h@{limine.h}!LIMINE\_HHDM\_REQUEST@{LIMINE\_HHDM\_REQUEST}}
+\index{LIMINE\_HHDM\_REQUEST@{LIMINE\_HHDM\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_HHDM\_REQUEST}{LIMINE\_HHDM\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+HHDM\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x48dcf1cb8ad2b852, 0x63984e959a98244b \}}
+
+\mbox{\Hypertarget{limine_8h_a1c64ec9d52c5247e52dd294fc294875c}\label{limine_8h_a1c64ec9d52c5247e52dd294fc294875c}} 
+\index{limine.h@{limine.h}!LIMINE\_KERNEL\_ADDRESS\_REQUEST@{LIMINE\_KERNEL\_ADDRESS\_REQUEST}}
+\index{LIMINE\_KERNEL\_ADDRESS\_REQUEST@{LIMINE\_KERNEL\_ADDRESS\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_KERNEL\_ADDRESS\_REQUEST}{LIMINE\_KERNEL\_ADDRESS\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+KERNEL\+\_\+\+ADDRESS\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x71ba76863cc55f63, 0xb2644a48c516a487 \}}
+
+\mbox{\Hypertarget{limine_8h_ac2c7ffe2c398c2af97f7bdb7017c1ed8}\label{limine_8h_ac2c7ffe2c398c2af97f7bdb7017c1ed8}} 
+\index{limine.h@{limine.h}!LIMINE\_KERNEL\_FILE\_REQUEST@{LIMINE\_KERNEL\_FILE\_REQUEST}}
+\index{LIMINE\_KERNEL\_FILE\_REQUEST@{LIMINE\_KERNEL\_FILE\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_KERNEL\_FILE\_REQUEST}{LIMINE\_KERNEL\_FILE\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+KERNEL\+\_\+\+FILE\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xad97e90e83f1ed67, 0x31eb5d1c5ff23b69 \}}
+
+\mbox{\Hypertarget{limine_8h_a413df26f24a15a002fa00781f6853a71}\label{limine_8h_a413df26f24a15a002fa00781f6853a71}} 
+\index{limine.h@{limine.h}!LIMINE\_MEDIA\_TYPE\_GENERIC@{LIMINE\_MEDIA\_TYPE\_GENERIC}}
+\index{LIMINE\_MEDIA\_TYPE\_GENERIC@{LIMINE\_MEDIA\_TYPE\_GENERIC}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEDIA\_TYPE\_GENERIC}{LIMINE\_MEDIA\_TYPE\_GENERIC}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEDIA\+\_\+\+TYPE\+\_\+\+GENERIC~0}
+
+\mbox{\Hypertarget{limine_8h_a990d7bbdb53695b5aab63aec27ce9aa7}\label{limine_8h_a990d7bbdb53695b5aab63aec27ce9aa7}} 
+\index{limine.h@{limine.h}!LIMINE\_MEDIA\_TYPE\_OPTICAL@{LIMINE\_MEDIA\_TYPE\_OPTICAL}}
+\index{LIMINE\_MEDIA\_TYPE\_OPTICAL@{LIMINE\_MEDIA\_TYPE\_OPTICAL}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEDIA\_TYPE\_OPTICAL}{LIMINE\_MEDIA\_TYPE\_OPTICAL}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEDIA\+\_\+\+TYPE\+\_\+\+OPTICAL~1}
+
+\mbox{\Hypertarget{limine_8h_a61729c4454219248875bd2023c105467}\label{limine_8h_a61729c4454219248875bd2023c105467}} 
+\index{limine.h@{limine.h}!LIMINE\_MEDIA\_TYPE\_TFTP@{LIMINE\_MEDIA\_TYPE\_TFTP}}
+\index{LIMINE\_MEDIA\_TYPE\_TFTP@{LIMINE\_MEDIA\_TYPE\_TFTP}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEDIA\_TYPE\_TFTP}{LIMINE\_MEDIA\_TYPE\_TFTP}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEDIA\+\_\+\+TYPE\+\_\+\+TFTP~2}
+
+\mbox{\Hypertarget{limine_8h_a301e596e044bf48b428977bccd6b6208}\label{limine_8h_a301e596e044bf48b428977bccd6b6208}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_ACPI\_NVS@{LIMINE\_MEMMAP\_ACPI\_NVS}}
+\index{LIMINE\_MEMMAP\_ACPI\_NVS@{LIMINE\_MEMMAP\_ACPI\_NVS}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_ACPI\_NVS}{LIMINE\_MEMMAP\_ACPI\_NVS}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+ACPI\+\_\+\+NVS~3}
+
+\mbox{\Hypertarget{limine_8h_aaf0c8e8bd5628eecde2e298f2b8a974b}\label{limine_8h_aaf0c8e8bd5628eecde2e298f2b8a974b}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE@{LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE}}
+\index{LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE@{LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE}{LIMINE\_MEMMAP\_ACPI\_RECLAIMABLE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+ACPI\+\_\+\+RECLAIMABLE~2}
+
+\mbox{\Hypertarget{limine_8h_af2598700b83962150932aac7570e1cf8}\label{limine_8h_af2598700b83962150932aac7570e1cf8}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_BAD\_MEMORY@{LIMINE\_MEMMAP\_BAD\_MEMORY}}
+\index{LIMINE\_MEMMAP\_BAD\_MEMORY@{LIMINE\_MEMMAP\_BAD\_MEMORY}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_BAD\_MEMORY}{LIMINE\_MEMMAP\_BAD\_MEMORY}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+BAD\+\_\+\+MEMORY~4}
+
+\mbox{\Hypertarget{limine_8h_ae12f0828c70abbc73c0de237fd5935e7}\label{limine_8h_ae12f0828c70abbc73c0de237fd5935e7}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE@{LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE}}
+\index{LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE@{LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE}{LIMINE\_MEMMAP\_BOOTLOADER\_RECLAIMABLE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+BOOTLOADER\+\_\+\+RECLAIMABLE~5}
+
+\mbox{\Hypertarget{limine_8h_a9b1043c43bf43d59d1220ed992d1013a}\label{limine_8h_a9b1043c43bf43d59d1220ed992d1013a}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_FRAMEBUFFER@{LIMINE\_MEMMAP\_FRAMEBUFFER}}
+\index{LIMINE\_MEMMAP\_FRAMEBUFFER@{LIMINE\_MEMMAP\_FRAMEBUFFER}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_FRAMEBUFFER}{LIMINE\_MEMMAP\_FRAMEBUFFER}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+FRAMEBUFFER~7}
+
+\mbox{\Hypertarget{limine_8h_a65df7392d97b83086f82afb00122fb24}\label{limine_8h_a65df7392d97b83086f82afb00122fb24}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES@{LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES}}
+\index{LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES@{LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES}{LIMINE\_MEMMAP\_KERNEL\_AND\_MODULES}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+KERNEL\+\_\+\+AND\+\_\+\+MODULES~6}
+
+\mbox{\Hypertarget{limine_8h_ac7c4a3f14b33deba97e1752662747e70}\label{limine_8h_ac7c4a3f14b33deba97e1752662747e70}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_REQUEST@{LIMINE\_MEMMAP\_REQUEST}}
+\index{LIMINE\_MEMMAP\_REQUEST@{LIMINE\_MEMMAP\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_REQUEST}{LIMINE\_MEMMAP\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x67cf3d9d378a806f, 0xe304acdfc50c3c62 \}}
+
+\mbox{\Hypertarget{limine_8h_a1b0cb81b148837b25e0f47f402022c8a}\label{limine_8h_a1b0cb81b148837b25e0f47f402022c8a}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_RESERVED@{LIMINE\_MEMMAP\_RESERVED}}
+\index{LIMINE\_MEMMAP\_RESERVED@{LIMINE\_MEMMAP\_RESERVED}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_RESERVED}{LIMINE\_MEMMAP\_RESERVED}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+RESERVED~1}
+
+\mbox{\Hypertarget{limine_8h_ad0826c1e61380edf155d5b82c06f3bcf}\label{limine_8h_ad0826c1e61380edf155d5b82c06f3bcf}} 
+\index{limine.h@{limine.h}!LIMINE\_MEMMAP\_USABLE@{LIMINE\_MEMMAP\_USABLE}}
+\index{LIMINE\_MEMMAP\_USABLE@{LIMINE\_MEMMAP\_USABLE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MEMMAP\_USABLE}{LIMINE\_MEMMAP\_USABLE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MEMMAP\+\_\+\+USABLE~0}
+
+\mbox{\Hypertarget{limine_8h_a7cd9ae29570688e9d7bf7e838021752b}\label{limine_8h_a7cd9ae29570688e9d7bf7e838021752b}} 
+\index{limine.h@{limine.h}!LIMINE\_MODULE\_REQUEST@{LIMINE\_MODULE\_REQUEST}}
+\index{LIMINE\_MODULE\_REQUEST@{LIMINE\_MODULE\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_MODULE\_REQUEST}{LIMINE\_MODULE\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+MODULE\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x3e7e279702be32af, 0xca1c4f3bd1280cee \}}
+
+\mbox{\Hypertarget{limine_8h_ae207468a74ef8f3e998f6646cb365f8f}\label{limine_8h_ae207468a74ef8f3e998f6646cb365f8f}} 
+\index{limine.h@{limine.h}!LIMINE\_PTR@{LIMINE\_PTR}}
+\index{LIMINE\_PTR@{LIMINE\_PTR}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_PTR}{LIMINE\_PTR}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{TYPE }\end{DoxyParamCaption})~TYPE}
+
+\mbox{\Hypertarget{limine_8h_a9292255548cfac30e78b77444b53822b}\label{limine_8h_a9292255548cfac30e78b77444b53822b}} 
+\index{limine.h@{limine.h}!LIMINE\_RSDP\_REQUEST@{LIMINE\_RSDP\_REQUEST}}
+\index{LIMINE\_RSDP\_REQUEST@{LIMINE\_RSDP\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_RSDP\_REQUEST}{LIMINE\_RSDP\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+RSDP\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xc5e77b6b397e7b43, 0x27637845accdcf3c \}}
+
+\mbox{\Hypertarget{limine_8h_a51797e1398c279496630d28854bd688d}\label{limine_8h_a51797e1398c279496630d28854bd688d}} 
+\index{limine.h@{limine.h}!LIMINE\_SMBIOS\_REQUEST@{LIMINE\_SMBIOS\_REQUEST}}
+\index{LIMINE\_SMBIOS\_REQUEST@{LIMINE\_SMBIOS\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_SMBIOS\_REQUEST}{LIMINE\_SMBIOS\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+SMBIOS\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x9e9046f11e095391, 0xaa4a520fefbde5ee \}}
+
+\mbox{\Hypertarget{limine_8h_aad7cc1bec20aa9a6ffc92a761d8747e1}\label{limine_8h_aad7cc1bec20aa9a6ffc92a761d8747e1}} 
+\index{limine.h@{limine.h}!LIMINE\_SMP\_REQUEST@{LIMINE\_SMP\_REQUEST}}
+\index{LIMINE\_SMP\_REQUEST@{LIMINE\_SMP\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_SMP\_REQUEST}{LIMINE\_SMP\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+SMP\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x95a67b819a1b857e, 0xa0b61b723b6a73e0 \}}
+
+\mbox{\Hypertarget{limine_8h_aab8f478ec6458d943371ac2a12be97d7}\label{limine_8h_aab8f478ec6458d943371ac2a12be97d7}} 
+\index{limine.h@{limine.h}!LIMINE\_SMP\_X2APIC@{LIMINE\_SMP\_X2APIC}}
+\index{LIMINE\_SMP\_X2APIC@{LIMINE\_SMP\_X2APIC}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_SMP\_X2APIC}{LIMINE\_SMP\_X2APIC}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+SMP\+\_\+\+X2\+APIC~(1 $<$$<$ 0)}
+
+\mbox{\Hypertarget{limine_8h_a2686c76452b859aba0f77bff0ba6742a}\label{limine_8h_a2686c76452b859aba0f77bff0ba6742a}} 
+\index{limine.h@{limine.h}!LIMINE\_STACK\_SIZE\_REQUEST@{LIMINE\_STACK\_SIZE\_REQUEST}}
+\index{LIMINE\_STACK\_SIZE\_REQUEST@{LIMINE\_STACK\_SIZE\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_STACK\_SIZE\_REQUEST}{LIMINE\_STACK\_SIZE\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+STACK\+\_\+\+SIZE\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x224ef0460a8e8926, 0xe1cb0fc25f46ea3d \}}
+
+\mbox{\Hypertarget{limine_8h_a17e61bc1823f6d748506800d404e8a2d}\label{limine_8h_a17e61bc1823f6d748506800d404e8a2d}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_BELL@{LIMINE\_TERMINAL\_CB\_BELL}}
+\index{LIMINE\_TERMINAL\_CB\_BELL@{LIMINE\_TERMINAL\_CB\_BELL}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_BELL}{LIMINE\_TERMINAL\_CB\_BELL}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+BELL~20}
+
+\mbox{\Hypertarget{limine_8h_a6ef2c8572f902d9b5b99d9bcd3d143b1}\label{limine_8h_a6ef2c8572f902d9b5b99d9bcd3d143b1}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_DEC@{LIMINE\_TERMINAL\_CB\_DEC}}
+\index{LIMINE\_TERMINAL\_CB\_DEC@{LIMINE\_TERMINAL\_CB\_DEC}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_DEC}{LIMINE\_TERMINAL\_CB\_DEC}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+DEC~10}
+
+\mbox{\Hypertarget{limine_8h_a2a2a595a6d1c05cf148b7fd26584ffd7}\label{limine_8h_a2a2a595a6d1c05cf148b7fd26584ffd7}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_KBD\_LEDS@{LIMINE\_TERMINAL\_CB\_KBD\_LEDS}}
+\index{LIMINE\_TERMINAL\_CB\_KBD\_LEDS@{LIMINE\_TERMINAL\_CB\_KBD\_LEDS}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_KBD\_LEDS}{LIMINE\_TERMINAL\_CB\_KBD\_LEDS}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+KBD\+\_\+\+LEDS~60}
+
+\mbox{\Hypertarget{limine_8h_a764769497a770238dbd2810daa3490e5}\label{limine_8h_a764769497a770238dbd2810daa3490e5}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_LINUX@{LIMINE\_TERMINAL\_CB\_LINUX}}
+\index{LIMINE\_TERMINAL\_CB\_LINUX@{LIMINE\_TERMINAL\_CB\_LINUX}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_LINUX}{LIMINE\_TERMINAL\_CB\_LINUX}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+LINUX~80}
+
+\mbox{\Hypertarget{limine_8h_a28f79cf340fd288df6138f5c2c3fe9a5}\label{limine_8h_a28f79cf340fd288df6138f5c2c3fe9a5}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_MODE@{LIMINE\_TERMINAL\_CB\_MODE}}
+\index{LIMINE\_TERMINAL\_CB\_MODE@{LIMINE\_TERMINAL\_CB\_MODE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_MODE}{LIMINE\_TERMINAL\_CB\_MODE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+MODE~70}
+
+\mbox{\Hypertarget{limine_8h_a32559a72539157a6838216959954c3cb}\label{limine_8h_a32559a72539157a6838216959954c3cb}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_POS\_REPORT@{LIMINE\_TERMINAL\_CB\_POS\_REPORT}}
+\index{LIMINE\_TERMINAL\_CB\_POS\_REPORT@{LIMINE\_TERMINAL\_CB\_POS\_REPORT}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_POS\_REPORT}{LIMINE\_TERMINAL\_CB\_POS\_REPORT}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+POS\+\_\+\+REPORT~50}
+
+\mbox{\Hypertarget{limine_8h_a3eb72ba6c953d5cc5328b1ccd17f784b}\label{limine_8h_a3eb72ba6c953d5cc5328b1ccd17f784b}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_PRIVATE\_ID@{LIMINE\_TERMINAL\_CB\_PRIVATE\_ID}}
+\index{LIMINE\_TERMINAL\_CB\_PRIVATE\_ID@{LIMINE\_TERMINAL\_CB\_PRIVATE\_ID}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_PRIVATE\_ID}{LIMINE\_TERMINAL\_CB\_PRIVATE\_ID}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+PRIVATE\+\_\+\+ID~30}
+
+\mbox{\Hypertarget{limine_8h_aae034fbbeccf92464169ada275e6d285}\label{limine_8h_aae034fbbeccf92464169ada275e6d285}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CB\_STATUS\_REPORT@{LIMINE\_TERMINAL\_CB\_STATUS\_REPORT}}
+\index{LIMINE\_TERMINAL\_CB\_STATUS\_REPORT@{LIMINE\_TERMINAL\_CB\_STATUS\_REPORT}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CB\_STATUS\_REPORT}{LIMINE\_TERMINAL\_CB\_STATUS\_REPORT}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CB\+\_\+\+STATUS\+\_\+\+REPORT~40}
+
+\mbox{\Hypertarget{limine_8h_af114d6e6116452e311b8464229d8267e}\label{limine_8h_af114d6e6116452e311b8464229d8267e}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CTX\_RESTORE@{LIMINE\_TERMINAL\_CTX\_RESTORE}}
+\index{LIMINE\_TERMINAL\_CTX\_RESTORE@{LIMINE\_TERMINAL\_CTX\_RESTORE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CTX\_RESTORE}{LIMINE\_TERMINAL\_CTX\_RESTORE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CTX\+\_\+\+RESTORE~((uint64\+\_\+t)(-\/3))}
+
+\mbox{\Hypertarget{limine_8h_a50eb3080463b13744d5f2ef501bbbc57}\label{limine_8h_a50eb3080463b13744d5f2ef501bbbc57}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CTX\_SAVE@{LIMINE\_TERMINAL\_CTX\_SAVE}}
+\index{LIMINE\_TERMINAL\_CTX\_SAVE@{LIMINE\_TERMINAL\_CTX\_SAVE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CTX\_SAVE}{LIMINE\_TERMINAL\_CTX\_SAVE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CTX\+\_\+\+SAVE~((uint64\+\_\+t)(-\/2))}
+
+\mbox{\Hypertarget{limine_8h_a9251e28e1f60e76dcc32318dcc64b572}\label{limine_8h_a9251e28e1f60e76dcc32318dcc64b572}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_CTX\_SIZE@{LIMINE\_TERMINAL\_CTX\_SIZE}}
+\index{LIMINE\_TERMINAL\_CTX\_SIZE@{LIMINE\_TERMINAL\_CTX\_SIZE}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_CTX\_SIZE}{LIMINE\_TERMINAL\_CTX\_SIZE}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+CTX\+\_\+\+SIZE~((uint64\+\_\+t)(-\/1))}
+
+\mbox{\Hypertarget{limine_8h_a5080f8389434a9969d245e6e5704a548}\label{limine_8h_a5080f8389434a9969d245e6e5704a548}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_FULL\_REFRESH@{LIMINE\_TERMINAL\_FULL\_REFRESH}}
+\index{LIMINE\_TERMINAL\_FULL\_REFRESH@{LIMINE\_TERMINAL\_FULL\_REFRESH}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_FULL\_REFRESH}{LIMINE\_TERMINAL\_FULL\_REFRESH}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+FULL\+\_\+\+REFRESH~((uint64\+\_\+t)(-\/4))}
+
+\mbox{\Hypertarget{limine_8h_acf059eca185dd280c98170d388aeff50}\label{limine_8h_acf059eca185dd280c98170d388aeff50}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_LEGACY\_REQUEST@{LIMINE\_TERMINAL\_LEGACY\_REQUEST}}
+\index{LIMINE\_TERMINAL\_LEGACY\_REQUEST@{LIMINE\_TERMINAL\_LEGACY\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_LEGACY\_REQUEST}{LIMINE\_TERMINAL\_LEGACY\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+LEGACY\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0x0785a0aea5d0750f, 0x1c1936fee0d6cf6e \}}
+
+\mbox{\Hypertarget{limine_8h_aea2d5faed6022afec72fa3b896f47711}\label{limine_8h_aea2d5faed6022afec72fa3b896f47711}} 
+\index{limine.h@{limine.h}!LIMINE\_TERMINAL\_REQUEST@{LIMINE\_TERMINAL\_REQUEST}}
+\index{LIMINE\_TERMINAL\_REQUEST@{LIMINE\_TERMINAL\_REQUEST}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{LIMINE\_TERMINAL\_REQUEST}{LIMINE\_TERMINAL\_REQUEST}}
+{\footnotesize\ttfamily \#define LIMINE\+\_\+\+TERMINAL\+\_\+\+REQUEST~\{ \mbox{\hyperlink{limine_8h_a87a9619f1cb8e674a32e7392d4391976}{LIMINE\+\_\+\+COMMON\+\_\+\+MAGIC}}, 0xc8ac59310c2b0844, 0xa68d0c7265d38878 \}}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{limine_8h_a4b9a7070926c40c446ca6252c769fdd7}\label{limine_8h_a4b9a7070926c40c446ca6252c769fdd7}} 
+\index{limine.h@{limine.h}!limine\_entry\_point@{limine\_entry\_point}}
+\index{limine\_entry\_point@{limine\_entry\_point}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{limine\_entry\_point}{limine\_entry\_point}}
+{\footnotesize\ttfamily typedef void($\ast$ limine\+\_\+entry\+\_\+point) (void)}
+
+\mbox{\Hypertarget{limine_8h_adebde0ad391eec16f6ddcfbf68293412}\label{limine_8h_adebde0ad391eec16f6ddcfbf68293412}} 
+\index{limine.h@{limine.h}!limine\_goto\_address@{limine\_goto\_address}}
+\index{limine\_goto\_address@{limine\_goto\_address}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{limine\_goto\_address}{limine\_goto\_address}}
+{\footnotesize\ttfamily typedef void($\ast$ limine\+\_\+goto\+\_\+address) (struct \mbox{\hyperlink{structlimine__smp__info}{limine\+\_\+smp\+\_\+info}} $\ast$)}
+
+\mbox{\Hypertarget{limine_8h_a5c93b9d8f76415e192f0058d9db3e8a0}\label{limine_8h_a5c93b9d8f76415e192f0058d9db3e8a0}} 
+\index{limine.h@{limine.h}!limine\_terminal\_callback@{limine\_terminal\_callback}}
+\index{limine\_terminal\_callback@{limine\_terminal\_callback}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{limine\_terminal\_callback}{limine\_terminal\_callback}}
+{\footnotesize\ttfamily typedef void($\ast$ limine\+\_\+terminal\+\_\+callback) (struct \mbox{\hyperlink{structlimine__terminal}{limine\+\_\+terminal}} $\ast$, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t)}
+
+\mbox{\Hypertarget{limine_8h_ab43c1699fed28ff5308e252678ac6ba5}\label{limine_8h_ab43c1699fed28ff5308e252678ac6ba5}} 
+\index{limine.h@{limine.h}!limine\_terminal\_legacy\_callback@{limine\_terminal\_legacy\_callback}}
+\index{limine\_terminal\_legacy\_callback@{limine\_terminal\_legacy\_callback}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{limine\_terminal\_legacy\_callback}{limine\_terminal\_legacy\_callback}}
+{\footnotesize\ttfamily typedef void($\ast$ limine\+\_\+terminal\+\_\+legacy\+\_\+callback) (struct \mbox{\hyperlink{structlimine__terminal__legacy}{limine\+\_\+terminal\+\_\+legacy}} $\ast$, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t)}
+
+\mbox{\Hypertarget{limine_8h_aed9b620b4ab081d6743db7dd811912ee}\label{limine_8h_aed9b620b4ab081d6743db7dd811912ee}} 
+\index{limine.h@{limine.h}!limine\_terminal\_legacy\_write@{limine\_terminal\_legacy\_write}}
+\index{limine\_terminal\_legacy\_write@{limine\_terminal\_legacy\_write}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{limine\_terminal\_legacy\_write}{limine\_terminal\_legacy\_write}}
+{\footnotesize\ttfamily typedef void($\ast$ limine\+\_\+terminal\+\_\+legacy\+\_\+write) (struct \mbox{\hyperlink{structlimine__terminal__legacy}{limine\+\_\+terminal\+\_\+legacy}} $\ast$, const char $\ast$, uint64\+\_\+t)}
+
+\mbox{\Hypertarget{limine_8h_ab6fa49376e88c66aa2fee0b90902036d}\label{limine_8h_ab6fa49376e88c66aa2fee0b90902036d}} 
+\index{limine.h@{limine.h}!limine\_terminal\_write@{limine\_terminal\_write}}
+\index{limine\_terminal\_write@{limine\_terminal\_write}!limine.h@{limine.h}}
+\doxysubsubsection{\texorpdfstring{limine\_terminal\_write}{limine\_terminal\_write}}
+{\footnotesize\ttfamily typedef void($\ast$ limine\+\_\+terminal\+\_\+write) (struct \mbox{\hyperlink{structlimine__terminal}{limine\+\_\+terminal}} $\ast$, const char $\ast$, uint64\+\_\+t)}
+

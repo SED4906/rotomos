@@ -1,0 +1,99 @@
+\hypertarget{pic_8c}{}\doxysection{kernel/core/pic.c File Reference}
+\label{pic_8c}\index{kernel/core/pic.c@{kernel/core/pic.c}}
+{\ttfamily \#include $<$kernel/cpu.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/core.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/libc.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{pic_8c_a71dbe8d1aeaa96aa6c95e1979f6223b0}{pic\+\_\+set\+\_\+mask}} (unsigned char IRQline)
+\begin{DoxyCompactList}\small\item\em Disallow IRQs from specified line. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pic_8c_a8b4530d17819e3ba7ce901775cf21f93}{pic\+\_\+clear\+\_\+mask}} (unsigned char IRQline)
+\begin{DoxyCompactList}\small\item\em Allow IRQs from specified line. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pic_8c_a89d1bea4eca2e8abb05e20511aa3ada4}{pic\+\_\+eoi}} (unsigned char irq)
+\begin{DoxyCompactList}\small\item\em Send end of interrupt signal to PIC. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pic_8c_adb6fc3a8ed060fac06eebf72ebda6cb0}{init\+\_\+pic}} (int offset1, int offset2)
+\begin{DoxyCompactList}\small\item\em Set up PIC to use specified vectors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pic_8c_a42e251faf3f381370bc48b9fe5c1685f}{init\+\_\+pit}} (size\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Sets the divider and mode of the PIT. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pic_8c_adb6fc3a8ed060fac06eebf72ebda6cb0}\label{pic_8c_adb6fc3a8ed060fac06eebf72ebda6cb0}} 
+\index{pic.c@{pic.c}!init\_pic@{init\_pic}}
+\index{init\_pic@{init\_pic}!pic.c@{pic.c}}
+\doxysubsubsection{\texorpdfstring{init\_pic()}{init\_pic()}}
+{\footnotesize\ttfamily void init\+\_\+pic (\begin{DoxyParamCaption}\item[{int}]{offset1,  }\item[{int}]{offset2 }\end{DoxyParamCaption})}
+
+
+
+Set up PIC to use specified vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset1} & Master PIC base vector. \\
+\hline
+{\em offset2} & Slave PIC base vector. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{pic_8c_a42e251faf3f381370bc48b9fe5c1685f}\label{pic_8c_a42e251faf3f381370bc48b9fe5c1685f}} 
+\index{pic.c@{pic.c}!init\_pit@{init\_pit}}
+\index{init\_pit@{init\_pit}!pic.c@{pic.c}}
+\doxysubsubsection{\texorpdfstring{init\_pit()}{init\_pit()}}
+{\footnotesize\ttfamily void init\+\_\+pit (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Sets the divider and mode of the PIT. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency} & A frequency in hertz. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{pic_8c_a8b4530d17819e3ba7ce901775cf21f93}\label{pic_8c_a8b4530d17819e3ba7ce901775cf21f93}} 
+\index{pic.c@{pic.c}!pic\_clear\_mask@{pic\_clear\_mask}}
+\index{pic\_clear\_mask@{pic\_clear\_mask}!pic.c@{pic.c}}
+\doxysubsubsection{\texorpdfstring{pic\_clear\_mask()}{pic\_clear\_mask()}}
+{\footnotesize\ttfamily void pic\+\_\+clear\+\_\+mask (\begin{DoxyParamCaption}\item[{unsigned char}]{IRQline }\end{DoxyParamCaption})}
+
+
+
+Allow IRQs from specified line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em IRQline} & An IRQ line number. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{pic_8c_a89d1bea4eca2e8abb05e20511aa3ada4}\label{pic_8c_a89d1bea4eca2e8abb05e20511aa3ada4}} 
+\index{pic.c@{pic.c}!pic\_eoi@{pic\_eoi}}
+\index{pic\_eoi@{pic\_eoi}!pic.c@{pic.c}}
+\doxysubsubsection{\texorpdfstring{pic\_eoi()}{pic\_eoi()}}
+{\footnotesize\ttfamily void pic\+\_\+eoi (\begin{DoxyParamCaption}\item[{unsigned char}]{irq }\end{DoxyParamCaption})}
+
+
+
+Send end of interrupt signal to PIC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq} & An IRQ line number. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{pic_8c_a71dbe8d1aeaa96aa6c95e1979f6223b0}\label{pic_8c_a71dbe8d1aeaa96aa6c95e1979f6223b0}} 
+\index{pic.c@{pic.c}!pic\_set\_mask@{pic\_set\_mask}}
+\index{pic\_set\_mask@{pic\_set\_mask}!pic.c@{pic.c}}
+\doxysubsubsection{\texorpdfstring{pic\_set\_mask()}{pic\_set\_mask()}}
+{\footnotesize\ttfamily void pic\+\_\+set\+\_\+mask (\begin{DoxyParamCaption}\item[{unsigned char}]{IRQline }\end{DoxyParamCaption})}
+
+
+
+Disallow IRQs from specified line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em IRQline} & An IRQ line number. \\
+\hline
+\end{DoxyParams}

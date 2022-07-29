@@ -1,0 +1,132 @@
+\hypertarget{keyb_8c}{}\doxysection{kernel/keyb.c File Reference}
+\label{keyb_8c}\index{kernel/keyb.c@{kernel/keyb.c}}
+{\ttfamily \#include $<$kernel/core.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/cpu.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/keyb.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/libc.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{keyb_8c_a241f1d4d7e406d7ec81cac080033a004}{scandecode}} (uint8\+\_\+t code)
+\item 
+char \mbox{\hyperlink{keyb_8c_a86c5218f53e9f46bd0d593404d5db5e1}{scandecode\+\_\+shift}} (uint8\+\_\+t code)
+\item 
+char \mbox{\hyperlink{keyb_8c_a6a42c71d10cc4dd44624b3e918b6949d}{scan2ascii}} (uint8\+\_\+t code)
+\item 
+void \mbox{\hyperlink{keyb_8c_a48cd3acd7319667c875c62b570b9db49}{init\+\_\+keyb}} ()
+\item 
+\mbox{\hyperlink{keyb_8c_ababfafa9f5b6fb1c6d47334b63ab5aa0}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((no\+\_\+caller\+\_\+saved\+\_\+registers))
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{keyb_8c_ae2b282ce67a721375aa14e0f7bd94f0c}{keyscans}} \mbox{[}96\mbox{]} = \char`\"{}\textbackslash{}0\textbackslash{}e1234567890-\/=\textbackslash{}b\textbackslash{}tqwertyuiop\mbox{[}$\,$\mbox{]}\textbackslash{}n\char`\"{}\char`\"{}\textbackslash{}x1E\char`\"{}\char`\"{}asdfghjkl;\textquotesingle{}\`{}\textbackslash{}x0\+E\textbackslash{}\textbackslash{}zxcvbnm,./\textbackslash{}x0F$\ast$\textbackslash{}x1A \textbackslash{}x11\textbackslash{}x\+F1\textbackslash{}x\+F2\textbackslash{}x\+F3\textbackslash{}x\+F5\textbackslash{}x\+F5\textbackslash{}x\+F6\textbackslash{}x\+F7\textbackslash{}x\+F8\textbackslash{}x\+F9\textbackslash{}x\+FA\textbackslash{}x12\textbackslash{}x13\textbackslash{}x37\textbackslash{}x38\textbackslash{}x39-\/456+1230.\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x\+FB\textbackslash{}x\+FC\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\char`\"{}
+\item 
+const char \mbox{\hyperlink{keyb_8c_a9af8f3c19f9a8d84fb1782809438a807}{keyscans\+\_\+shift}} \mbox{[}96\mbox{]} = \char`\"{}\textbackslash{}0\textbackslash{}e!@\#\$\%$^\wedge$\&$\ast$()\+\_\++\textbackslash{}b\textbackslash{}t\+QWERTYUIOP\{\}\textbackslash{}n\char`\"{}\char`\"{}\textbackslash{}x1E\char`\"{}\char`\"{}ASDFGHJKL\+:\textbackslash{}\char`\"{}$\sim$\textbackslash{}x0\+E\textbackslash{}\textbackslash{}\+ZXCVBNM$<$$>$?\textbackslash{}x0F$\ast$\textbackslash{}x1A \textbackslash{}x11\textbackslash{}x\+F1\textbackslash{}x\+F2\textbackslash{}x\+F3\textbackslash{}x\+F5\textbackslash{}x\+F5\textbackslash{}x\+F6\textbackslash{}x\+F7\textbackslash{}x\+F8\textbackslash{}x\+F9\textbackslash{}x\+FA\textbackslash{}x12\textbackslash{}x13\textbackslash{}x37\textbackslash{}x38\textbackslash{}x39-\/456+1230.\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x\+FB\textbackslash{}x\+FC\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\char`\"{}
+\item 
+bool \mbox{\hyperlink{keyb_8c_a07b20789d3cfdb2ec29036efee8ffa5e}{modleftshift}} = false
+\item 
+bool \mbox{\hyperlink{keyb_8c_a401193494e68ed07c50baac6e2f4634a}{modrightshift}} = false
+\item 
+bool \mbox{\hyperlink{keyb_8c_a54ce4a69093a250e94a76e81098d23e1}{modctrl}} = false
+\item 
+bool \mbox{\hyperlink{keyb_8c_a007bacf2b5f6cbc4b51df6a9f01e1912}{modalt}} = false
+\item 
+bool \mbox{\hyperlink{keyb_8c_a3d27a1b9eb769c623adbbc5d8b5e1393}{capslock}} = false
+\item 
+bool \mbox{\hyperlink{keyb_8c_a56d6d578033457508c27e64a245e3396}{numlock}} = false
+\item 
+bool \mbox{\hyperlink{keyb_8c_ac4fb9b01297e3c3500706241f3c0b41b}{scrlock}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{keyb_8c_ababfafa9f5b6fb1c6d47334b63ab5aa0}\label{keyb_8c_ababfafa9f5b6fb1c6d47334b63ab5aa0}} 
+\index{keyb.c@{keyb.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct____attribute____}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} (\begin{DoxyParamCaption}\item[{(no\+\_\+caller\+\_\+saved\+\_\+registers)}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{keyb_8c_a48cd3acd7319667c875c62b570b9db49}\label{keyb_8c_a48cd3acd7319667c875c62b570b9db49}} 
+\index{keyb.c@{keyb.c}!init\_keyb@{init\_keyb}}
+\index{init\_keyb@{init\_keyb}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{init\_keyb()}{init\_keyb()}}
+{\footnotesize\ttfamily void init\+\_\+keyb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{keyb_8c_a6a42c71d10cc4dd44624b3e918b6949d}\label{keyb_8c_a6a42c71d10cc4dd44624b3e918b6949d}} 
+\index{keyb.c@{keyb.c}!scan2ascii@{scan2ascii}}
+\index{scan2ascii@{scan2ascii}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{scan2ascii()}{scan2ascii()}}
+{\footnotesize\ttfamily char scan2ascii (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{code }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{keyb_8c_a241f1d4d7e406d7ec81cac080033a004}\label{keyb_8c_a241f1d4d7e406d7ec81cac080033a004}} 
+\index{keyb.c@{keyb.c}!scandecode@{scandecode}}
+\index{scandecode@{scandecode}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{scandecode()}{scandecode()}}
+{\footnotesize\ttfamily char scandecode (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{code }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{keyb_8c_a86c5218f53e9f46bd0d593404d5db5e1}\label{keyb_8c_a86c5218f53e9f46bd0d593404d5db5e1}} 
+\index{keyb.c@{keyb.c}!scandecode\_shift@{scandecode\_shift}}
+\index{scandecode\_shift@{scandecode\_shift}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{scandecode\_shift()}{scandecode\_shift()}}
+{\footnotesize\ttfamily char scandecode\+\_\+shift (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{code }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{keyb_8c_a3d27a1b9eb769c623adbbc5d8b5e1393}\label{keyb_8c_a3d27a1b9eb769c623adbbc5d8b5e1393}} 
+\index{keyb.c@{keyb.c}!capslock@{capslock}}
+\index{capslock@{capslock}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{capslock}{capslock}}
+{\footnotesize\ttfamily bool capslock = false}
+
+\mbox{\Hypertarget{keyb_8c_ae2b282ce67a721375aa14e0f7bd94f0c}\label{keyb_8c_ae2b282ce67a721375aa14e0f7bd94f0c}} 
+\index{keyb.c@{keyb.c}!keyscans@{keyscans}}
+\index{keyscans@{keyscans}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{keyscans}{keyscans}}
+{\footnotesize\ttfamily const char keyscans\mbox{[}96\mbox{]} = \char`\"{}\textbackslash{}0\textbackslash{}e1234567890-\/=\textbackslash{}b\textbackslash{}tqwertyuiop\mbox{[}$\,$\mbox{]}\textbackslash{}n\char`\"{}\char`\"{}\textbackslash{}x1E\char`\"{}\char`\"{}asdfghjkl;\textquotesingle{}\`{}\textbackslash{}x0\+E\textbackslash{}\textbackslash{}zxcvbnm,./\textbackslash{}x0F$\ast$\textbackslash{}x1A \textbackslash{}x11\textbackslash{}x\+F1\textbackslash{}x\+F2\textbackslash{}x\+F3\textbackslash{}x\+F5\textbackslash{}x\+F5\textbackslash{}x\+F6\textbackslash{}x\+F7\textbackslash{}x\+F8\textbackslash{}x\+F9\textbackslash{}x\+FA\textbackslash{}x12\textbackslash{}x13\textbackslash{}x37\textbackslash{}x38\textbackslash{}x39-\/456+1230.\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x\+FB\textbackslash{}x\+FC\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\char`\"{}}
+
+\mbox{\Hypertarget{keyb_8c_a9af8f3c19f9a8d84fb1782809438a807}\label{keyb_8c_a9af8f3c19f9a8d84fb1782809438a807}} 
+\index{keyb.c@{keyb.c}!keyscans\_shift@{keyscans\_shift}}
+\index{keyscans\_shift@{keyscans\_shift}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{keyscans\_shift}{keyscans\_shift}}
+{\footnotesize\ttfamily const char keyscans\+\_\+shift\mbox{[}96\mbox{]} = \char`\"{}\textbackslash{}0\textbackslash{}e!@\#\$\%$^\wedge$\&$\ast$()\+\_\++\textbackslash{}b\textbackslash{}t\+QWERTYUIOP\{\}\textbackslash{}n\char`\"{}\char`\"{}\textbackslash{}x1E\char`\"{}\char`\"{}ASDFGHJKL\+:\textbackslash{}\char`\"{}$\sim$\textbackslash{}x0\+E\textbackslash{}\textbackslash{}\+ZXCVBNM$<$$>$?\textbackslash{}x0F$\ast$\textbackslash{}x1A \textbackslash{}x11\textbackslash{}x\+F1\textbackslash{}x\+F2\textbackslash{}x\+F3\textbackslash{}x\+F5\textbackslash{}x\+F5\textbackslash{}x\+F6\textbackslash{}x\+F7\textbackslash{}x\+F8\textbackslash{}x\+F9\textbackslash{}x\+FA\textbackslash{}x12\textbackslash{}x13\textbackslash{}x37\textbackslash{}x38\textbackslash{}x39-\/456+1230.\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x\+FB\textbackslash{}x\+FC\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\textbackslash{}x00\char`\"{}}
+
+\mbox{\Hypertarget{keyb_8c_a007bacf2b5f6cbc4b51df6a9f01e1912}\label{keyb_8c_a007bacf2b5f6cbc4b51df6a9f01e1912}} 
+\index{keyb.c@{keyb.c}!modalt@{modalt}}
+\index{modalt@{modalt}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{modalt}{modalt}}
+{\footnotesize\ttfamily bool modalt = false}
+
+\mbox{\Hypertarget{keyb_8c_a54ce4a69093a250e94a76e81098d23e1}\label{keyb_8c_a54ce4a69093a250e94a76e81098d23e1}} 
+\index{keyb.c@{keyb.c}!modctrl@{modctrl}}
+\index{modctrl@{modctrl}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{modctrl}{modctrl}}
+{\footnotesize\ttfamily bool modctrl = false}
+
+\mbox{\Hypertarget{keyb_8c_a07b20789d3cfdb2ec29036efee8ffa5e}\label{keyb_8c_a07b20789d3cfdb2ec29036efee8ffa5e}} 
+\index{keyb.c@{keyb.c}!modleftshift@{modleftshift}}
+\index{modleftshift@{modleftshift}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{modleftshift}{modleftshift}}
+{\footnotesize\ttfamily bool modleftshift = false}
+
+\mbox{\Hypertarget{keyb_8c_a401193494e68ed07c50baac6e2f4634a}\label{keyb_8c_a401193494e68ed07c50baac6e2f4634a}} 
+\index{keyb.c@{keyb.c}!modrightshift@{modrightshift}}
+\index{modrightshift@{modrightshift}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{modrightshift}{modrightshift}}
+{\footnotesize\ttfamily bool modrightshift = false}
+
+\mbox{\Hypertarget{keyb_8c_a56d6d578033457508c27e64a245e3396}\label{keyb_8c_a56d6d578033457508c27e64a245e3396}} 
+\index{keyb.c@{keyb.c}!numlock@{numlock}}
+\index{numlock@{numlock}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{numlock}{numlock}}
+{\footnotesize\ttfamily bool numlock = false}
+
+\mbox{\Hypertarget{keyb_8c_ac4fb9b01297e3c3500706241f3c0b41b}\label{keyb_8c_ac4fb9b01297e3c3500706241f3c0b41b}} 
+\index{keyb.c@{keyb.c}!scrlock@{scrlock}}
+\index{scrlock@{scrlock}!keyb.c@{keyb.c}}
+\doxysubsubsection{\texorpdfstring{scrlock}{scrlock}}
+{\footnotesize\ttfamily bool scrlock = false}
+

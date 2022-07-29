@@ -1,0 +1,31 @@
+\hypertarget{tty_8h}{}\doxysection{include/kernel/tty.h File Reference}
+\label{tty_8h}\index{include/kernel/tty.h@{include/kernel/tty.h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{tty_8h_a69c74fe5cb7811c86b85511557659ce2}{tty\+\_\+write}} (const char $\ast$str, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Write string to TTY. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tty_8h_a69c74fe5cb7811c86b85511557659ce2}\label{tty_8h_a69c74fe5cb7811c86b85511557659ce2}} 
+\index{tty.h@{tty.h}!tty\_write@{tty\_write}}
+\index{tty\_write@{tty\_write}!tty.h@{tty.h}}
+\doxysubsubsection{\texorpdfstring{tty\_write()}{tty\_write()}}
+{\footnotesize\ttfamily int tty\+\_\+write (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Write string to TTY. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A string. \\
+\hline
+{\em len} & Its length. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the same length if successful, otherwise returns 0. 
+\end{DoxyReturn}

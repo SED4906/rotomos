@@ -1,0 +1,55 @@
+\hypertarget{tty_8c}{}\doxysection{kernel/tty.c File Reference}
+\label{tty_8c}\index{kernel/tty.c@{kernel/tty.c}}
+{\ttfamily \#include $<$limine.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/tty.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/libc.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{tty_8c_a69c74fe5cb7811c86b85511557659ce2}{tty\+\_\+write}} (const char $\ast$str, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Write string to TTY. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlimine__terminal__request}{limine\+\_\+terminal\+\_\+request}} \mbox{\hyperlink{tty_8c_a5160b75140f80053b78e5423f61dc3d9}{terminal\+\_\+request}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tty_8c_a69c74fe5cb7811c86b85511557659ce2}\label{tty_8c_a69c74fe5cb7811c86b85511557659ce2}} 
+\index{tty.c@{tty.c}!tty\_write@{tty\_write}}
+\index{tty\_write@{tty\_write}!tty.c@{tty.c}}
+\doxysubsubsection{\texorpdfstring{tty\_write()}{tty\_write()}}
+{\footnotesize\ttfamily int tty\+\_\+write (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Write string to TTY. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A string. \\
+\hline
+{\em len} & Its length. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the same length if successful, otherwise returns 0. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tty_8c_a5160b75140f80053b78e5423f61dc3d9}\label{tty_8c_a5160b75140f80053b78e5423f61dc3d9}} 
+\index{tty.c@{tty.c}!terminal\_request@{terminal\_request}}
+\index{terminal\_request@{terminal\_request}!tty.c@{tty.c}}
+\doxysubsubsection{\texorpdfstring{terminal\_request}{terminal\_request}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structlimine__terminal__request}{limine\+\_\+terminal\+\_\+request}} terminal\+\_\+request}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .id = \mbox{\hyperlink{limine_8h_aea2d5faed6022afec72fa3b896f47711}{LIMINE\_TERMINAL\_REQUEST}}, .revision = 0,}
+\DoxyCodeLine{    .response = 0}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

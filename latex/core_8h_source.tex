@@ -1,0 +1,79 @@
+\hypertarget{core_8h_source}{}\doxysection{core.\+h}
+\label{core_8h_source}\index{include/kernel/core.h@{include/kernel/core.h}}
+\mbox{\hyperlink{core_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <stddef.h>}}
+\DoxyCodeLine{5 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{6     uint16\_t    \mbox{\hyperlink{struct____attribute_____a80ad5595c3a66515dc648b2ab38e736b}{isr\_low}};      \textcolor{comment}{// The lower 16 bits of the ISR's address}}
+\DoxyCodeLine{7     uint16\_t    \mbox{\hyperlink{struct____attribute_____ae17634c080c5cc660df577c10ce4f76e}{kernel\_cs}};    \textcolor{comment}{// The GDT segment selector that the CPU will load into CS before calling the ISR}}
+\DoxyCodeLine{8     uint8\_t     \mbox{\hyperlink{struct____attribute_____a31fd88d1e424f04cc70eb74230485237}{ist}};          \textcolor{comment}{// The IST in the TSS that the CPU will load into RSP; set to zero for now}}
+\DoxyCodeLine{9     uint8\_t     \mbox{\hyperlink{struct____attribute_____a58f747eed115022fe32de60039f59e39}{attributes}};   \textcolor{comment}{// Type and attributes; see the IDT page}}
+\DoxyCodeLine{10     uint16\_t    \mbox{\hyperlink{struct____attribute_____a11787adb66fe7e39729a9dffdff1bb32}{isr\_mid}};      \textcolor{comment}{// The higher 16 bits of the lower 32 bits of the ISR's address}}
+\DoxyCodeLine{11     uint32\_t    \mbox{\hyperlink{struct____attribute_____ab2eb36f3a80570572a740805b930cfdb}{isr\_high}};     \textcolor{comment}{// The higher 32 bits of the ISR's address}}
+\DoxyCodeLine{12     uint32\_t    \mbox{\hyperlink{struct____attribute_____a92e6819d6518f89567b73fbf511dfe63}{reserved}};     \textcolor{comment}{// Set to zero}}
+\DoxyCodeLine{13 \} \mbox{\hyperlink{idt_8c_a4c2b1a2d2bda842d1dd15e59a735b060}{\_\_attribute\_\_}}((packed)) idt\_entry;}
+\DoxyCodeLine{14 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{15     uint16\_t    \mbox{\hyperlink{struct____attribute_____ae553ba76530f8098756b5f37923a8fd6}{limit}};}
+\DoxyCodeLine{16     uint64\_t    \mbox{\hyperlink{struct____attribute_____a20dc010a1d15f21b6176f3b72d94e111}{base}};}
+\DoxyCodeLine{17 \} \mbox{\hyperlink{idt_8c_a4c2b1a2d2bda842d1dd15e59a735b060}{\_\_attribute\_\_}}((packed)) idtr;}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a35fe413107af682030ab7a4b6dff19b8}{init\_idt}}();}
+\DoxyCodeLine{20 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_ab051141b3c1de87582bb745e9e3c11ce}{load\_idt}}(idtr* idtr\_val);}
+\DoxyCodeLine{21 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_aea469a7fa391e9572820349d766f0b17}{set\_idt\_entry}}(uint8\_t vector, \textcolor{keywordtype}{void}* isr, uint8\_t flags);}
+\DoxyCodeLine{22 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_adbca1797cdefb6cbd00e3b9e647c1786}{hang\_forever}}();}
+\DoxyCodeLine{23 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a1c74f1405c82b147fa7f1141ca6530a5}{hang\_idle}}();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{26 \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{core_8h_ae79862d11e6051b015d5621afdd71226}{alloc\_page}}();}
+\DoxyCodeLine{27 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_ad6a6e7f9e7b2d98b46b06512b93dc1f8}{dealloc\_page}}(\textcolor{keywordtype}{size\_t} page);}
+\DoxyCodeLine{28 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a2b360a159ce61210cf0f7f21de543eba}{init\_mm}}();}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{core_8h_a5b200ca96668a1852bedf0bccafe42a6}{map\_page}}(\textcolor{keywordtype}{size\_t} pmap, \textcolor{keywordtype}{size\_t} vaddr, \textcolor{keywordtype}{size\_t} paddr, \textcolor{keywordtype}{size\_t} flags);}
+\DoxyCodeLine{31 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a5c6f6a33dc98ce913752d3e95946ee14}{unmap\_page}}(\textcolor{keywordtype}{size\_t} pmap, \textcolor{keywordtype}{size\_t} vaddr);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keywordtype}{void}* \mbox{\hyperlink{core_8h_a2fcfe2b6210c991356944d2d382d4d07}{kmalloc}}(\textcolor{keywordtype}{size\_t} bytes);}
+\DoxyCodeLine{34 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a1338785df32507bdf2c6f7c086c07154}{kdemalloc}}(\textcolor{keywordtype}{void}* data);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a3d2351dc43aa72ef709d00f868343819}{tlb\_invalidate}}(\textcolor{keywordtype}{size\_t} page);}
+\DoxyCodeLine{38 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{39     \textcolor{keywordtype}{size\_t} rsp, \mbox{\hyperlink{structcontext_a16ffb446ad812b260377ea5aa16c9e40}{cr3}};}
+\DoxyCodeLine{40 \} \mbox{\hyperlink{structcontext}{context}};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structcontext__list}{context\_list}}\{}
+\DoxyCodeLine{43     \mbox{\hyperlink{structcontext}{context}} \mbox{\hyperlink{structcontext__list_a896c740f21023bb894894e49490dcd22}{c}};}
+\DoxyCodeLine{44     \textcolor{keyword}{struct }\mbox{\hyperlink{structcontext__list}{context\_list}}* \mbox{\hyperlink{structcontext__list_ae08feeb1536b661883d7116ad9779951}{next}};}
+\DoxyCodeLine{45 \} \mbox{\hyperlink{core_8h_aaedf61eec62b0af2b84128a4717a0aba}{context\_list}};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a147e36ec1bc0988f1b6c680bdbacf1e7}{context\_switch}}();}
+\DoxyCodeLine{48 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a6dc1963cfed2cf045dde92a6a4f4f550}{context\_switch\_nosave}}(\textcolor{keywordtype}{size\_t} rsp, \textcolor{keywordtype}{size\_t} cr3);}
+\DoxyCodeLine{49 \mbox{\hyperlink{structcontext}{context}} \mbox{\hyperlink{core_8h_a997595f3c422ddca01b9114d58f5e549}{switch\_task}}(\textcolor{keywordtype}{size\_t} rsp, \textcolor{keywordtype}{size\_t} cr3);}
+\DoxyCodeLine{50 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_ac5ccd621b05e31fb4516ad9a2604a3dd}{init\_task}}();}
+\DoxyCodeLine{51 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a2503ce52905b6e48a650efc798873b5c}{add\_task}}(\textcolor{keywordtype}{size\_t} rsp, \textcolor{keywordtype}{size\_t} cr3);}
+\DoxyCodeLine{52 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a2b7ec5250e784d82546ea3e2476bb0bc}{exit\_task}}();}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#define PIC1        0x20        }\textcolor{comment}{/* IO base address for master PIC */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#define PIC2        0xA0        }\textcolor{comment}{/* IO base address for slave PIC */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#define PIC1\_COMMAND    PIC1}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#define PIC1\_DATA   (PIC1+1)}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#define PIC2\_COMMAND    PIC2}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#define PIC2\_DATA   (PIC2+1)}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#define PIC\_EOI     0x20        }\textcolor{comment}{/* End-\/of-\/interrupt command code */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#define ICW1\_ICW4   0x01        }\textcolor{comment}{/* ICW4 (not) needed */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#define ICW1\_SINGLE 0x02        }\textcolor{comment}{/* Single (cascade) mode */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#define ICW1\_INTERVAL4  0x04        }\textcolor{comment}{/* Call address interval 4 (8) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#define ICW1\_LEVEL  0x08        }\textcolor{comment}{/* Level triggered (edge) mode */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#define ICW1\_INIT   0x10        }\textcolor{comment}{/* Initialization -\/ required! */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#define ICW4\_8086   0x01        }\textcolor{comment}{/* 8086/88 (MCS-\/80/85) mode */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#define ICW4\_AUTO   0x02        }\textcolor{comment}{/* Auto (normal) EOI */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#define ICW4\_BUF\_SLAVE  0x08        }\textcolor{comment}{/* Buffered mode/slave */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#define ICW4\_BUF\_MASTER 0x0C        }\textcolor{comment}{/* Buffered mode/master */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#define ICW4\_SFNM   0x10    }\textcolor{comment}{/* Special fully nested (not) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a71dbe8d1aeaa96aa6c95e1979f6223b0}{pic\_set\_mask}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} IRQline);}
+\DoxyCodeLine{73 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a8b4530d17819e3ba7ce901775cf21f93}{pic\_clear\_mask}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} IRQline);}
+\DoxyCodeLine{74 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a89d1bea4eca2e8abb05e20511aa3ada4}{pic\_eoi}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} irq);}
+\DoxyCodeLine{75 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_adb6fc3a8ed060fac06eebf72ebda6cb0}{init\_pic}}(\textcolor{keywordtype}{int} offset1, \textcolor{keywordtype}{int} offset2);}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keywordtype}{void} \mbox{\hyperlink{core_8h_a42e251faf3f381370bc48b9fe5c1685f}{init\_pit}}(\textcolor{keywordtype}{size\_t} frequency);}
+
+\end{DoxyCode}

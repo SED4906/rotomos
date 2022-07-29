@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['icw1_5ficw4_0',['ICW1_ICW4',['../core_8h.html#a964d12193d2b36e8a7ec7fa57438e313',1,'core.h']]],
+  ['icw1_5finit_1',['ICW1_INIT',['../core_8h.html#a286dc251f3d73c08e08a53a4696f31ef',1,'core.h']]],
+  ['icw1_5finterval4_2',['ICW1_INTERVAL4',['../core_8h.html#a6ba324062a88dc9ff1e2916abdcde17e',1,'core.h']]],
+  ['icw1_5flevel_3',['ICW1_LEVEL',['../core_8h.html#a8b06fbc75942c0a61e6ad80ea4736bd3',1,'core.h']]],
+  ['icw1_5fsingle_4',['ICW1_SINGLE',['../core_8h.html#a6c092603fb5e22cc80954531ae319d01',1,'core.h']]],
+  ['icw4_5f8086_5',['ICW4_8086',['../core_8h.html#a42803c5ddcec9e120a6dbf7bc5c1b7af',1,'core.h']]],
+  ['icw4_5fauto_6',['ICW4_AUTO',['../core_8h.html#a16777bf654a4c5630e4f53902a25235a',1,'core.h']]],
+  ['icw4_5fbuf_5fmaster_7',['ICW4_BUF_MASTER',['../core_8h.html#af3f1b53c727d98166710d198aca13411',1,'core.h']]],
+  ['icw4_5fbuf_5fslave_8',['ICW4_BUF_SLAVE',['../core_8h.html#af5443900cdd9096e97898e5584c316bb',1,'core.h']]],
+  ['icw4_5fsfnm_9',['ICW4_SFNM',['../core_8h.html#a0ecb67a3f71d1d10502fbd834b0292f1',1,'core.h']]],
+  ['id_10',['id',['../structlimine__bootloader__info__request.html#aa60953d2833aeb6f8527220ff432a3b1',1,'limine_bootloader_info_request::id()'],['../structlimine__kernel__address__request.html#af07467238f1145154cbc7840bd5a4283',1,'limine_kernel_address_request::id()'],['../structlimine__boot__time__request.html#ac741e449a971c01e79bc129586bb07ea',1,'limine_boot_time_request::id()'],['../structlimine__efi__system__table__request.html#a00ae581d9ab3988f3cebc2d5df60511f',1,'limine_efi_system_table_request::id()'],['../structlimine__smbios__request.html#ab641e7902e52742d38784a72c39d6fd0',1,'limine_smbios_request::id()'],['../structlimine__module__request.html#a5218c1ebb981b83683c4b3560fa7c4b4',1,'limine_module_request::id()'],['../structlimine__stack__size__request.html#a0d2bbd59b9f1e3c1b7fc1fc25fccb92e',1,'limine_stack_size_request::id()'],['../structlimine__hhdm__request.html#ab4088426c60bd8c32711f69715d25729',1,'limine_hhdm_request::id()'],['../structlimine__framebuffer__request.html#ae300e9c546b0b2e8e319d5284d51bdb7',1,'limine_framebuffer_request::id()'],['../structlimine__framebuffer__legacy__request.html#a222ca2a6b781769401eca2358e15281c',1,'limine_framebuffer_legacy_request::id()'],['../structlimine__terminal__request.html#aad616e2fdcd49d16ff0ae0c0e6c353b8',1,'limine_terminal_request::id()'],['../structlimine__terminal__legacy__request.html#afbedc6640be7f80d7af28c61fd8d0256',1,'limine_terminal_legacy_request::id()'],['../structlimine__5__level__paging__request.html#a54883c398641ecb6ac77ab3469c46642',1,'limine_5_level_paging_request::id()'],['../structlimine__smp__request.html#a655c016c5d2ab972a1de31c1afaebdfc',1,'limine_smp_request::id()'],['../structlimine__memmap__request.html#a95099d9bac8bc64169961a913426e802',1,'limine_memmap_request::id()'],['../structlimine__entry__point__request.html#a57bfd668f22fce50da387e3377efd2bb',1,'limine_entry_point_request::id()'],['../structlimine__kernel__file__request.html#a342c6d7c1de49e8e39f82d6167e44ba6',1,'limine_kernel_file_request::id()'],['../structlimine__rsdp__request.html#a5a6c1f6bf86552362ffdf41d630ea543',1,'limine_rsdp_request::id()']]],
+  ['idt_2ec_11',['idt.c',['../idt_8c.html',1,'']]],
+  ['idt_5fmax_5fdescriptors_12',['IDT_MAX_DESCRIPTORS',['../idt_8c.html#ab58a3361c8ce224a66e91a9f20811699',1,'idt.c']]],
+  ['init_5fidt_13',['init_idt',['../idt_8c.html#a35fe413107af682030ab7a4b6dff19b8',1,'init_idt():&#160;idt.c'],['../core_8h.html#a35fe413107af682030ab7a4b6dff19b8',1,'init_idt():&#160;idt.c']]],
+  ['init_5fkeyb_14',['init_keyb',['../keyb_8h.html#a48cd3acd7319667c875c62b570b9db49',1,'init_keyb():&#160;keyb.c'],['../keyb_8c.html#a48cd3acd7319667c875c62b570b9db49',1,'init_keyb():&#160;keyb.c']]],
+  ['init_5fmm_15',['init_mm',['../core_8h.html#a2b360a159ce61210cf0f7f21de543eba',1,'init_mm():&#160;mm.c'],['../mm_8c.html#a2b360a159ce61210cf0f7f21de543eba',1,'init_mm():&#160;mm.c']]],
+  ['init_5fpic_16',['init_pic',['../core_8h.html#adb6fc3a8ed060fac06eebf72ebda6cb0',1,'init_pic(int offset1, int offset2):&#160;pic.c'],['../pic_8c.html#adb6fc3a8ed060fac06eebf72ebda6cb0',1,'init_pic(int offset1, int offset2):&#160;pic.c']]],
+  ['init_5fpit_17',['init_pit',['../core_8h.html#a42e251faf3f381370bc48b9fe5c1685f',1,'init_pit(size_t frequency):&#160;pic.c'],['../pic_8c.html#a42e251faf3f381370bc48b9fe5c1685f',1,'init_pit(size_t frequency):&#160;pic.c']]],
+  ['init_5ftask_18',['init_task',['../core_8h.html#ac5ccd621b05e31fb4516ad9a2604a3dd',1,'init_task():&#160;task.c'],['../task_8c.html#ac5ccd621b05e31fb4516ad9a2604a3dd',1,'init_task():&#160;task.c']]],
+  ['isr_5fhigh_19',['isr_high',['../struct____attribute____.html#ab2eb36f3a80570572a740805b930cfdb',1,'__attribute__']]],
+  ['isr_5flow_20',['isr_low',['../struct____attribute____.html#a80ad5595c3a66515dc648b2ab38e736b',1,'__attribute__']]],
+  ['isr_5fmid_21',['isr_mid',['../struct____attribute____.html#a11787adb66fe7e39729a9dffdff1bb32',1,'__attribute__']]],
+  ['isr_5fstub_5ftable_22',['isr_stub_table',['../idt_8c.html#ac9e46ccd941608592bc2734f738059d6',1,'idt.c']]],
+  ['ist_23',['ist',['../struct____attribute____.html#a31fd88d1e424f04cc70eb74230485237',1,'__attribute__']]]
+];
