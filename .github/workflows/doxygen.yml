@@ -5,14 +5,14 @@ on:
     branches: [ "master" ]
 
 jobs:
-  runs-on: ubuntu-latest
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Doxygen Action
+      uses: mattnotmitt/doxygen-action@1.9.4
 
-  steps:
-  - name: Doxygen Action
-  uses: mattnotmitt/doxygen-action@1.9.4
-
-  - name: Deploy to Github Pages
-  uses: peaceiris/actions-gh-pages@v3
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: ./docs
+      - name: Deploy to Github Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
