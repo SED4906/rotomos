@@ -4,33 +4,29 @@
 #include <stddef.h>
 typedef void* freelist;
 freelist* free_pages;
-/// Allocate Page
-// Takes no arguments.
-// Returns a page-aligned address in physical memory.
-// Unlinks page from freelist.
+//! @brief Unlink page from freelist.
+//! @return A page-aligned address in physical memory.
 size_t alloc_page() {
     size_t ret = (size_t)free_pages;
     free_pages = (freelist*)*free_pages;
     return ret;
 }
-/// Deallocate Page
-// Takes an address in physical memory.
-// Returns nothing.
-// Links page to freelist.
+
+//! @brief Links page to freelist.
+//! @param page A page-aligned address in physical memory.
 void dealloc_page(size_t page) {
     freelist* entry = (freelist*)page;
     *entry = free_pages;
     free_pages = entry;
 }
+
 struct limine_memmap_request memmap_request = {
     .id = LIMINE_MEMMAP_REQUEST,
     .revision = 0, .response = 0
 };
-/// Initialize Memory Manager
-// Takes no arguments.
-// Returns nothing.
-// If a map of physical memory is unavailable, halt.
-// All usable memory should be added to the freelist.
+
+//! @brief If a map of physical memory is unavailable, halts.
+//! All usable memory should be added to the freelist.
 void init_mm() {
     if(!memmap_request.response) hang_forever();
 
@@ -48,10 +44,13 @@ size_t map_page_step(size_t pmap, size_t entry) {
     ((size_t*)pmap)[entry] = ret | 7;
     return ret;
 }
-/// Map Page
-// Takes a page map, a virtual address, physical address, and flags.
-// Returns the same virtual address.
-// Sets or updates the mapping, allocating memory if necessary.
+
+//! @brief Sets/updates a memory mapping, allocating memory if necessary.
+//! @param pmap A page map.
+//! @param vaddr A virtual address.
+//! @param paddr A physical address.
+//! @param flags Flags.
+//! @return The same virtual address.
 size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags) {
     size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
     size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
@@ -65,10 +64,10 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags) {
     ((size_t*)pml1)[pml1_entry] = paddr | flags;
     return vaddr;
 }
-/// Unmap Page
-// Takes a page map and a virtual address.
-// Returns nothing.
-// Removes the mapping if it exists.
+
+//! @brief Removes a memory mapping if it exists.
+//! @param pmap A page map.
+//! @param vaddr A virtual address.
 void unmap_page(size_t pmap, size_t vaddr) {
     size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
     size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
@@ -83,13 +82,12 @@ void unmap_page(size_t pmap, size_t vaddr) {
     tlb_invalidate(vaddr);
 }
 
-/// Kernel Memory Allocate
-// TODO - Implement a proper heap
+//! @todo Implement a proper heap.
 void* kmalloc(size_t bytes) {
     if(bytes > 4096) return 0;
     return (void*)alloc_page();
 }
-/// Kernel Memory Deallocate
+//! @todo Implement a proper heap.
 void kdemalloc(void* data) {
     dealloc_page((size_t)data);
 }
