@@ -1,10 +1,11 @@
 #include <kernel/libc.h>
 #include <kernel/core.h>
+#include <kernel/keyb.h>
 
 void _start() {
-    init_page();
     init_idt();
+    init_mm();
     init_task();
     init_keyb();
-    for(;;) __asm__ volatile("hlt");
+    for(;;) hang_idle();
 }

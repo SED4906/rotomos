@@ -4,7 +4,9 @@
 #include <stdint.h>
 
 /// PIC Set Mask
-// Disallows IRQs from specified line
+// Takes an IRQ line number.
+// Returns nothing.
+// Disallows IRQs from specified line.
 void pic_set_mask(unsigned char IRQline) {
     uint16_t port;
     uint8_t value;
@@ -20,7 +22,9 @@ void pic_set_mask(unsigned char IRQline) {
 }
 
 /// PIC Clear Mask
-// Allows IRQs from specified line
+// Takes an IRQ line number.
+// Returns nothing.
+// Allows IRQs from specified line.
 void pic_clear_mask(unsigned char IRQline) {
     uint16_t port;
     uint8_t value;
@@ -36,8 +40,10 @@ void pic_clear_mask(unsigned char IRQline) {
 }
 
 /// PIC EOI
-// Run corresponding EOI before
-// returning from any PIC IRQ
+// Takes an IRQ line number.
+// Returns nothing.
+// (Run corresponding EOI before
+// returning from any PIC IRQ.)
 void pic_eoi(unsigned char irq)
 {
 	if(irq >= 8)
@@ -47,6 +53,9 @@ void pic_eoi(unsigned char irq)
 }
 
 /// Initialize PIC
+// Takes two bases for interrupt vector numbers.
+// Returns nothing.
+// Initializes the PIC to send interrupts at specified vectors.
 void init_pic(int offset1, int offset2)
 {
 	unsigned char a1, a2;
@@ -65,7 +74,10 @@ void init_pic(int offset1, int offset2)
 	outb(PIC1_DATA, a1);   // restore saved masks.
 	outb(PIC2_DATA, a2);
 }
-///Initialize PIT
+/// Initialize PIT
+// Takes a frequency in hertz.
+// Returns nothing.
+// Sets the divider and mode of the PIT.
 void init_pit(size_t frequency) {
     size_t reload = 1193182 / frequency;
     outb(0x43, 0x36);

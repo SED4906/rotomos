@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include <stddef.h>
-//// core/idt.c
+//// core/idt.c core/isr.S
 typedef struct {
 	uint16_t    isr_low;      // The lower 16 bits of the ISR's address
 	uint16_t    kernel_cs;    // The GDT segment selector that the CPU will load into CS before calling the ISR
@@ -17,18 +17,23 @@ typedef struct {
 } __attribute__((packed)) idtr;
 
 void init_idt();
-void load_idt();
+void load_idt(idtr* idtr_val);
 void set_idt_entry(uint8_t vector, void* isr, uint8_t flags);
+void hang_forever();
+void hang_idle();
 
+//// core/mm.c core/tlb.S
 size_t alloc_page();
 void dealloc_page(size_t page);
-void init_page();
-//// core/mm.c
+void init_mm();
+
 size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags);
 void unmap_page(size_t pmap, size_t vaddr);
 
 void* kmalloc(size_t bytes);
 void kdemalloc(void* data);
+
+void tlb_invalidate(size_t page);
 //// core/task.c
 typedef struct {
     size_t rsp, cr3;
@@ -62,7 +67,7 @@ void exit_task();
 #define ICW4_AUTO	0x02		/* Auto (normal) EOI */
 #define ICW4_BUF_SLAVE	0x08		/* Buffered mode/slave */
 #define ICW4_BUF_MASTER	0x0C		/* Buffered mode/master */
-#define ICW4_SFNM	0x10		/* Special fully nested (not) */
+#define ICW4_SFNM	0x10	/* Special fully nested (not) */
 
 void pic_set_mask(unsigned char IRQline);
 void pic_clear_mask(unsigned char IRQline);

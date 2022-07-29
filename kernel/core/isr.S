@@ -1,5 +1,6 @@
 extern exception_err_handler
 extern exception_no_err_handler
+extern double_fault_handler
 extern page_fault_handler
 extern irq_handler
 extern pit_handler
@@ -68,10 +69,16 @@ isr_keyb_stub:
     call keyb_handler
     iretq
 
+global isr_double_fault_stub:function
+isr_double_fault_stub:
+    pop rdi
+    call double_fault_handler
+    iretq
+
 global isr_stub_table:data
 isr_stub_table:
     dq 8 dup isr_no_err_stub wrt ..sym
-    dq isr_err_stub wrt ..sym
+    dq isr_double_fault_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
     dq 4 dup isr_err_stub wrt ..sym
     dq isr_page_fault wrt ..sym 
@@ -83,3 +90,20 @@ isr_stub_table:
     dq isr_pit_stub wrt ..sym
     dq isr_keyb_stub wrt ..sym
     dq 14 dup isr_irq_stub wrt ..sym
+
+global load_idt:function
+load_idt:
+lidt [rdi]
+sti
+ret
+
+global hang_forever:function
+hang_forever:
+cli
+hlt
+jmp hang_forever
+
+global hang_idle:function
+hang_idle:
+hlt
+ret
