@@ -1,11 +1,11 @@
-name: Rust
+name: Doxygen
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  generate-docs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
