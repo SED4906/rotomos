@@ -3,8 +3,6 @@
 #include <kernel/libc.h>
 #include <stdint.h>
 
-//! @brief Disallow IRQs from specified line. 
-//! @param IRQline An IRQ line number.
 void pic_set_mask(unsigned char IRQline) {
     uint16_t port;
     uint8_t value;
@@ -19,8 +17,6 @@ void pic_set_mask(unsigned char IRQline) {
     outb(port, value);        
 }
 
-//! @brief Allow IRQs from specified line. 
-//! @param IRQline An IRQ line number.
 void pic_clear_mask(unsigned char IRQline) {
     uint16_t port;
     uint8_t value;
@@ -35,8 +31,6 @@ void pic_clear_mask(unsigned char IRQline) {
     outb(port, value);        
 }
 
-//! @brief Send end of interrupt signal to PIC.
-//! @param irq An IRQ line number.
 void pic_eoi(unsigned char irq)
 {
 	if(irq >= 8)
@@ -45,9 +39,6 @@ void pic_eoi(unsigned char irq)
 	outb(PIC1_COMMAND,PIC_EOI);
 }
 
-//! @brief Set up PIC to use specified vectors.
-//! @param offset1 Master PIC base vector.
-//! @param offset2 Slave PIC base vector.
 void init_pic(int offset1, int offset2)
 {
 	unsigned char a1, a2;
@@ -67,8 +58,6 @@ void init_pic(int offset1, int offset2)
 	outb(PIC2_DATA, a2);
 }
 
-//! @brief Sets the divider and mode of the PIT.
-//! @param frequency A frequency in hertz.
 void init_pit(size_t frequency) {
     size_t reload = 1193182 / frequency;
     outb(0x43, 0x36);

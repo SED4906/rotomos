@@ -96,7 +96,7 @@ void unmap_page(size_t pmap, size_t vaddr) {
 
 void* kmalloc(size_t bytes) {
     for(heap* heap_entry = kernel_heap; heap_entry; heap_entry = heap_entry->next) {
-        if(heap_entry->bytes >= bytes) {
+        if(heap_entry->bytes >= (int64_t)bytes) {
             if(heap_entry->bytes - bytes > 64) {
                 size_t remaining = heap_entry->bytes - 64 - sizeof(heap);
                 heap* next_next = heap_entry->next;
