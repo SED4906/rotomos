@@ -4,19 +4,17 @@
 #include <stddef.h>
 typedef void* freelist;
 freelist* free_pages;
-//! @brief Unlink page from freelist.
-//! @return A page-aligned address in physical memory.
+uint64_t hhdm;
+
 size_t alloc_page() {
     size_t ret = (size_t)free_pages;
-    free_pages = (freelist*)*free_pages;
+    free_pages = (freelist*)*(freelist*)((uint64_t)free_pages + hhdm);
     return ret;
 }
 
-//! @brief Links page to freelist.
-//! @param page A page-aligned address in physical memory.
 void dealloc_page(size_t page) {
     freelist* entry = (freelist*)page;
-    *entry = free_pages;
+    *(freelist*)((uint64_t)entry + hhdm) = free_pages;
     free_pages = entry;
 }
 
@@ -25,10 +23,22 @@ struct limine_memmap_request memmap_request = {
     .revision = 0, .response = 0
 };
 
-//! @brief If a map of physical memory is unavailable, halts.
-//! All usable memory should be added to the freelist.
+struct limine_hhdm_request hhdm_request = {
+    .id = LIMINE_HHDM_REQUEST,
+    .revision = 0, .response = 0
+};
+
+typedef struct heap {
+    int64_t bytes;
+    struct heap* next;
+} heap;
+
+heap* kernel_heap;
+
 void init_mm() {
     if(!memmap_request.response) hang_forever();
+    if(!hhdm_request.response) hang_forever();
+    hhdm = hhdm_request.response->offset;
 
     for(size_t e=0;e<memmap_request.response->entry_count;e++) {
         struct limine_memmap_entry* en=memmap_request.response->entries[e];
@@ -36,21 +46,26 @@ void init_mm() {
         if(en->type != LIMINE_MEMMAP_USABLE) continue;
         for(size_t o=0;o<en->length;o+=4096) dealloc_page(en->base + o);
     }
+
+    kernel_heap = (heap*)((size_t)4 << 39);
+    uint64_t current_pmap = get_pmap();
+    for(int i=0;i<128;i++) {
+        uint64_t page;
+        if(!(page = alloc_page())) hang_forever();
+        map_page(current_pmap, (size_t)kernel_heap+i*4096, page, 7);
+    }
+
+    kernel_heap->bytes = 128*4096 - sizeof(heap);
+    kernel_heap->next = 0;
 }
 
 size_t map_page_step(size_t pmap, size_t entry) {
-    if(((size_t*)pmap)[entry] & 1) return ((size_t*)pmap)[entry] &~ 0xFFF;
+    if(((size_t*)((uint64_t)pmap + hhdm))[entry] & 1) return ((size_t*)((uint64_t)pmap + hhdm))[entry] &~ 0xFFF;
     size_t ret = alloc_page();
-    ((size_t*)pmap)[entry] = ret | 7;
+    ((size_t*)((uint64_t)pmap + hhdm))[entry] = ret | 7;
     return ret;
 }
 
-//! @brief Sets/updates a memory mapping, allocating memory if necessary.
-//! @param pmap A page map.
-//! @param vaddr A virtual address.
-//! @param paddr A physical address.
-//! @param flags Flags.
-//! @return The same virtual address.
 size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags) {
     size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
     size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
@@ -61,13 +76,10 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags) {
     pml3 = map_page_step(pmap, pml4_entry);
     pml2 = map_page_step(pml3, pml3_entry);
     pml1 = map_page_step(pml2, pml2_entry);
-    ((size_t*)pml1)[pml1_entry] = paddr | flags;
+    ((size_t*)((uint64_t)pml1 + hhdm))[pml1_entry] = paddr | flags;
     return vaddr;
 }
 
-//! @brief Removes a memory mapping if it exists.
-//! @param pmap A page map.
-//! @param vaddr A virtual address.
 void unmap_page(size_t pmap, size_t vaddr) {
     size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
     size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
@@ -75,19 +87,34 @@ void unmap_page(size_t pmap, size_t vaddr) {
     size_t pml1_entry = (vaddr & ((size_t)0x1ff << 12)) >> 12;
 
     size_t pml3, pml2, pml1;
-    if(((size_t*)pmap)[pml4_entry] & 1) pml3 = map_page_step(pmap, pml4_entry); else return;
-    if(((size_t*)pmap)[pml3_entry] & 1) pml2 = map_page_step(pml3, pml3_entry); else return;
-    if(((size_t*)pmap)[pml2_entry] & 1) pml1 = map_page_step(pml2, pml2_entry); else return;
-    ((size_t*)pml1)[pml1_entry] &=~ 1;
+    if(((size_t*)((uint64_t)pmap + hhdm))[pml4_entry] & 1) pml3 = map_page_step(pmap, pml4_entry); else return;
+    if(((size_t*)((uint64_t)pml3 + hhdm))[pml3_entry] & 1) pml2 = map_page_step(pml3, pml3_entry); else return;
+    if(((size_t*)((uint64_t)pml2 + hhdm))[pml2_entry] & 1) pml1 = map_page_step(pml2, pml2_entry); else return;
+    ((size_t*)((uint64_t)pml1 + hhdm))[pml1_entry] &=~ 1;
     tlb_invalidate(vaddr);
 }
 
-//! @todo Implement a proper heap.
 void* kmalloc(size_t bytes) {
-    if(bytes > 4096) return 0;
-    return (void*)alloc_page();
+    for(heap* heap_entry = kernel_heap; heap_entry; heap_entry = heap_entry->next) {
+        if(heap_entry->bytes >= bytes) {
+            if(heap_entry->bytes - bytes > 64) {
+                size_t remaining = heap_entry->bytes - 64 - sizeof(heap);
+                heap* next_next = heap_entry->next;
+                heap_entry->bytes = -64;
+                heap_entry->next = (heap*)((size_t)heap_entry + 64 + sizeof(heap));
+                heap_entry->next->bytes = remaining;
+                heap_entry->next->next = next_next;
+                return heap_entry + 1;
+            } else {
+                heap_entry->bytes = -heap_entry->bytes;
+                return heap_entry + 1;
+            }
+        }
+    }
+    return 0;
 }
-//! @todo Implement a proper heap.
+
 void kdemalloc(void* data) {
-    dealloc_page((size_t)data);
+    heap* heap_entry = (heap*)((size_t)data - sizeof(heap));
+    heap_entry->bytes = -heap_entry->bytes;
 }
