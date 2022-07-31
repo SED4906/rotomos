@@ -77,19 +77,54 @@ isr_double_fault_stub:
 
 global isr_stub_table:data
 isr_stub_table:
-    dq 8 dup isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
     dq isr_double_fault_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
-    dq 4 dup isr_err_stub wrt ..sym
-    dq isr_page_fault wrt ..sym 
-    dq 2 dup isr_no_err_stub wrt ..sym
     dq isr_err_stub wrt ..sym
-    dq 12 dup isr_no_err_stub wrt ..sym
+    dq isr_err_stub wrt ..sym
+    dq isr_err_stub wrt ..sym
+    dq isr_err_stub wrt ..sym
+    dq isr_page_fault wrt ..sym 
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
+    dq isr_no_err_stub wrt ..sym
     dq isr_err_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
     dq isr_pit_stub wrt ..sym
     dq isr_keyb_stub wrt ..sym
-    dq 14 dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
+    dq dup isr_irq_stub wrt ..sym
 
 global load_idt:function
 load_idt:
