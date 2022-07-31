@@ -111,20 +111,20 @@ isr_stub_table:
     dq isr_no_err_stub wrt ..sym
     dq isr_pit_stub wrt ..sym
     dq isr_keyb_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
-    dq dup isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
+    dq isr_irq_stub wrt ..sym
 
 global load_idt:function
 load_idt:
