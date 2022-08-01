@@ -16,7 +16,7 @@ typedef struct {
 	uint64_t	base;
 } __attribute__((packed)) idtr;
 
-//! @details - Sets default IDT entries,
+//! @brief - Sets default IDT entries,
 //! - initializes the PIC,
 //! - loads the IDT,
 //! - and enables interrupts.
@@ -65,14 +65,24 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags);
 //! @param vaddr A virtual address.
 void unmap_page(size_t pmap, size_t vaddr);
 
+//! @brief Allocate some bytes from a heap.
+//! @param bytes How many bytes to allocate.
+//! @return An address in virtual memory.
 void* kmalloc(size_t bytes);
+
+//! @brief Deallocate from a heap.
+//! @param data The address of the allocation.
 void kdemalloc(void* data);
 
 //! @brief Invalidates a page in the TLB.
 //! @param page An address in virtual memory.
 void tlb_invalidate(size_t page);
 
-uint64_t get_pmap();
+size_t get_pmap();
+
+size_t new_pmap();
+
+size_t get_hhdm();
 
 //// core/task.c core/context.S
 typedef struct {
@@ -81,6 +91,7 @@ typedef struct {
 
 typedef struct context_list{
     context c;
+	int pid;
     struct context_list* next;
 } context_list;
 
@@ -94,7 +105,7 @@ extern void context_switch_nosave(size_t rsp, size_t cr3);
 //! @return A stack pointer and page map.
 context switch_task(size_t rsp, size_t cr3);
 
-//! @details - Sets up a circular list of tasks,
+//! @brief - Sets up a circular list of tasks,
 //! - context switches to initialize the first item,
 //! - and enables a timer for further pre-emptive switches.
 void init_task();

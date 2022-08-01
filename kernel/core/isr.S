@@ -2,6 +2,7 @@ extern exception_err_handler
 extern exception_no_err_handler
 extern double_fault_handler
 extern page_fault_handler
+extern is_working_handler
 extern irq_handler
 extern pit_handler
 extern keyb_handler
@@ -75,6 +76,11 @@ isr_double_fault_stub:
     call double_fault_handler
     iretq
 
+global isr_syscall_is_working_stub:function
+isr_syscall_is_working_stub:
+    call is_working_handler
+    iretq
+
 global isr_stub_table:data
 isr_stub_table:
     dq isr_no_err_stub wrt ..sym
@@ -125,6 +131,7 @@ isr_stub_table:
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
+    dq isr_syscall_is_working_stub wrt ..sym
 
 global load_idt:function
 load_idt:

@@ -20,13 +20,13 @@ void set_idt_entry(uint8_t vector, void* isr, uint8_t flags) {
     descriptor->reserved           = 0;
 }
 
-extern void* isr_stub_table[48];
+extern void* isr_stub_table[49];
 
 void init_idt() {
     idtr_idt.base = (uintptr_t)&idt[0];
     idtr_idt.limit = (uint16_t)sizeof(idt_entry) * IDT_MAX_DESCRIPTORS - 1;
  
-    for (uint8_t vector = 0; vector < 48; vector++) {
+    for (uint8_t vector = 0; vector < 49; vector++) {
         set_idt_entry(vector, isr_stub_table[vector], 0x8E);
     }
 
@@ -66,4 +66,8 @@ __attribute__ ((no_caller_saved_registers))
 void pit_handler() {
     context_switch();
     pic_eoi(0);
+}
+__attribute__ ((no_caller_saved_registers))
+void is_working_handler() {
+    //printf(".");
 }

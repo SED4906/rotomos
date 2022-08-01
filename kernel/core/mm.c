@@ -97,11 +97,11 @@ void unmap_page(size_t pmap, size_t vaddr) {
 void* kmalloc(size_t bytes) {
     for(heap* heap_entry = kernel_heap; heap_entry; heap_entry = heap_entry->next) {
         if(heap_entry->bytes >= (int64_t)bytes) {
-            if(heap_entry->bytes - bytes > 64) {
-                size_t remaining = heap_entry->bytes - 64 - sizeof(heap);
+            if(heap_entry->bytes - bytes > sizeof(heap)) {
+                size_t remaining = heap_entry->bytes - bytes - sizeof(heap);
                 heap* next_next = heap_entry->next;
-                heap_entry->bytes = -64;
-                heap_entry->next = (heap*)((size_t)heap_entry + 64 + sizeof(heap));
+                heap_entry->bytes = -bytes;
+                heap_entry->next = (heap*)((size_t)heap_entry + bytes + sizeof(heap));
                 heap_entry->next->bytes = remaining;
                 heap_entry->next->next = next_next;
                 return heap_entry + 1;
@@ -117,4 +117,20 @@ void* kmalloc(size_t bytes) {
 void kdemalloc(void* data) {
     heap* heap_entry = (heap*)((size_t)data - sizeof(heap));
     heap_entry->bytes = -heap_entry->bytes;
+}
+
+size_t new_pmap() {
+    uint64_t ret=0;
+    if(!(ret=alloc_page())) return 0;
+    memset((void*)(ret+hhdm),0,4096);
+    uint64_t* retp = (uint64_t*)ret;
+    uint64_t* pmap = (uint64_t*)get_pmap();
+    retp[4] = pmap[4];
+    retp[(hhdm>>39)&0x1FF] = pmap[(hhdm>>39)&0x1FF];
+    retp[511] = pmap[511];
+    return ret;
+}
+
+size_t get_hhdm() {
+    return hhdm;
 }
