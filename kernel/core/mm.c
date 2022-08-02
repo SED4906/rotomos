@@ -62,6 +62,7 @@ void init_mm() {
 size_t map_page_step(size_t pmap, size_t entry) {
     if(((size_t*)((uint64_t)pmap + hhdm))[entry] & 1) return ((size_t*)((uint64_t)pmap + hhdm))[entry] &~ 0xFFF;
     size_t ret = alloc_page();
+    memset((void*)(ret+hhdm),0,4096);
     ((size_t*)((uint64_t)pmap + hhdm))[entry] = ret | 7;
     return ret;
 }
@@ -125,6 +126,7 @@ size_t new_pmap() {
     memset((void*)(ret+hhdm),0,4096);
     uint64_t* retp = (uint64_t*)ret;
     uint64_t* pmap = (uint64_t*)get_pmap();
+    //retp[0] = pmap[0];
     retp[4] = pmap[4];
     retp[(hhdm>>39)&0x1FF] = pmap[(hhdm>>39)&0x1FF];
     retp[511] = pmap[511];

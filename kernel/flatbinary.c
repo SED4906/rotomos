@@ -4,7 +4,7 @@
 #include <kernel/libc.h>
 #include <stddef.h>
 
-void aout_exec(size_t file, size_t len) {
+void flatbinary_exec(size_t file, size_t len) {
     uint64_t pmap = new_pmap();
     uint64_t stack = (uint64_t)kmalloc(1024);
     uint64_t hhdm=get_hhdm();
@@ -14,6 +14,6 @@ void aout_exec(size_t file, size_t len) {
         memcpy((void*)(page+hhdm),(void*)(file+i*4096),4096);
         map_page(pmap, 0x800000+i*4096,page+i*4096,7);
     }
-    *(uint64_t*)(stack+1016) = 0x800040;
+    *(uint64_t*)(stack+1016) = 0x800000;
     add_task(stack+1016,pmap);
 }
