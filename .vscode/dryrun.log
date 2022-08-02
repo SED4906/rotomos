@@ -1,0 +1,20 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory `c:/Users/sed49/repos/rotomos-1'
+nasm -felf64 -g kernel/core/context.S -o kernel/core/context.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/flatbinary.c -o kernel/flatbinary.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/core/idt.c -o kernel/core/idt.o
+ 
+nasm -felf64 -g kernel/core/isr.S -o kernel/core/isr.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/keyb.c -o kernel/keyb.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/core/libc.c -o kernel/core/libc.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/main.c -o kernel/main.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/core/mm.c -o kernel/core/mm.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/core/pic.c -o kernel/core/pic.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/printf.c -o kernel/printf.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/core/task.c -o kernel/core/task.o
+ 
+nasm -felf64 -g kernel/core/tlb.S -o kernel/core/tlb.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/tty.c -o kernel/tty.o
+ld.lld kernel/core/context.o kernel/flatbinary.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/core/mm.o kernel/core/pic.o kernel/printf.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o -Tkernel/linker.ld -nostdlib -static -pie --no-dynamic-linker  -o rotomos.elf
+make.exe: Leaving directory `c:/Users/sed49/repos/rotomos-1'
+ 

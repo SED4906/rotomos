@@ -34,6 +34,9 @@ void init_idt() {
     load_idt(&idtr_idt);
 }
 
+void reload_idt() {
+    load_idt(&idtr_idt);
+}
 
 __attribute__((noreturn))
 void exception_err_handler(size_t code) {

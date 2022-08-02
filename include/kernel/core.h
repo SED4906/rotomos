@@ -26,6 +26,9 @@ void init_idt();
 //! @param idtr_val IDTR location.
 void load_idt(idtr* idtr_val);
 
+//! @brief Loads IDT and enables interrupts again.
+void reload_idt();
+
 //! @brief Sets the entry in the IDT.
 //! @param vector A vector number.
 //! @param isr A pointer to code.
