@@ -50,7 +50,7 @@ uint8_t data_rotom_logo_text[] = {
     215,15,196,12, 187,20,196,12, 187,20,200,32, 210,42,200,32, 210,42,205,54,
     186,58,205,54
 };
-uint64_t data_rotom_logo_text_len = 164;
+uint64_t data_rotom_logo_text_len = 160;
 
 void fb_draw_rotom_logo(uint64_t offset_x,uint64_t offset_y) {
     for(uint64_t i=0; i<data_rotom_logo_len; i+=4) {

@@ -26,13 +26,11 @@ void init_idt() {
     idtr_idt.base = (uintptr_t)&idt[0];
     idtr_idt.limit = (uint16_t)sizeof(idt_entry) * IDT_MAX_DESCRIPTORS - 1;
  
-    for (uint8_t vector = 0; vector < 32; vector++) {
+    for (uint8_t vector = 0; vector < 49; vector++) {
         set_idt_entry(vector, isr_stub_table[vector], 0x8E);
     }
 
-    for (uint8_t vector = 32; vector < 49; vector++) {
-        set_idt_entry(vector, isr_stub_table[vector], 0x8F);
-    }
+    set_idt_entry(32, isr_stub_table[32], 0x8F);
 
     init_pic(32, 40);
     load_idt(&idtr_idt);
