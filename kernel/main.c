@@ -11,19 +11,8 @@ void _start() {
     init_mm();
     init_task();
     init_keyb();
-    //fb_clear_screen();
     fb_draw_rotom_logo(0,0);fb_draw_rotom_text(128,0);
-    printf("a");
-    hang_idle();
-    printf("b");
-    flatbinary_exec((size_t)test_binary,5);
-    printf("c");
-    hang_idle();
-    printf("d");
-    flatbinary_exec((size_t)test_binary,5);
-    printf("e");
     for(;;) {
-        printf(".");
         hang_idle();
     }
 }

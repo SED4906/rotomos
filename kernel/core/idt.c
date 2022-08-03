@@ -70,7 +70,5 @@ void pit_handler() {
     pic_eoi(0);
     context_switch();
 }
-void is_working_handler(uint64_t rsp) {
-    printf("%x!",rsp);
-    reload_idt();
+void is_working_handler() {
 }

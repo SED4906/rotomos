@@ -78,7 +78,6 @@ isr_double_fault_stub:
 
 global isr_syscall_is_working_stub:function
 isr_syscall_is_working_stub:
-    mov rdi,rsp
     call is_working_handler
     iretq
 

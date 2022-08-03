@@ -55,15 +55,15 @@ uint64_t data_rotom_logo_text_len = 160;
 void fb_draw_rotom_logo(uint64_t offset_x,uint64_t offset_y) {
     for(uint64_t i=0; i<data_rotom_logo_len; i+=4) {
         fb_plot_line(offset_x+data_rotom_logo[i],offset_y+data_rotom_logo[i+1],offset_x+data_rotom_logo[i+2],offset_y+data_rotom_logo[i+3],0x00C1FFFF);
-        hang_idle();
+        //hang_idle();
     }
-    fb_plot(offset_x+64,offset_y+48,0x00C1FFFF);hang_idle();
-    fb_plot(offset_x+58,offset_y+52,0x00C1FFFF);hang_idle();
+    fb_plot(offset_x+64,offset_y+48,0x00C1FFFF);//hang_idle();
+    fb_plot(offset_x+58,offset_y+52,0x00C1FFFF);//hang_idle();
 }
 
 void fb_draw_rotom_text(uint64_t offset_x,uint64_t offset_y) {
     for(uint64_t i=0; i<data_rotom_logo_text_len; i+=4) {
         fb_plot_line(offset_x+data_rotom_logo_text[i],offset_y+data_rotom_logo_text[i+1],offset_x+data_rotom_logo_text[i+2],offset_y+data_rotom_logo_text[i+3],0xFF8A00FF);
-        hang_idle();
+        //hang_idle();
     }
 }
