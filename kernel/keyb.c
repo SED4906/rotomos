@@ -47,14 +47,35 @@ char scan2ascii(uint8_t code) {
     return 0;
 }
 
+char* keyb_buffer;
+int write_head,read_head;
+int chars_remaining;
+
 void init_keyb() {
+    keyb_buffer = kmalloc(64);
+    read_head = 0;
+    write_head = 0;
+    chars_remaining = 0;
     printf("Type away, your keyboard is now activated.\n");
     pic_clear_mask(1);
+}
+
+char keyb_readnext() {
+    if(!chars_remaining) return 0;
+    char ret = keyb_buffer[read_head++];
+    read_head %= 64;
+    chars_remaining--;
+    return ret;
 }
 
 __attribute__ ((no_caller_saved_registers))
 void keyb_handler() {
     char keyc = scan2ascii(inb(0x60));
-    if(keyc) printf("%c",keyc);
+    if(keyc && chars_remaining < 64) {
+        keyb_buffer[write_head++] = keyc;
+        write_head %= 64;
+        chars_remaining++;
+        printf("%c",keyc);
+    }
     pic_eoi(1);
 }

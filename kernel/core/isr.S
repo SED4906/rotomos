@@ -6,6 +6,10 @@ extern is_working_handler
 extern irq_handler
 extern pit_handler
 extern keyb_handler
+extern write_handler
+extern read_handler
+extern exit_handler
+extern ud2_handler
 
 global isr_err_stub:function
 isr_err_stub:
@@ -17,6 +21,12 @@ isr_err_stub:
 global isr_no_err_stub:function
 isr_no_err_stub:
     call exception_no_err_handler
+    iretq
+
+global isr_ud2_stub:function
+isr_ud2_stub:
+    mov rdi,[rsp]
+    call ud2_handler
     iretq
 
 global isr_page_fault:function
@@ -76,9 +86,19 @@ isr_double_fault_stub:
     call double_fault_handler
     iretq
 
-global isr_syscall_is_working_stub:function
-isr_syscall_is_working_stub:
-    call is_working_handler
+global isr_syscall_read_stub:function
+isr_syscall_read_stub:
+    call read_handler
+    iretq
+
+global isr_syscall_write_stub:function
+isr_syscall_write_stub:
+    call write_handler
+    iretq
+
+global isr_syscall_exit_stub:function
+isr_syscall_exit_stub:
+    call exit_handler
     iretq
 
 global isr_stub_table:data
@@ -89,7 +109,7 @@ isr_stub_table:
     dq isr_no_err_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
-    dq isr_no_err_stub wrt ..sym
+    dq isr_ud2_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
     dq isr_double_fault_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym
@@ -131,7 +151,9 @@ isr_stub_table:
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
-    dq isr_syscall_is_working_stub wrt ..sym
+    dq isr_syscall_write_stub wrt ..sym
+    dq isr_syscall_read_stub wrt ..sym
+    dq isr_syscall_exit_stub wrt ..sym
 
 global load_idt:function
 load_idt:

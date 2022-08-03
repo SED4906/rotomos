@@ -30,7 +30,7 @@ void add_task(size_t rsp, size_t cr3) {
 
 void exit_task() {
     context_list* context = contexts;
-    while(context->next != contexts);
+    while(context->next != contexts) context = context->next;
     context->next = contexts->next;
     kdemalloc(contexts);
     contexts = context->next;
