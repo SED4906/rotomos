@@ -14,9 +14,9 @@ void init_task() {
     contexts = (context_list*)kmalloc(sizeof(context_list));
     contexts->next = contexts;
     contexts->pid = next_pid++;
-    context_switch();
-    init_pit(20);
+    init_pit(69);
     pic_clear_mask(0);
+    hang_idle();
 }
 
 void add_task(size_t rsp, size_t cr3) {

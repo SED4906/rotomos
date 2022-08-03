@@ -161,3 +161,46 @@ void init_pic(int offset1, int offset2);
 //! @brief Sets the divider and mode of the PIT.
 //! @param frequency A frequency in hertz.
 void init_pit(size_t frequency);
+//// core/gdt.c core/tables.S
+typedef struct {
+	uint32_t u0;
+	uint64_t rsp0;
+	uint64_t rsp1;
+	uint64_t rsp2;
+	uint64_t u1;
+	uint64_t ist1;
+	uint64_t ist2;
+	uint64_t ist3;
+	uint64_t ist4;
+	uint64_t ist5;
+	uint64_t ist6;
+	uint64_t ist7;
+	uint64_t u2;
+	uint16_t u3;
+	uint16_t iopb;
+} tss;
+
+typedef struct {
+	uint16_t	limit;
+	uint64_t	base;
+} __attribute__((packed)) gdtr;
+
+void set_gdt_entry(uint64_t* entry, uint64_t base, uint16_t limit, uint8_t access, uint8_t flags);
+
+void init_gdt();
+
+void load_gdt(gdtr* gdtr_gdt);
+
+void load_tss();
+//// core/fb.c misc_fun.c
+void fb_clear_screen();
+
+void fb_plot(uint16_t x, uint16_t y, uint32_t rgb);
+
+void fb_plot_line(uint64_t x0, uint64_t y0, uint64_t x1, uint64_t y1, uint32_t rgba);
+
+void fb_draw_rotom_logo(uint64_t offset_x,uint64_t offset_y);
+
+void fb_draw_rotom_text(uint64_t offset_x,uint64_t offset_y);
+
+size_t fb_print_string(const char * str, size_t len);

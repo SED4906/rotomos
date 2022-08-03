@@ -16,4 +16,5 @@ void flatbinary_exec(size_t file, size_t len) {
     }
     *(uint64_t*)(stack+1016) = 0x800000;
     add_task(stack+1016,pmap);
+    printf("%x",stack+1016);
 }
