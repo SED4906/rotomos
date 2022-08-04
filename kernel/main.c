@@ -23,8 +23,10 @@ void _start() {
     init_keyb();
     fb_draw_rotom_logo(0,0);fb_draw_rotom_text(128,0);
     if(module_request.response) {
-        printf("%s: %x %x\n", module_request.response->modules[0]->path, module_request.response->modules[0]->address, module_request.response->modules[0]->size);
-        flatbinary_exec((size_t)module_request.response->modules[0]->address, module_request.response->modules[0]->size);
+        for(size_t i=0;i<module_request.response->module_count;i++) {
+            printf("%s: %x %x\n", module_request.response->modules[i]->path, module_request.response->modules[i]->address, module_request.response->modules[i]->size);
+            flatbinary_exec((size_t)module_request.response->modules[i]->address, module_request.response->modules[i]->size);
+        }
     }
     for(;;) {
         hang_idle();

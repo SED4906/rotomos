@@ -53,6 +53,7 @@ int chars_remaining;
 
 void init_keyb() {
     keyb_buffer = kmalloc(64);
+    memset(keyb_buffer,0,64);
     read_head = 0;
     write_head = 0;
     chars_remaining = 0;
