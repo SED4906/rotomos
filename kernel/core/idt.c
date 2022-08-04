@@ -21,13 +21,13 @@ void set_idt_entry(uint8_t vector, void* isr, uint8_t flags) {
     descriptor->reserved           = 0;
 }
 
-extern void* isr_stub_table[51];
+extern void* isr_stub_table[56];
 
 void init_idt() {
     idtr_idt.base = (uintptr_t)&idt[0];
     idtr_idt.limit = (uint16_t)sizeof(idt_entry) * IDT_MAX_DESCRIPTORS - 1;
  
-    for (uint8_t vector = 0; vector < 51; vector++) {
+    for (uint8_t vector = 0; vector < 56; vector++) {
         set_idt_entry(vector, isr_stub_table[vector], 0x8E);
     }
 
@@ -75,24 +75,4 @@ void irq_handler() {
 void pit_handler() {
     pic_eoi(0);
     context_switch();
-}
-size_t write_handler(int fd, char* str, size_t len) {
-    if(fd == 1) {
-        return fb_print_string(str, len);
-    } else {
-        return 0;
-    }
-}
-size_t read_handler(int fd, char* str, size_t len) {
-    if(fd == 0) {
-        for(size_t i=0;i<len;i++) {
-            if(!(str[i] = keyb_readnext())) return i;
-        }
-        return len;
-    } else {
-        return 0;
-    }
-}
-void exit_handler() {
-    exit_task();
 }

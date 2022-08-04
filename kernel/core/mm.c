@@ -81,18 +81,19 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags) {
     return vaddr;
 }
 
-void unmap_page(size_t pmap, size_t vaddr) {
+size_t unmap_page(size_t pmap, size_t vaddr) {
     size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
     size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
     size_t pml2_entry = (vaddr & ((size_t)0x1ff << 21)) >> 21;
     size_t pml1_entry = (vaddr & ((size_t)0x1ff << 12)) >> 12;
 
     size_t pml3, pml2, pml1;
-    if(((size_t*)((uint64_t)pmap + hhdm))[pml4_entry] & 1) pml3 = map_page_step(pmap, pml4_entry); else return;
-    if(((size_t*)((uint64_t)pml3 + hhdm))[pml3_entry] & 1) pml2 = map_page_step(pml3, pml3_entry); else return;
-    if(((size_t*)((uint64_t)pml2 + hhdm))[pml2_entry] & 1) pml1 = map_page_step(pml2, pml2_entry); else return;
+    if(((size_t*)((uint64_t)pmap + hhdm))[pml4_entry] & 1) pml3 = map_page_step(pmap, pml4_entry); else return 0;
+    if(((size_t*)((uint64_t)pml3 + hhdm))[pml3_entry] & 1) pml2 = map_page_step(pml3, pml3_entry); else return 0;
+    if(((size_t*)((uint64_t)pml2 + hhdm))[pml2_entry] & 1) pml1 = map_page_step(pml2, pml2_entry); else return 0;
     ((size_t*)((uint64_t)pml1 + hhdm))[pml1_entry] &=~ 1;
     tlb_invalidate(vaddr);
+    return ((size_t*)((uint64_t)pml1 + hhdm))[pml1_entry];
 }
 
 void* kmalloc(size_t bytes) {

@@ -9,6 +9,11 @@ extern keyb_handler
 extern write_handler
 extern read_handler
 extern exit_handler
+extern open_handler
+extern close_handler
+extern mmap_handler
+extern munmap_handler
+extern exec_handler
 extern ud2_handler
 
 global isr_err_stub:function
@@ -101,6 +106,31 @@ isr_syscall_exit_stub:
     call exit_handler
     iretq
 
+global isr_syscall_open_stub:function
+isr_syscall_open_stub:
+    call open_handler
+    iretq
+
+global isr_syscall_close_stub:function
+isr_syscall_close_stub:
+    call close_handler
+    iretq
+
+global isr_syscall_mmap_stub:function
+isr_syscall_mmap_stub:
+    call mmap_handler
+    iretq
+
+global isr_syscall_munmap_stub:function
+isr_syscall_munmap_stub:
+    call munmap_handler
+    iretq
+
+global isr_syscall_exec_stub:function
+isr_syscall_exec_stub:
+    call exec_handler
+    iretq
+
 global isr_stub_table:data
 isr_stub_table:
     dq isr_no_err_stub wrt ..sym
@@ -154,6 +184,11 @@ isr_stub_table:
     dq isr_syscall_write_stub wrt ..sym
     dq isr_syscall_read_stub wrt ..sym
     dq isr_syscall_exit_stub wrt ..sym
+    dq isr_syscall_open_stub wrt ..sym
+    dq isr_syscall_close_stub wrt ..sym
+    dq isr_syscall_mmap_stub wrt ..sym
+    dq isr_syscall_munmap_stub wrt ..sym
+    dq isr_syscall_exec_stub wrt ..sym
 
 global load_idt:function
 load_idt:

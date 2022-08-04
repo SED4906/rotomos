@@ -66,7 +66,8 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags);
 //! @brief Removes a memory mapping if it exists.
 //! @param pmap A page map.
 //! @param vaddr A virtual address.
-void unmap_page(size_t pmap, size_t vaddr);
+//! @return The page table entry.
+size_t unmap_page(size_t pmap, size_t vaddr);
 
 //! @brief Allocate some bytes from a heap.
 //! @param bytes How many bytes to allocate.
@@ -204,3 +205,12 @@ void fb_draw_rotom_logo(uint64_t offset_x,uint64_t offset_y);
 void fb_draw_rotom_text(uint64_t offset_x,uint64_t offset_y);
 
 size_t fb_print_string(const char * str, size_t len);
+//// core/pci.c
+
+void init_pci();
+
+void pci_check_function(uint8_t bus, uint8_t device, uint8_t function);
+
+void pci_check_device(uint8_t bus, uint8_t device);
+
+void pci_check_bus(uint8_t bus);

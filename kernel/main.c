@@ -18,6 +18,7 @@ void _start() {
     init_gdt();
     init_idt();
     init_mm();
+    init_pci();
     init_task();
     init_keyb();
     fb_draw_rotom_logo(0,0);fb_draw_rotom_text(128,0);
