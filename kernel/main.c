@@ -2,12 +2,8 @@
 #include <kernel/core.h>
 #include <kernel/exec.h>
 #include <kernel/keyb.h>
+#include <kernel/fs.h>
 #include <limine.h>
-
-struct limine_module_request module_request = {
-    .id=LIMINE_MODULE_REQUEST,
-    .revision = 0, .response = 0
-};
 
 /*uint8_t test_binary[48] = {0xBF, 0x01, 0x00, 0x00, 0x00, 0x48, 0xBE, 0x1B, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 
 0x8B, 0x14, 0x25, 0x28, 0x00, 0x80, 0x00, 0xCD, 0x30, 0xCD, 0x32, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 
@@ -21,13 +17,9 @@ void _start() {
     init_pci();
     init_task();
     init_keyb();
+    init_tar();
+    exec_handler("init");
     fb_draw_rotom_logo(0,0);fb_draw_rotom_text(128,0);
-    if(module_request.response) {
-        for(size_t i=0;i<module_request.response->module_count;i++) {
-            printf("%s: %x %x\n", module_request.response->modules[i]->path, module_request.response->modules[i]->address, module_request.response->modules[i]->size);
-            flatbinary_exec((size_t)module_request.response->modules[i]->address, module_request.response->modules[i]->size);
-        }
-    }
     for(;;) {
         hang_idle();
     }

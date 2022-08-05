@@ -113,6 +113,7 @@ void* kmalloc(size_t bytes) {
             }
         }
     }
+
     return 0;
 }
 
@@ -125,8 +126,8 @@ size_t new_pmap() {
     uint64_t ret=0;
     if(!(ret=alloc_page())) return 0;
     memset((void*)(ret+hhdm),0,4096);
-    uint64_t* retp = (uint64_t*)ret;
-    uint64_t* pmap = (uint64_t*)get_pmap();
+    uint64_t* retp = (uint64_t*)(ret+get_hhdm());
+    uint64_t* pmap = (uint64_t*)(get_pmap()+get_hhdm());
     //retp[0] = pmap[0];
     retp[4] = pmap[4];
     retp[(hhdm>>39)&0x1FF] = pmap[(hhdm>>39)&0x1FF];
