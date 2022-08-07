@@ -1,3 +1,4 @@
+#include <kernel/libc.h>
 #include <kernel/list.h>
 #include <kernel/mm.h>
 #include <kernel/panic.h>
@@ -8,7 +9,7 @@ LL<Task>* task_list;
 int next_pid=0;
 
 void TaskInitialize() {
-    task_list = (LL<Task>*)MemHeapAllocate(sizeof(LL<Task>));
+    task_list = new LL<Task>;
     if(!task_list) KePanic("task");
     task_list->next=task_list;task_list->prev=task_list;
     task_list->data.pid = next_pid++;
@@ -25,7 +26,7 @@ extern "C" Context LoadNextTask(size_t rsp, size_t cr3) {
 }
 
 void TaskAdd(size_t rsp, size_t cr3) {
-    LL<Task>* task = (LL<Task>*)MemHeapAllocate(sizeof(LL<Task>));
+    LL<Task>* task = new LL<Task>;
     task->data.ctx.rsp = rsp;
     task->data.ctx.cr3 = cr3;
     task->data.pid = next_pid++;
@@ -37,7 +38,7 @@ void TaskAdd(size_t rsp, size_t cr3) {
 void TaskExit() {
     LL<Task>* task = task_list;
     task_list=task_list->next;
-    MemHeapDeallocate((size_t)ListUnlink(task));
+    delete ListUnlink(task);
     ContextSwitchNoSave(task_list->data.ctx.rsp,task_list->data.ctx.cr3);
     for(;;) KeIdle();
 }

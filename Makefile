@@ -56,6 +56,7 @@ CPPFLAGS +=            \
 	-mno-sse2            \
 	-mno-red-zone        \
 	-target x86_64-elf \
+	-fno-exceptions \
 	-g
 
 
