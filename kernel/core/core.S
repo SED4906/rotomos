@@ -1,43 +1,68 @@
-extern exception_err_handler
-extern exception_no_err_handler
-extern double_fault_handler
-extern page_fault_handler
-extern is_working_handler
-extern irq_handler
-extern pit_handler
-extern keyb_handler
-extern write_handler
-extern read_handler
-extern exit_handler
-extern open_handler
-extern close_handler
-extern mmap_handler
-extern munmap_handler
-extern exec_handler
-extern ud2_handler
+extern LoadNextTask
+
+global ContextSwitch:function
+ContextSwitch:
+mov rdi, rsp
+mov rsi, cr3
+call LoadNextTask
+mov rsp, rax
+mov cr3, rdx
+ret
+
+global ContextSwitchNoSave:function
+ContextSwitchNoSave:
+mov rsp, rdi
+mov cr3, rsi
+ret
+
+global KeIdle:function
+KeIdle:
+hlt
+ret
+
+global KeLockUpForever:function
+KeLockUpForever:
+cli
+hlt
+ret
+
+global IdtLoad:function
+IdtLoad:
+lidt [rdi]
+sti
+ret
+
+extern HandleExceptWithCode
+extern HandleExceptNoCode
+extern HandleUD2
+extern HandlePageFault
+extern HandlePit
+extern HandleIrq
+extern HandleKeyb
+extern HandleDoubleFault
 
 global isr_err_stub:function
 isr_err_stub:
     xchg rdi,[rsp]
-    call exception_err_handler
+    call HandleExceptWithCode
     xchg rdi,[rsp]
     iretq
 
 global isr_no_err_stub:function
 isr_no_err_stub:
-    call exception_no_err_handler
+    call HandleExceptNoCode
     iretq
 
 global isr_ud2_stub:function
 isr_ud2_stub:
     mov rdi,[rsp]
-    call ud2_handler
+    call HandleUD2
     iretq
 
 global isr_page_fault:function
 isr_page_fault:
     pop rdi
-    call page_fault_handler
+    call HandlePageFault
     iretq
 
 global isr_pit_stub:function
@@ -57,7 +82,7 @@ isr_pit_stub:
     push r14
     push r15
     push rbp
-    call pit_handler
+    call HandlePit
     pop rbp
     pop r15
     pop r14
@@ -77,58 +102,18 @@ isr_pit_stub:
 
 global isr_irq_stub:function
 isr_irq_stub:
-    call irq_handler
+    call HandleIrq
     iretq
 
 global isr_keyb_stub:function
 isr_keyb_stub:
-    call keyb_handler
+    call HandleKeyb
     iretq
 
 global isr_double_fault_stub:function
 isr_double_fault_stub:
     pop rdi
-    call double_fault_handler
-    iretq
-
-global isr_syscall_read_stub:function
-isr_syscall_read_stub:
-    call read_handler
-    iretq
-
-global isr_syscall_write_stub:function
-isr_syscall_write_stub:
-    call write_handler
-    iretq
-
-global isr_syscall_exit_stub:function
-isr_syscall_exit_stub:
-    call exit_handler
-    iretq
-
-global isr_syscall_open_stub:function
-isr_syscall_open_stub:
-    call open_handler
-    iretq
-
-global isr_syscall_close_stub:function
-isr_syscall_close_stub:
-    call close_handler
-    iretq
-
-global isr_syscall_mmap_stub:function
-isr_syscall_mmap_stub:
-    call mmap_handler
-    iretq
-
-global isr_syscall_munmap_stub:function
-isr_syscall_munmap_stub:
-    call munmap_handler
-    iretq
-
-global isr_syscall_exec_stub:function
-isr_syscall_exec_stub:
-    call exec_handler
+    call HandleDoubleFault
     iretq
 
 global isr_stub_table:data
@@ -181,28 +166,29 @@ isr_stub_table:
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
-    dq isr_syscall_write_stub wrt ..sym
-    dq isr_syscall_read_stub wrt ..sym
-    dq isr_syscall_exit_stub wrt ..sym
-    dq isr_syscall_open_stub wrt ..sym
-    dq isr_syscall_close_stub wrt ..sym
-    dq isr_syscall_mmap_stub wrt ..sym
-    dq isr_syscall_munmap_stub wrt ..sym
-    dq isr_syscall_exec_stub wrt ..sym
 
-global load_idt:function
-load_idt:
-lidt [rdi]
-sti
-ret
+global GdtLoad:function
+GdtLoad:
+lgdt [rdi]
+reloadSegments:
+; Reload CS register:
+PUSH 0x08                 ; Push code segment to stack, 0x08 is a stand-in for your code segment
+LEA RAX, [rel .reload_CS] ; Load address of .reload_CS into RAX
+PUSH RAX                  ; Push this value to the stack
+RETFQ                     ; Perform a far return, RETFQ or LRETQ depending on syntax
+.reload_CS:
+; Reload data segment registers
+MOV   AX, 0x10 ; 0x10 is a stand-in for your data segment
+MOV   DS, AX
+MOV   ES, AX
+MOV   FS, AX
+MOV   GS, AX
+MOV   SS, AX
+RET
 
-global hang_forever:function
-hang_forever:
-cli
-hlt
-jmp hang_forever
-
-global hang_idle:function
-hang_idle:
-hlt
+global TssLoad:function
+TssLoad:
+mov [rdi+4],rsp
+mov ax,0x28
+ltr ax
 ret

@@ -1,6 +1,6 @@
 # This is the name that our final kernel executable will have.
 # Change as needed.
-KERNEL := rotomos.elf
+KERNEL := 4906.elf
 
 # It is highly recommended to use a custom built cross toolchain to build a kernel.
 # We are only using "cc" as a placeholder here. It may work by using
@@ -59,7 +59,8 @@ CPPFLAGS +=            \
 	-g
 
 
-OBJ := kernel/core/context.o kernel/core/fb.o kernel/flatbinary.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/misc_fun.o kernel/core/mm.o kernel/core/pci.o kernel/core/pic.o kernel/printf.o kernel/core/syscall.o kernel/core/tables.o kernel/fs/tar.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o
+OBJ := kernel/main.o
+include kernel/core/Makefile
 
 # Default target.
 .PHONY: all
@@ -70,7 +71,7 @@ $(KERNEL): $(OBJ)
 	$(LD) $(OBJ) $(LDFLAGS) -o $@
 
 %.o: %.cpp
-	$(CPP) $(CFLAGS) -c $< -o $@
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
