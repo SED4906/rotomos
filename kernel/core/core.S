@@ -192,3 +192,8 @@ mov [rdi+4],rsp
 mov ax,0x28
 ltr ax
 ret
+
+global MemCurrentPagemap:function
+MemCurrentPagemap:
+mov rax,cr3
+ret

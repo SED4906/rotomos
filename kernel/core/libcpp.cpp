@@ -29,3 +29,8 @@ void operator delete[](void* data) {
     if((size_t)data & 0xFFF) MemHeapDeallocate((size_t)data);
     else MemBlkDeallocate((size_t)data);
 }
+
+extern "C" void __cxa_pure_virtual()
+{
+    // Do nothing or print an error message.
+}

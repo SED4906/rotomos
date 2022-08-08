@@ -167,9 +167,10 @@ void MemHeapDeallocate(size_t address) {
     }
 }
 
-size_t MemMapPageStep(size_t pmap, size_t entry) {
+size_t MemMapPageStep(size_t pmap, size_t entry, bool create) {
     size_t* pmap_offset = (size_t*)(pmap+hhdm);
     if(pmap_offset[entry] & 1) return pmap_offset[entry] &~ 0xFFF;
+    if(!create) return 0;
     size_t ret = MemBlkAllocate(0);
     if(!ret) return 0;
     memset((void*)(ret+hhdm),0,4096);
@@ -184,9 +185,39 @@ size_t MemMapPage(size_t pmap, size_t vaddr, size_t paddr, size_t flags) {
     size_t pml1_entry = (vaddr & ((size_t)0x1ff << 12)) >> 12;
 
     size_t pml3, pml2, pml1;
-    if(!(pml3 = MemMapPageStep(pmap, pml4_entry))) return 0;
-    if(!(pml2 = MemMapPageStep(pml3, pml3_entry))) return 0;
-    if(!(pml1 = MemMapPageStep(pml2, pml2_entry) + hhdm)) return 0;
+    if(!(pml3 = MemMapPageStep(pmap, pml4_entry, true))) return 0;
+    if(!(pml2 = MemMapPageStep(pml3, pml3_entry, true))) return 0;
+    if(!(pml1 = MemMapPageStep(pml2, pml2_entry, true))) return 0;
+    pml1 += hhdm;
     ((size_t*)(pml1))[pml1_entry] = paddr | flags;
     return vaddr;
+}
+
+size_t MemCheckPage(size_t pmap, size_t vaddr) {
+    size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
+    size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
+    size_t pml2_entry = (vaddr & ((size_t)0x1ff << 21)) >> 21;
+    size_t pml1_entry = (vaddr & ((size_t)0x1ff << 12)) >> 12;
+
+    size_t pml3, pml2, pml1;
+    if(!(pml3 = MemMapPageStep(pmap, pml4_entry, false))) return 0;
+    if(!(pml2 = MemMapPageStep(pml3, pml3_entry, false))) return 0;
+    if(!(pml1 = MemMapPageStep(pml2, pml2_entry, false))) return 0;
+    pml1 += hhdm;
+    return ((size_t*)(pml1))[pml1_entry];
+}
+
+size_t MemUnmapPage(size_t pmap, size_t vaddr) {
+    size_t pml4_entry = (vaddr & ((size_t)0x1ff << 39)) >> 39;
+    size_t pml3_entry = (vaddr & ((size_t)0x1ff << 30)) >> 30;
+    size_t pml2_entry = (vaddr & ((size_t)0x1ff << 21)) >> 21;
+    size_t pml1_entry = (vaddr & ((size_t)0x1ff << 12)) >> 12;
+
+    size_t pml3, pml2, pml1;
+    if(!(pml3 = MemMapPageStep(pmap, pml4_entry, false))) return 0;
+    if(!(pml2 = MemMapPageStep(pml3, pml3_entry, false))) return 0;
+    if(!(pml1 = MemMapPageStep(pml2, pml2_entry, false))) return 0;
+    pml1 += hhdm;
+    ((size_t*)(pml1))[pml1_entry] &=~ 1;
+    return ((size_t*)(pml1))[pml1_entry];
 }

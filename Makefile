@@ -57,6 +57,7 @@ CPPFLAGS +=            \
 	-mno-red-zone        \
 	-target x86_64-elf \
 	-fno-exceptions \
+	-fno-rtti \
 	-g
 
 

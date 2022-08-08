@@ -1,1 +1,1 @@
-OBJ += kernel/core/libc.o kernel/core/libcpp.o kernel/core/fb.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/core/mm.o kernel/core/panic.o kernel/core/task.o kernel/core/core.o
+OBJ += kernel/core/libc.o kernel/core/libcpp.o kernel/core/fb.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/core/mm.o kernel/core/panic.o kernel/core/task.o kernel/core/vfs.o kernel/core/core.o

@@ -5,6 +5,7 @@
 #include <kernel/mm.h>
 #include <kernel/panic.h>
 #include <kernel/task.h>
+#include <kernel/vfs.h>
 
 extern "C" {
 
@@ -15,6 +16,8 @@ void _start() {
     MemBlkInitialize();
     MemHeapInitialize(128);
     TaskInitialize();
+    VfsInitialize();
+    printf("Done.\n");
     for(;;) KeIdle();
 }
 
