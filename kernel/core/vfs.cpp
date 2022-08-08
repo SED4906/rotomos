@@ -9,82 +9,96 @@ int next_fd=0;
 
 void VfsInitialize() {
     vfs_root = new VfsNode;
-    vfs_root->size = 4096;
-    vfs_root->data = (char*)MemBlkAllocate(0);
-    if(!vfs_root->data) KePanic("<oom:vfs>");
+    vfs_root->children = 0;
+    vfs_root->parent = 0;
+    vfs_root->name = "";
 }
 
-int VfsHandle::Read(void* buffer, int bytes) {
-    char* data = ((VfsNode*)node)->data;
-    size_t size = ((VfsNode*)node)->size;
-    if(bytes<=0 || size-offset <= 0) return 0;
-    if(size-offset < (size_t)bytes) {
-        size_t copied=size-offset;
-        memcpy(buffer,data+offset,size-offset);
-        offset=size;
-        return (int)copied;
-    }
-    memcpy(buffer, data+offset, bytes);
-    offset+=bytes;
-    return bytes;
+LL<VfsNode*>* VfsNode::Children() {
+    return children;
 }
 
-int VfsHandle::Write(void* buffer, int bytes) {
-    char* data = ((VfsNode*)node)->data;
-    if(bytes<=0) return 0;
-    memcpy(data+offset,buffer,bytes);
-    offset+=bytes;
-    return bytes;
-}
-
-void* VfsHandle::Map(void* address, int length, int offset) {
-    char* data = ((VfsNode*)node)->data;
-    size_t page=0;
-    if((size_t)address >= (size_t)256<<39) return 0;
-    if((size_t)address & 0xFFF) return 0;
-    if(length == 4096 && !(offset & 0xFFF)) {
-        page = MemBlkAllocate((size_t)data+offset);
-    } else if (length == 4096) {
-        page = MemBlkAllocate(0);
-    } else return 0;
-    if(!page) return 0;
-    if(!MemMapPage(MemCurrentPagemap(),(size_t)address,(size_t)page,7)) return 0;
-    return address;
-}
-
-int VfsHandle::Unmap(void* address, int length) {
-    if(!address) return -1;
-    if((size_t)address >= (size_t)256<<39) return -1;
-    if((size_t)address & 0xFFF) return -1;
-    if(length != 4096) return -1;
-    size_t page=0;
-    if(!(page = MemUnmapPage(MemCurrentPagemap(),(size_t)address))) return -1;
-    MemBlkDeallocate(page);
-    return 0;
-}
-
-int VfsHandle::Seek(int bytes) {
-    size_t size = ((VfsNode*)node)->size;
-    int ssize = (int)size;
-    int soffset = offset;
-    int temp=soffset;
-    soffset += bytes;
-    if(soffset<0) {offset=0;return -temp;}
-    else if(soffset>ssize) {offset=size;return ssize-temp;}
-    else {offset = (size_t)soffset;return bytes;}
-}
-
-int VfsHandle::Tell() {
-    return (int)offset;
+VfsNode* VfsNode::Parent() {
+    return parent;
 }
 
 VfsHandle* VfsNode::Open() {
-    VfsHandle* handle = new VfsHandle;
-    handle->node = this;
-    handle->fd = next_fd++;
+    VfsAppend* handle = new VfsAppend;
+    handle->offset=0;handle->size=0;
     return handle;
 }
 
 void VfsNode::Close(VfsHandle* handle) {
     delete handle;
+}
+
+int VfsHandle::Read(void* buffer, size_t bytes) {
+    return -1;
+}
+
+int VfsHandle::Write(void* buffer, size_t bytes) {
+    return -1;
+}
+
+int VfsAppend::Read(void* buffer, size_t bytes) {
+    size_t pos=0;
+    LL<size_t>* current=*data_s;
+    while (pos<offset)
+    {
+        pos += current->data;
+        current=current->next;
+    }
+    if(pos>offset && current) current=current->prev;
+    size_t remaining = bytes;
+    size_t complete = 0;
+    while(remaining && current) {
+        size_t change = offset - pos;
+        memcpy((char*)buffer + complete,(char*)(current+1)+change,current->data - change);
+        remaining -= current->data - change;
+        complete += current->data - change;
+        pos += current->data;
+        offset = pos;
+        current=current->next;
+    }
+    return (int)complete;
+}
+
+int VfsAppend::Write(void* buffer, size_t bytes) {
+    size_t pos=size;
+    LL<size_t>* current=*data_e;
+    size_t capacity = 4096 - sizeof(LL<size_t>);
+    size_t remaining = bytes;
+    size_t complete = 0;
+    while(remaining && current) {
+        size_t available = capacity - current->data;
+        size_t possible = available;
+        if(available > remaining) possible = remaining;
+        memcpy((char*)(current+1)+current->data,(char*)buffer + complete,possible);
+        remaining -= possible;
+        complete += possible;
+        pos += current->data;
+        size += possible;
+        LL<size_t>* nextpage = (LL<size_t>*)(MemBlkAllocate(0)+MemDirectOffset());
+        if(!nextpage) break;
+        ListLink(*data_e,nextpage);
+        *data_e=nextpage;
+        current=*data_e;
+    }
+    return (int)complete;
+}
+
+VfsHandle* VfsAppendNode::Open() {
+    VfsAppend* handle = new VfsAppend;
+    handle->offset=0;handle->size=0;
+    handle->data_s=&data_s;
+    handle->data_e=&data_e;
+}
+
+void VfsAppendNode::Close(VfsHandle* handle) {
+    delete handle;
+}
+
+VfsAppendNode::VfsAppendNode() {
+    data_s=(LL<size_t>*)(MemBlkAllocate(0)+MemDirectOffset());
+    data_e=data_s;
 }
