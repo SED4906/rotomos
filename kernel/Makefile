@@ -1,0 +1,1 @@
+OBJ += kernel/libc.o kernel/libcpp.o kernel/fb.o kernel/fifo.o kernel/gdt.o kernel/idt.o kernel/isr.o kernel/keyb.o kernel/mm.o kernel/panic.o kernel/printf.o kernel/task.o kernel/core.o kernel/main.o

@@ -1,4 +1,6 @@
+#include <kernel/cpu.h>
 #include <kernel/idt.h>
+#include <kernel/keyb.h>
 #include <kernel/libc.h>
 #include <kernel/panic.h>
 #include <kernel/task.h>
@@ -19,6 +21,10 @@ void HandlePageFault(size_t error) {
     printf("Page fault at %x (%X)", address, error);
     KePanic("<fatal exception>");
 }
+void HandleGPFault(size_t code) {
+    printf("General Protection fault (%X)", code);
+    KePanic("<fatal exception>");
+}
 void HandleDoubleFault() {
     printf("Double fault");
     KePanic("<fatal exception>");
@@ -32,10 +38,11 @@ void HandleIrq() {
     PicEOI(16);
 }
 void HandlePit() {
-    PicEOI(0);
     ContextSwitch();
+    PicEOI(0);
 }
 void HandleKeyb() {
+    KeybReceive(inb(0x60));
     PicEOI(1);
 }
 

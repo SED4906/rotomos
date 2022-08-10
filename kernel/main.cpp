@@ -1,11 +1,12 @@
 #include <kernel/fb.h>
+#include <kernel/fifo.h>
 #include <kernel/gdt.h>
 #include <kernel/idt.h>
+#include <kernel/keyb.h>
 #include <kernel/libc.h>
 #include <kernel/mm.h>
 #include <kernel/panic.h>
 #include <kernel/task.h>
-#include <kernel/vfs.h>
 
 extern "C" {
 
@@ -16,9 +17,13 @@ void _start() {
     MemBlkInitialize();
     MemHeapInitialize(128);
     TaskInitialize();
-    VfsInitialize();
+    FifoInitialize();
+    KeybInitialize();
     printf("Done.\n");
-    for(;;) KeIdle();
+    for(;;) {
+        KeybEcho();
+        KeIdle();
+    }
 }
 
 }

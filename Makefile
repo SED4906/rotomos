@@ -61,8 +61,8 @@ CPPFLAGS +=            \
 	-g
 
 
-OBJ := kernel/main.o
-include kernel/core/Makefile
+OBJ := 
+include kernel/Makefile
 
 # Default target.
 .PHONY: all

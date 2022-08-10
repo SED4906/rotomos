@@ -98,5 +98,5 @@ void PitInitialize(size_t frequency) {
     outb(0x43, 0x36);
     outb(0x40, reload&0xFF);
     outb(0x40, (reload>>8)&0xFF);
-    printf("Timer frequency set to %d Hz", frequency);
+    printf("Timer frequency set to %d Hz\n", frequency);
 }

@@ -1,16 +1,16 @@
-extern LoadNextTask
+extern SaveAndLoadNextTask
 
 global ContextSwitch:function
 ContextSwitch:
 mov rdi, rsp
 mov rsi, cr3
-call LoadNextTask
+call SaveAndLoadNextTask
 mov rsp, rax
 mov cr3, rdx
 ret
 
-global ContextSwitchNoSave:function
-ContextSwitchNoSave:
+global ContextSwitchTo:function
+ContextSwitchTo:
 mov rsp, rdi
 mov cr3, rsi
 ret
@@ -39,6 +39,7 @@ extern HandlePageFault
 extern HandlePit
 extern HandleIrq
 extern HandleKeyb
+extern HandleGPFault
 extern HandleDoubleFault
 
 global isr_err_stub:function
@@ -110,6 +111,12 @@ isr_keyb_stub:
     call HandleKeyb
     iretq
 
+global isr_gp_stub:function
+isr_gp_stub:
+    pop rdi
+    call HandleGPFault
+    iretq
+
 global isr_double_fault_stub:function
 isr_double_fault_stub:
     pop rdi
@@ -131,7 +138,7 @@ isr_stub_table:
     dq isr_err_stub wrt ..sym
     dq isr_err_stub wrt ..sym
     dq isr_err_stub wrt ..sym
-    dq isr_err_stub wrt ..sym
+    dq isr_gp_stub wrt ..sym
     dq isr_page_fault wrt ..sym 
     dq isr_no_err_stub wrt ..sym
     dq isr_no_err_stub wrt ..sym

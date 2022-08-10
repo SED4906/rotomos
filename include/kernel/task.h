@@ -1,4 +1,5 @@
 #pragma once
+#include <stddef.h>
 struct Context {
     size_t rsp, cr3;
 };
@@ -11,6 +12,6 @@ struct Task {
 
 extern "C" void ContextSwitch();
 void TaskInitialize();
-extern "C" Context LoadNextTask(size_t rsp, size_t cr3);
-extern "C" void ContextSwitchNoSave(size_t rsp, size_t cr3);
+extern "C" Context SaveAndLoadNextTask(size_t rsp, size_t cr3);
+extern "C" void ContextSwitchTo(size_t rsp, size_t cr3);
 extern "C" void KeIdle();
