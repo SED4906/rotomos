@@ -8,7 +8,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This program built for i386-pc-mingw32
  
 
-# Make data base, printed on Tue Aug 02 08:54:32 2022
+# Make data base, printed on Thu Aug 11 06:30:10 2022
 
 # Variables
 
@@ -17,13 +17,13 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # automatic
 ?F = $(notdir $?)
 # makefile (from `makefile', line 62)
-OBJ := kernel/core/context.o kernel/flatbinary.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/core/mm.o kernel/core/pic.o kernel/printf.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o
+OBJ := kernel/core/context.o kernel/core/fb.o kernel/flatbinary.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/misc_fun.o kernel/core/mm.o kernel/core/pci.o kernel/core/pic.o kernel/printf.o kernel/core/syscall.o kernel/core/tables.o kernel/fs/tar.o kernel/core/task.o 
+ kernel/core/tlb.o kernel/tty.o
 # makefile
 MAKEFLAGS = Rrqp
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# makefile (from `makefile 
-', line 45)
+# makefile (from `makefile', line 45)
 CPPFLAGS = -Wall -Wextra -Os -pipe -Iinclude -I. -std=c++20 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -64,12 +64,14 @@ CPP := clang++
 # environment
 VSCODE_CWD = C:\Users\sed49\AppData\Local\Programs\Microsoft VS Code
 # environment
-PATH = C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Library\Developer\Toolchains\unknown-Asserts-development.xctoolchain\usr\bin;C:\Library\Swift-development\bin;C:\Library\icu-69.1\usr\bin;C:\Users\sed49\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\sed49\AppData\Local\Programs\Python\Python310\;C:\Users\sed49\.cargo\bin;C:\Users\sed49\AppData\Local\Microsoft\WindowsApps;C:\Users\sed49\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\LLVM\bin;C:\Program Files\Git\bin;C:\Users\sed49\AppData\ 
-Local\bin\NASM;C:\Program Files (x86)\GnuWin32\bin;
+PATH = C:\Program Files\Eclipse Adoptium\jdk-17.0.4.8-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Library\Developer\Toolchains\unknown-Asserts-development.xctoolchain\usr\bin;C:\Library\Swift-development\bin;C:\Library\icu-69.1\usr\bin;C:\Program Files\starship\bin\;C:\Users\sed49\AppData\Roaming\local\bin;C:\Users\sed49\AppData\Local\Programs\Python\Python310\Scripts\;C:\Use 
+rs\sed49\AppData\Local\Programs\Python\Python310\;C:\Users\sed49\.cargo\bin;C:\Users\sed49\AppData\Local\Microsoft\WindowsApps;C:\Users\sed49\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\LLVM\bin;C:\Program Files\Git\bin;C:\Users\sed49\AppData\Local\bin\NASM;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\qemu;;C:\ghcup\bin
 # makefile (from `makefile', line 14)
 LD := ld.lld
 # environment
 COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# environment
+GHCUP_INSTALL_BASE_PREFIX = C:\
 # environment
 PROCESSOR_ARCHITECTURE = x86
 # environment
@@ -84,12 +86,14 @@ ELECTRON_RUN_AS_NODE = 1
 LDFLAGS = -Tkernel/linker.ld -nostdlib -static -pie --no-dynamic-linker 
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives
+# environment
+CABAL_DIR = C:\cabal
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_13784_QGYOPLUYORIEYFAX
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_10352_ULUJKOVRASRTHVBL
 # environment
-COMPUTERNAME = TABLET-1U6SDUK6
+COMPUTERNAME = LITWICK
 # environment
 PROGRAMFILES = C:\Program Files (x86)
 # environment
@@ -101,28 +105,30 @@ USERNAME = sed49
 # environment
 PUBLIC = C:\Users\Public
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbenc 
-h/api/node/extensionHostProcess
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\sed49\AppData\Roaming\Code\CachedData\3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = C:\Users\sed49\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456 
+fd8195364076dda
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # environment
-LOGONSERVER = \\TABLET-1U6SDUK6
+LOGONSERVER = \\LITWICK
 # environment
 ONEDRIVECONSUMER = C:\Users\sed49\OneDrive
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
-USERDOMAIN = TABLET-1U6SDUK6
+USERDOMAIN = LITWICK
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `makefile', line 9)
 CC := clang
+# environment
+JAVA_HOME = C:\Program Files\Eclipse Adoptium\jdk-17.0.4.8-hotspot\
 # default
 MAKE_VERSION := 3.81
 # makefile
@@ -132,14 +138,18 @@ PROGRAMFILES(X86) = C:\Program Files (x86)
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
+STACK_ROOT = C:\sr
+# environment
+GHCUP_MSYS2 = C:\Users\sed49\AppData\Local\Programs\stack\x86_64-windows\msys2-20220503
+# environment
 LOCALAPPDATA = C:\Users\sed49\AppData\Local
 # environment
 PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 # default
-MAKE_COMMAND := make.exe
+MAKE_CO 
+MMAND := make.exe
 # environment
-PROCESSOR_ARCHITEW6432 = A 
-MD64
+PROCESSOR_ARCHITEW6432 = AMD64
 # default
 .VARIABLES := 
 # automatic
@@ -149,7 +159,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 9, GenuineIntel
 # environment
 OS = Windows_NT
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\3e2fb7003919c936abc1572258309d22-1.69.2-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\3e2fb7003919c936abc1572258309d22-1.70.1-main-sock
 # environment
 HOMEPATH = \Users\sed49
 # environment
@@ -159,7 +169,8 @@ PROMPT = $P$G
 # environment
 MFLAGS = -Rrqp
 # automatic
-*D = $(patsubst %/,%,$(dir $*))
+* 
+D = $(patsubst %/,%,$(dir $*))
 # environment
 SYSTEMROOT = C:\WINDOWS
 # automatic
@@ -185,10 +196,10 @@ LC_ALL = C
 # default
 SUFFIXES := 
 # environment
-SYSTEMDRIVE = C:
+SYSTEMDRIV 
+E = C:
 # environment
-SDKROOT = C:\Library\Developer\Platfo 
-rms\Windows.platform\Developer\SDKs\Windows.sdk
+SDKROOT = C:\Library\Developer\Platforms\Windows.platform\Developer\SDKs\Windows.sdk
 # environment
 SESSIONNAME = Console
 # environment
@@ -200,11 +211,11 @@ LANG = C
 # environment
 PROCESSOR_LEVEL = 6
 # environment
-VSCODE_PID = 13784
+VSCODE_PID = 10352
 # environment
-USERDOMAIN_ROAMINGPROFILE = TABLET-1U6SDUK6
+USERDOMAIN_ROAMINGPROFILE = LITWICK
 # variable set hash-table stats:
-# Load=93/1024=9%, Rehash=0, Collisions=13/125=10%
+# Load=98/1024=10%, Rehash=0, Collisions=12/131=9%
 
 # Pattern-specific Variable Values
 
@@ -212,30 +223,35 @@ USERDOMAIN_ROAMINGPROFILE = TABLET-1U6SDUK6
 
 # Directories
 
-# C:\Program Files\LLVM\bin (key C: 
-/Program Files/LLVM/bin, mtime 1659454734): 120 files, no impossibilities.
+# C:\Program Files\LLVM\bin (key C:/Program Files/LLVM/bin, mtime 1659454734): 120 files, no impossibilities.
 # C:\Users\sed49\.cargo\bin (key C:/Users/sed49/.cargo/bin, mtime 1659394560): 15 files, no impossibilities.
-# C:\Library\Developer\Toolchains\unknown-Asserts-development.xctoolchain\usr\bin (key C:/Library/Developer/Toolchains/unknown-Asserts-development.xctoolchain/usr/bin, mtime 1659443245): 107 files, no impossibilities.
-# C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 16269476 
-23): 32 files, no impossibilities.
-# C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1659388213): 158 files, no impossibilities.
-# . (key c:/Users/sed49/repos/rotomos-1, mtime 1659454926): 12 files, no impossibilities.
-# C:\Users\sed49\AppData\Local\Microsoft\WindowsApps (key C:/Users/sed49/AppData/Local/Microsoft/WindowsApps, mtime 1659441985): 28 files, no impossibilities.
+# C:\Library\Developer\Toolchains\unknown-Asserts-development.xctoolchain\usr\bin: could not be stat'd.
+# kernel (key c:/Users/sed49/repos/rotomos-1/kernel, mtime 1660185835): 28 files, no impossibilities.
+# C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/W 
+indowsPowerShell/v1.0/, mtime 1651903407): 29 files, no impossibilities.
+# C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1660087985): 169 files, no impossibilities.
+# . (key c:/Users/sed49/repos/rotomos-1, mtime 1660185875): 15 files, no impossibilities.
+# C:\Users\sed49\AppData\Roaming\local\bin (key C:/Users/sed49/AppData/Roaming/local/bin, mtime 1659997543): 5 files, no impossibilities.
+# C:\Users\sed49\AppData\Local\Microsoft\WindowsApps (key C:/Users/sed49/AppData/Local/Microsoft/Window 
+sApps, mtime 1660186751): 42 files, no impossibilities.
+# C:\Program Files\starship\bin\ (key C:/Program Files/starship/bin/, mtime 1659482636): 3 files, no impossibilities.
 # C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
-# C:\WINDOWS (key C:/WINDOWS, mtime 1659441511): 118 files, no impo 
-ssibilities.
-# kernel/core (key c:/Users/sed49/repos/rotomos-1/kernel/core, mtime 1659454926): 10 files, no impossibilities.
-# C:\Program Files\Git\bin (key C:/Program Files/Git/bin, mtime 1659394257): 5 files, no impossibilities so far.
-# C:\Library\icu-69.1\usr\bin (key C:/Library/icu-69.1/usr/bin, mtime 1659443247): 5 files, no impossibilities.
-# C:\Library\Swift-development\bin (key C:/Library/Swift-development/bin, mtime 1659443246): 16 files, no impossibilities.
-# C:\Users\sed49\AppData\Local\Programs 
-\Python\Python310\ (key C:/Users/sed49/AppData/Local/Programs/Python/Python310/, mtime 1659441539): 18 files, no impossibilities.
-# C:\Users\sed49\AppData\Local\Programs\Python\Python310\Scripts\ (key C:/Users/sed49/AppData/Local/Programs/Python/Python310/Scripts/, mtime 1659441539): 5 files, no impossibilities.
+# C:\WINDOWS (key C:/WINDOWS, mtime 1660219294): 119 files, no impossibilities.
+# kernel/core (key c:/Users/sed49/repos/rotomos-1/kernel/core, mtime 1660185874): 28 files, no impossibilities.
+# C:\Program Files\Git\bin (key C:/Program Files/Git/bin, mtime 1659394257): 5 files, no impo 
+ssibilities so far.
+# C:\Library\icu-69.1\usr\bin: could not be stat'd.
+# C:\Library\Swift-development\bin: could not be stat'd.
+# C:\Program Files\Eclipse Adoptium\jdk-17.0.4.8-hotspot\bin (key C:/Program Files/Eclipse Adoptium/jdk-17.0.4.8-hotspot/bin, mtime 1659989892): 122 files, no impossibilities.
+# C:\Users\sed49\AppData\Local\Programs\Python\Python310\ (key C:/Users/sed49/AppData/Local/Programs/Python/Python310/, mtime 1659441539): 18 files, no impossibilities.
+# C:\Users\sed49\AppData\Local\Program 
+s\Python\Python310\Scripts\ (key C:/Users/sed49/AppData/Local/Programs/Python/Python310/Scripts/, mtime 1659441539): 5 files, no impossibilities.
 # C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1659394308): 8 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1659443060): 2849 files, no impossibilities.
-# C:\Users\sed49\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/sed49/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1659393970): 4 files, no impossibilities.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1660223963): 3028 files, no impossibilities.
+# C:\Users\sed49\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/sed49/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1660166339): 4 files, no im 
+possibilities.
 
-# 3510 files, no impossibilities in 18 directories.
+# 3763 files, no impossibilities in 22 directories.
 
 # Implicit Rules
 
@@ -251,13 +267,38 @@ ssibilities.
 
 %.o: %.S
 #  commands to execute (from `makefile', line 79):
-	$(AS) -fe 
-lf64 -g $< -o $@
+	$(AS) -felf64 -g $< -o $@
 	
 
 # 3 implicit rules, 0 (0.0%) terminal.
 
 # Files
+
+# Not a target:
+kernel/flatbinary.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-0 
+8-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kernel/core/gdt.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kernel/core/pci.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not 
+ been updated.
 
 all: rotomos.elf
 #  Phony target (prerequisite of .PHONY).
@@ -267,82 +308,119 @@ all: rotomos.elf
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
+
+# Not a target:
+kernel/core/tables.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 .PHONY: all clean
-#  Implicit rule search has not been done.
+#  Implicit rule search has not been don 
+e.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-.DEFAULT: 
-
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-makefile:
+kernel/core/libc.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-02 08:42:06
+#  Last modified 2022-08-10 16:21:50
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-kernel/core/idt.o:
+.DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-kernel/co 
-re/task.o:
+kernel/core/fb.c:
+#  Implicit rule search has bee 
+n done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kernel/main.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+ 
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+kernel/core/idt.o: kernel/core/idt.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/core/idt'
+#  Last modified 2022-08-10 19:43:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+
+# Not a  
+target:
+kernel/fs/tar.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-kernel/core/isr.o:
+kernel/core/task.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+kernel/core/isr.o: kernel/core/isr.S
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/core/isr'
+#  Last modified 2022-08-10 19:43:31
+#  File has been updated.
+#  Successfully updated.
+# variable set h 
+ash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 79):
+	$(AS) -felf64 -g $< -o $@
+	
 
 kernel/core/context.o: kernel/core/context.S
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `kernel/core/context'
-#  File does not exist.
+#  Last modified 2022-08-10 19:43:30
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := ke 
-rnel/core/context.o
-# automatic
-# % := 
-# automatic
-# * := kernel/core/context
-# automatic
-# + := kernel/core/context.S
-# automatic
-# | := 
-# automatic
-# < := kernel/core/context.S
-# automatic
-# ^ := kernel/core/context.S
-# automatic
-# ? := kernel/core/context.S
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/13=8%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `makefile', line 79):
-	$(AS) -felf64 -g $< -o $@
+	$(AS) -felf64  
+-g $< -o $@
 	
 
 # Not a target:
 kernel/core/pic.o:
 #  Implicit rule search has not been done.
-#  Modifica 
-tion time never checked.
+#  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
@@ -352,26 +430,97 @@ tion time never checked.
 #  File has not been updated.
 
 # Not a target:
-kernel/keyb.o:
+kernel/core/syscall.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-kernel/core/mm.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+kernel/keyb.o: kernel/keyb.c
+#  Implicit rule search has been done 
+.
+#  Implicit/static pattern stem: `kernel/keyb'
+#  Last modified 2022-08-10 19:43:32
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+
+kernel/misc_fun.o: kernel/misc_fun.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/misc_fun'
+#  Last modified 2022-08-10 19:43:32
+#  File has been updated.
+#  Successfully updated.
+ 
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+
+kernel/core/mm.o: kernel/core/mm.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/core/mm'
+#  Last modified 2022-08-10 19:44:34
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := kernel/core/mm.o
+# automatic
+# % := 
+# automatic
+# * := kernel/core/mm
+# automatic
+# + := kernel/core/mm.c
+# a 
+utomatic
+# | := 
+# automatic
+# < := kernel/core/mm.c
+# automatic
+# ^ := kernel/core/mm.c
+# automatic
+# ? := kernel/core/mm.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
 
 clean:
-#  Phony target (prerequisi 
-te of .PHONY).
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `makefile', line 84):
 	rm -rf $(KERNEL) $(OBJ)
 	
+
+ 
+kernel/core/gdt.o: kernel/core/gdt.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/core/gdt'
+#  Last modified 2022-08-10 19:43:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+
+# Not a target:
+kernel/core/idt.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+ 
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 kernel/printf.o:
@@ -380,19 +529,35 @@ kernel/printf.o:
 #  File has not been updated.
 
 # Not a target:
-kernel/core/tlb.o:
+kernel/core/isr.S:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kernel/cor 
+e/tlb.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-kernel/core/libc. 
-o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+kernel/core/libc.o: kernel/core/libc.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/core/libc'
+#  Last modified 2022-08-10 19:43:32
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
 
-# Not a target:
+# Not a target: 
+
 kernel/tty.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -401,50 +566,104 @@ kernel/tty.o:
 # Not a target:
 kernel/core/context.S:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-02 08:42:06
+#  Last modified 2022-08-10 16:21:50
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-rotomos.elf: ke 
-rnel/core/context.o kernel/flatbinary.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/core/mm.o kernel/core/pic.o kernel/printf.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o
+# Not a target:
+kernel/core/mm.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 19:54:05
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+rotomos.elf: kernel/core/context.o kernel/core/fb.o kernel/flatbinary.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/misc_fun.o kernel/core/mm.o kernel/core/pci.o kernel/core/pic.o kernel/printf.o kernel/core/syscall.o kernel/core/tables.o kernel/fs/tar.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  L 
+ast modified 2022-08-10 19:44:35
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 #  commands to execute (from `makefile', line 70):
 	$(LD) $(OBJ) $(LDFLAGS) -o $@
- 
 	
 
 # Not a target:
-kernel/flatbinary.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+kernel/keyb.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-kernel/main.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+ker 
+nel/misc_fun.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 16:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+kernel/core/fb.o: kernel/core/fb.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/core/fb'
+#  Last modified 2022-08-10 19:43:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  
+ commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+
+kernel/flatbinary.o: kernel/flatbinary.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `kernel/flatbinary'
+#  Last modified 2022-08-10 19:43:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+
+kernel/main.o: kernel/main.c
+#  Implicit rule sear 
+ch has been done.
+#  Implicit/static pattern stem: `kernel/main'
+#  Last modified 2022-08-10 19:43:32
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `makefile', line 76):
+	$(CC) $(CFLAGS) -c $< -o $@
+	
 
 # files hash-table stats:
-# Load=21/1024=2%, Rehash=0, Collisions=1/55=2%
+# Load=38/1024=4%, Rehash=0, Collisions=8/120=7%
 # VPATH Search Paths
 
 # No `vpath' search paths.
 
 # No general (`VPATH' variable) search path.
 
-# # of strings in strcache: 1
+# # of strings in strcache:  
+1
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Aug 02 08:54:32 2022
+# Finished Make data base on Thu Aug 11 06:30:10 2022
 
  

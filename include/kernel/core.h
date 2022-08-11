@@ -69,14 +69,22 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags);
 //! @return The page table entry.
 size_t unmap_page(size_t pmap, size_t vaddr);
 
-//! @brief Allocate some bytes from a heap.
+//! @brief Allocate some bytes.
 //! @param bytes How many bytes to allocate.
-//! @return An address in virtual memory.
+//! @return An address of an allocation.
 void* kmalloc(size_t bytes);
 
-//! @brief Deallocate from a heap.
+//! @brief Deallocate a pointer.
 //! @param data The address of the allocation.
 void kdemalloc(void* data);
+
+void* heap_allocate(size_t bytes);
+
+void heap_deallocate(void* ptr);
+
+void* page_allocate(void* address);
+
+void page_deallocate(void* address);
 
 //! @brief Invalidates a page in the TLB.
 //! @param page An address in virtual memory.

@@ -33,22 +33,20 @@ void close_handler(int fd) {
     close_tar(fd);
 }
 size_t mmap_handler(size_t vaddr) {
-    if(((vaddr>>39)&0x1FF) == 4) return 0;
     if(((vaddr>>39)&0x1FF) == ((get_hhdm()>>39)&0x1FF)) return 0;
     if(((vaddr>>39)&0x1FF) == 511) return 0;
     size_t page=alloc_page();
     if(!page) return 0;
-    memset((void*)(page+get_hhdm()),0,4096);
     return map_page(get_pmap(),vaddr&~0xFFF,page,7);
 }
 void munmap_handler(size_t vaddr) {
-    if(((vaddr>>39)&0x1FF) == 4) return;
     if(((vaddr>>39)&0x1FF) == ((get_hhdm()>>39)&0x1FF)) return;
     if(((vaddr>>39)&0x1FF) == 511) return;
     size_t page=unmap_page(get_pmap(),vaddr&~0xFFF);
     if(page) dealloc_page(page&~0xFFF);
 }
 void exec_handler(char* path) {
+
     size_t size=0;
     size_t prev=0;
     int fd = open_handler(path,'r');
@@ -56,8 +54,8 @@ void exec_handler(char* path) {
     int i=0;
     do {
     prev=size;
-    mmap_handler(((size_t)8<<39)+(4096*(size_t)i++));
-    } while((size += read_handler(fd,(char*)((size_t)8<<39)+(4096*((size_t)i-1)),4096))!=prev);
+    mmap_handler(((size_t)8<<39)+(4096*(size_t)i));
+    } while((size += read_handler(fd,(char*)((size_t)8<<39)+(4096*((size_t)i++)),4096))!=prev);
     flatbinary_exec(((size_t)8<<39),size);
     for(;i>=0;i--) munmap_handler(((size_t)8<<39)+(4096*((size_t)i-1)));
     close_handler(fd);

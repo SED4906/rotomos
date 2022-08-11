@@ -9,6 +9,7 @@ uint64_t hhdm;
 size_t alloc_page() {
     size_t ret = (size_t)free_pages;
     free_pages = (freelist*)*(freelist*)((uint64_t)free_pages + hhdm);
+    memset((void*)(ret+hhdm),0,4096);
     return ret;
 }
 
@@ -29,11 +30,94 @@ struct limine_hhdm_request hhdm_request = {
 };
 
 typedef struct heap {
-    int64_t bytes;
+    char bitmap[448];
     struct heap* next;
+    struct heap* prev;
 } heap;
 
+typedef struct page {
+    void* address;
+    int refs;
+    struct page* next;
+    struct page* prev;
+} page;
+
 heap* kernel_heap;
+page* kernel_blk;
+
+void* heap_allocate(size_t bytes) {
+    if(bytes > 4096-514) return 0;
+    size_t run=0;
+    heap* check=kernel_heap;
+    int i=0;
+    while(check) {
+        for(i=0;i<448*8;i++) {
+            if(check->bitmap[i>>3] & (1<<(i&7))) run=0;
+            else run++;
+            if(run == bytes + 2) break;
+        }
+        if(run == bytes + 2) break;
+        run=0;
+        if(!check->next) {
+            heap* ent=(heap*)alloc_page();
+            if(!ent) return 0;
+            ent = (heap*)((size_t)(ent)+hhdm);
+            ent->prev=check;
+            check->next=0;
+            ent->next=0;
+        }
+        check = check->next;
+    }
+    if(!check) return 0;
+    for(int j=i-bytes;j<i;j++) {
+        check->bitmap[j>>3] |= 1<<(j&7);
+    }
+    return (char*)(check)+512+i-bytes;
+}
+
+void heap_deallocate(void* ptr) {
+    heap* check=(heap*)((size_t)(ptr)&~0xFFF);
+    if(check == ptr) return;
+    size_t i=((size_t)(ptr)&0xFFF)-512;
+    while(check->bitmap[i>>3] & (1<<(i&7))) {
+        check->bitmap[i>>3] ^= 1<<(i&7);
+        i++;
+    }
+}
+
+void* page_allocate(void* address) {
+    if(!address) {
+        page* ent = heap_allocate(sizeof(page));
+        if(!ent) return 0;
+        ent->address = (void*)(alloc_page()+hhdm);
+        if(!ent->address) return 0;
+        ent->next=kernel_blk;
+        kernel_blk->prev=ent;
+        kernel_blk=ent;
+        ent->prev=0;
+        ent->refs=1;
+        return ent->address;
+    }
+    page* check = kernel_blk;
+    while(check && check->address != address) check=check->next;
+    if(!check) return 0;
+    check->refs++;
+    return check->address;
+}
+
+void page_deallocate(void* address) {
+    if(!address) return;
+    page* check = kernel_blk;
+    while(check && check->address != address) check=check->next;
+    if(!check) return;
+    check->refs--;
+    if(!check->refs) {
+        dealloc_page((size_t)(check->address)-hhdm);
+        if(check->prev) check->prev->next = check->next;
+        if(check->next) check->next->prev = check->prev;
+        heap_deallocate(check);
+    }
+}
 
 void init_mm() {
     if(!memmap_request.response) hang_forever();
@@ -47,16 +131,9 @@ void init_mm() {
         for(size_t o=0;o<en->length;o+=4096) dealloc_page(en->base + o);
     }
 
-    kernel_heap = (heap*)((size_t)4 << 39);
-    uint64_t current_pmap = get_pmap();
-    for(int i=0;i<128;i++) {
-        uint64_t page;
-        if(!(page = alloc_page())) hang_forever();
-        map_page(current_pmap, (size_t)kernel_heap+i*4096, page, 7);
-    }
-
-    kernel_heap->bytes = 128*4096 - sizeof(heap);
-    kernel_heap->next = 0;
+    kernel_heap = (heap*)(alloc_page()+hhdm);
+    kernel_heap->next=0;kernel_heap->prev=0;
+    kernel_blk = 0;
 }
 
 size_t map_page_step(size_t pmap, size_t entry) {
@@ -97,29 +174,14 @@ size_t unmap_page(size_t pmap, size_t vaddr) {
 }
 
 void* kmalloc(size_t bytes) {
-    for(heap* heap_entry = kernel_heap; heap_entry; heap_entry = heap_entry->next) {
-        if(heap_entry->bytes >= (int64_t)bytes) {
-            if(heap_entry->bytes - bytes > sizeof(heap)) {
-                size_t remaining = heap_entry->bytes - bytes - sizeof(heap);
-                heap* next_next = heap_entry->next;
-                heap_entry->bytes = -bytes;
-                heap_entry->next = (heap*)((size_t)heap_entry + bytes + sizeof(heap));
-                heap_entry->next->bytes = remaining;
-                heap_entry->next->next = next_next;
-                return heap_entry + 1;
-            } else {
-                heap_entry->bytes = -heap_entry->bytes;
-                return heap_entry + 1;
-            }
-        }
-    }
-
+    if(bytes <= 4096-514) return heap_allocate(bytes);
+    else if(bytes <= 4096) return page_allocate(0);
     return 0;
 }
 
 void kdemalloc(void* data) {
-    heap* heap_entry = (heap*)((size_t)data - sizeof(heap));
-    heap_entry->bytes = -heap_entry->bytes;
+    if((size_t)data & 0xFFF) heap_deallocate(data);
+    else page_deallocate(data);
 }
 
 size_t new_pmap() {
@@ -129,7 +191,7 @@ size_t new_pmap() {
     uint64_t* retp = (uint64_t*)(ret+get_hhdm());
     uint64_t* pmap = (uint64_t*)(get_pmap()+get_hhdm());
     //retp[0] = pmap[0];
-    retp[4] = pmap[4];
+    //retp[4] = pmap[4];
     retp[(hhdm>>39)&0x1FF] = pmap[(hhdm>>39)&0x1FF];
     retp[511] = pmap[511];
     return ret;
