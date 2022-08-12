@@ -6,5 +6,6 @@ void* stdout = 0;
 void start() {
     stdout = open("tty",'a');
     write(stdout,message, message_len);
+    close(stdout);
     exit();
 }

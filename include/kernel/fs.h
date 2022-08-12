@@ -59,9 +59,14 @@ void close_tar(file_handle* fd);
 
 //// fs/fifo.c
 
+typedef struct fifo {
+    size_t size;
+    struct fifo* next;
+} fifo;
+
 typedef struct {
     char* name;
-    size_t* data;
+    fifo* data;
 } fifo_header;
 
 typedef struct fifo_header_list

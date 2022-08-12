@@ -22,7 +22,7 @@ void destroy_fifo(char* name) {
     fifo_header_list* current = fifos;
     while (current) {
         int found=1;
-        for(size_t i=0;i<strlen(name);i++) {
+        for(int i=0;i<strlen(name);i++) {
             if(current->data.name[i] != name[i]) {
                 found=0;
                 current = current->next;
@@ -39,44 +39,48 @@ void destroy_fifo(char* name) {
 
 size_t read_fifo(file_handle* handle, char* str, size_t len) {
     if(!handle) return 0;
-    size_t possible = *(size_t*)(handle->address) - handle->pos;
+    size_t possible = ((fifo*)handle->address)->size - handle->pos;
     size_t complete = 0;
     size_t remaining = len;
+    if(possible == 0) return 0;
     while(possible < remaining) {
-        memcpy(str+complete,handle->address + sizeof(size_t)*2 + handle->pos,possible);
+        memcpy(str+complete,handle->address + sizeof(fifo) + handle->pos,possible);
         handle->pos += possible;
         complete += possible;
         remaining -= possible;
-        if(!*(size_t*)(handle->address + sizeof(size_t))) return complete;
-        handle->address=(char*)*(size_t*)(handle->address + sizeof(size_t));
+        if(((fifo*)handle->address)->size < 4096-sizeof(fifo)) continue;
+        if(!((fifo*)handle->address)->next) return complete;
+        page_deallocate(handle->address);
+        handle->address=(char*)(((fifo*)handle->address)->next);
+        page_allocate(handle->address);
         handle->pos = 0;
-        possible = *(size_t*)(handle->address) - handle->pos;
+        possible = ((fifo*)handle->address)->size - handle->pos;
     }
-    memcpy(str+complete,handle->address + sizeof(size_t)*2 + handle->pos,remaining);
+    memcpy(str+complete,handle->address + sizeof(fifo) + handle->pos,remaining);
     handle->pos += remaining;
     return len;
 }
 
 size_t write_fifo(file_handle* handle, char* str, size_t len) {
     if(!handle) return 0;
-    char* current=handle->address;
-    while(*(size_t*)(current + sizeof(size_t))) current = (char*)*(size_t*)(current + sizeof(size_t));
-    size_t possible = 4096 - (sizeof(size_t)*2 + *(size_t*)(current));
+    fifo* current=(fifo*)handle->address;
+    while(current->next) current = current->next;
+    size_t possible = 4096 - (sizeof(fifo) + current->size);
     size_t complete = 0;
     size_t remaining = len;
     while(possible < remaining) {
-        memcpy(current + sizeof(size_t)*2 + *(size_t*)(current),str+complete,possible);
+        memcpy((char*)(current + 1) + current->size,str+complete,possible);
         complete += possible;
-        *(size_t*)(current) += possible;
+        current->size += possible;
         remaining -= possible;
-        if(!*(size_t*)(current + sizeof(size_t))) {
-            *(size_t*)(current + sizeof(size_t)) = page_allocate(0);
+        if(!current->next) {
+            current->next = (fifo*)page_allocate(0);
         }
-        current = (char*)*(size_t*)(current + sizeof(size_t));
-        possible = 4096 - (sizeof(size_t)*2 + *(size_t*)(current));
+        current = current->next;
+        possible = 4096 - (sizeof(fifo) + current->size);
     }
-    memcpy(current + sizeof(size_t)*2 + *(size_t*)(current),str+complete,remaining);
-    *(size_t*)(current) += remaining;
+    memcpy((char*)(current + 1) + current->size,str+complete,remaining);
+    current->size += remaining;
     return len;
 }
 
@@ -85,7 +89,7 @@ file_handle* open_fifo(char* name, char mode) {
     fifo_header_list* current = fifos;
     while (current) {
         int found=1;
-        for(size_t i=0;i<strlen(name);i++) {
+        for(int i=0;i<strlen(name);i++) {
             if(current->data.name[i] != name[i]) {
                 found=0;
                 current = current->next;
@@ -96,13 +100,20 @@ file_handle* open_fifo(char* name, char mode) {
     }
     if(!current) return 0;
     file_handle* handle = kmalloc(sizeof(file_handle));
-    handle->address = current->data.data;
+    handle->address = (char*)current->data.data;
     handle->fstype = 0;
-    while(*(size_t*)(handle->address + sizeof(size_t))) handle->address = (char*)*(size_t*)(handle->address + sizeof(size_t));
-    handle->pos = *(size_t*)(handle->address);
+    while(((fifo*)handle->address)->next) {
+        page_deallocate(handle->address);
+        handle->address = (char*)((fifo*)handle->address)->next;
+    }
+    handle->pos = ((fifo*)handle->address)->size;
+    current->data.data = (fifo*)handle->address;
+    page_allocate(handle->address);
     return handle;
 }
 
 void close_fifo(file_handle* handle) {
+    fifo* current=(fifo*)handle->address;
+    page_deallocate(current);
     kdemalloc(handle);
 }

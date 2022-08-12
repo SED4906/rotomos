@@ -1,5 +1,6 @@
 #include <kernel/core.h>
 #include <kernel/fs.h>
+#include <kernel/libc.h>
 #include <stddef.h>
 context_list* contexts;
 int next_pid=0;

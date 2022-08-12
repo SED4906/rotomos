@@ -43,7 +43,7 @@ file_handle* open_tar(char* path, char mode) {
     tar_header_list* current = file_list;
     while (current) {
         int found=1;
-        for(size_t i=0;i<strlen(path);i++) {
+        for(int i=0;i<strlen(path);i++) {
             if(current->header->filename[i] != path[i]) {
                 found=0;
                 current = current->next;
@@ -52,7 +52,7 @@ file_handle* open_tar(char* path, char mode) {
         }
         if(found) break;
     }
-    if(!current) return -1;
+    if(!current) return 0;
     file_handle* handle = kmalloc(sizeof(file_handle));
     handle->fstype = 1;
     handle->address=(char*)(((size_t)current->header)+512);
