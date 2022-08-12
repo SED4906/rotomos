@@ -3,6 +3,7 @@
 #include <kernel/exec.h>
 #include <kernel/keyb.h>
 #include <kernel/fs.h>
+#include <kernel/tty.h>
 #include <limine.h>
 
 /*uint8_t test_binary[48] = {0xBF, 0x01, 0x00, 0x00, 0x00, 0x48, 0xBE, 0x1B, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 
@@ -15,9 +16,11 @@ void _start() {
     init_idt();
     init_mm();
     init_pci();
-    init_task();
-    init_keyb();
+    init_fifo();
     init_tar();
+    init_keyb();
+    init_tty();
+    init_task();
     exec_handler("init");
     fb_draw_rotom_logo(0,0);fb_draw_rotom_text(128,0);
     for(;;) {

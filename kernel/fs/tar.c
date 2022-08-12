@@ -3,8 +3,6 @@
 #include <kernel/libc.h>
 #include <limine.h>
 tar_header_list* file_list;
-opened_tar_list* open_file_list;
-int next_fd=2;
 
 struct limine_module_request module_request = {
     .id=LIMINE_MODULE_REQUEST,
@@ -39,10 +37,9 @@ void init_tar() {
         current = (tar_header*)(((size_t)current)+(size&~0x1FF) + 512);
         if(size % 512) current = (tar_header*)(((size_t)current)+512);
     }
-    open_file_list=0;
 }
 
-int open_tar(char* path, char mode) {
+file_handle* open_tar(char* path, char mode) {
     tar_header_list* current = file_list;
     while (current) {
         int found=1;
@@ -56,51 +53,31 @@ int open_tar(char* path, char mode) {
         if(found) break;
     }
     if(!current) return -1;
-    opened_tar_list* next = open_file_list;
-    open_file_list = kmalloc(sizeof(opened_tar_list));
-    open_file_list->next=next;
-    open_file_list->address=(char*)(((size_t)current->header)+512);
-    open_file_list->fd = next_fd++;
-    open_file_list->pos = 0;
-    open_file_list->size = tar_getsize(current->header->size);
-    return open_file_list->fd;
+    file_handle* handle = kmalloc(sizeof(file_handle));
+    handle->fstype = 1;
+    handle->address=(char*)(((size_t)current->header)+512);
+    handle->pos = 0;
+    handle->size = tar_getsize(current->header->size);
+    return handle;
 }
 
-size_t read_tar(int fd, char* str, size_t len) {
-    opened_tar_list* current = open_file_list;
-    while (current && current->fd != fd) current=current->next;
-    if(!current || current->fd != fd) return 0;
-    if(current->size-current->pos > len) {
-        memcpy(str,current->address+current->pos,len);
-        current->pos += len;
+size_t read_tar(file_handle* handle, char* str, size_t len) {
+    if(handle->size-handle->pos > len) {
+        memcpy(str,handle->address+handle->pos,len);
+        handle->pos += len;
         return len;
     }
-    size_t bytes = current->size-current->pos;
-    memcpy(str, current->address+current->pos, bytes);
-    current->pos = current->size;
+    size_t bytes = handle->size-handle->pos;
+    memcpy(str, handle->address+handle->pos, bytes);
+    handle->pos = handle->size;
     return bytes;
 }
 
-size_t write_tar(int fd, char* str, size_t len) {
+size_t write_tar(file_handle* handle, char* str, size_t len) {
     return 0;
 }
 
-void close_tar(int fd) {
-    opened_tar_list* prev = open_file_list;
-    opened_tar_list* current = open_file_list;
-    if(!current) return;
-    if(current && current->fd == fd) {
-        opened_tar_list* next = current->next;
-        kdemalloc(current);
-        open_file_list=next;
-        return;
-    }
-    while (prev->next && prev->next->fd != fd)
-    {
-        prev=prev->next;
-    }
-    current=prev->next;
-    if(!current || current->fd != fd) return;
-    prev->next = current->next;
-    kdemalloc(current);
+void close_tar(file_handle* handle) {
+    if(!handle) return;
+    kdemalloc(handle);
 }

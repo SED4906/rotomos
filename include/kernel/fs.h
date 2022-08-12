@@ -1,6 +1,14 @@
 #pragma once
 #include <stddef.h>
 
+//// fs/fs.c
+typedef struct {
+    char* address;
+    short fstype;
+    size_t size;
+    size_t pos;
+} file_handle;
+
 //// fs/tar.c
 /* Typeflag field definitions */
 #define REGTYPE 	'0'	/* Regular file. */
@@ -43,16 +51,30 @@ typedef struct tar_header_list
     struct tar_header_list* next;
 } tar_header_list;
 
-typedef struct opened_tar_list {
-    int fd;
-    size_t size;
-    char* address;
-    size_t pos;
-    struct opened_tar_list* next;
-} opened_tar_list;
-
 void init_tar();
-int open_tar(char* path, char mode);
-size_t read_tar(int fd, char* str, size_t len);
-size_t write_tar(int fd, char* str, size_t len);
-void close_tar(int fd);
+file_handle* open_tar(char* path, char mode);
+size_t read_tar(file_handle* fd, char* str, size_t len);
+size_t write_tar(file_handle* fd, char* str, size_t len);
+void close_tar(file_handle* fd);
+
+//// fs/fifo.c
+
+typedef struct {
+    char* name;
+    size_t* data;
+} fifo_header;
+
+typedef struct fifo_header_list
+{
+    fifo_header data;
+    struct fifo_header_list* next;
+    struct fifo_header_list* prev;
+} fifo_header_list;
+
+void init_fifo();
+file_handle* open_fifo(char* path, char mode);
+size_t read_fifo(file_handle* fd, char* str, size_t len);
+size_t write_fifo(file_handle* fd, char* str, size_t len);
+void close_fifo(file_handle* fd);
+void create_fifo(char* name);
+void destroy_fifo(char* name);

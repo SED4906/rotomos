@@ -63,13 +63,13 @@ void* heap_allocate(size_t bytes) {
             if(!ent) return 0;
             ent = (heap*)((size_t)(ent)+hhdm);
             ent->prev=check;
-            check->next=0;
+            check->next=ent;
             ent->next=0;
         }
         check = check->next;
     }
     if(!check) return 0;
-    for(int j=i-bytes;j<i;j++) {
+    for(int j=i-bytes;j<=i;j++) {
         check->bitmap[j>>3] |= 1<<(j&7);
     }
     return (char*)(check)+512+i-bytes;
@@ -90,9 +90,8 @@ void* page_allocate(void* address) {
         page* ent = heap_allocate(sizeof(page));
         if(!ent) return 0;
         ent->address = (void*)(alloc_page()+hhdm);
-        if(!ent->address) return 0;
         ent->next=kernel_blk;
-        kernel_blk->prev=ent;
+        if(kernel_blk) kernel_blk->prev=ent;
         kernel_blk=ent;
         ent->prev=0;
         ent->refs=1;

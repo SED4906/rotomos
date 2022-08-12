@@ -2,7 +2,9 @@
 #include <stddef.h>
 char* message = "Hello, world!\r\n";
 const size_t message_len = 15;
+void* stdout = 0;
 void start() {
-    write(1,message, message_len);
+    stdout = open("tty",'a');
+    write(stdout,message, message_len);
     exit();
 }

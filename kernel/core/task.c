@@ -1,16 +1,22 @@
 #include <kernel/core.h>
+#include <kernel/fs.h>
 #include <stddef.h>
 context_list* contexts;
 int next_pid=0;
 
+file_handle* tty_handle;
+
 context switch_task(size_t rsp, size_t cr3) {
     contexts->c.rsp = rsp;
     contexts->c.cr3 = cr3;
+    char c=0;
+    while(read_fifo(tty_handle,&c,1) && c) printf("%c",c);
     contexts = contexts->next;
     return contexts->c;
 }
 
 void init_task() {
+    tty_handle = open_fifo("tty",'r');
     contexts = (context_list*)kmalloc(sizeof(context_list));
     contexts->next = contexts;
     contexts->pid = next_pid++;
