@@ -213,6 +213,10 @@ void fb_draw_rotom_logo(uint64_t offset_x,uint64_t offset_y);
 void fb_draw_rotom_text(uint64_t offset_x,uint64_t offset_y);
 
 size_t fb_print_string(const char * str, size_t len);
+
+uint16_t fb_width();
+
+uint16_t fb_height();
 //// core/pci.c
 
 void init_pci();

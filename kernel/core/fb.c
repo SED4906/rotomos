@@ -21,6 +21,18 @@ void fb_plot(uint16_t x, uint16_t y, uint32_t rgb) {
     ((uint32_t*)fb->address)[x+y*(fb->pitch>>2)] = rgb;
 }
 
+uint16_t fb_width() {
+    if(!framebuffer_request.response) return 0;
+    struct limine_framebuffer* fb=framebuffer_request.response->framebuffers[0];
+    return (uint16_t)fb->width;
+}
+
+uint16_t fb_height() {
+    if(!framebuffer_request.response) return 0;
+    struct limine_framebuffer* fb=framebuffer_request.response->framebuffers[0];
+    return (uint16_t)fb->height;
+}
+
 void fb_clear_screen() {
     if(!framebuffer_request.response) return;
     struct limine_framebuffer* fb=framebuffer_request.response->framebuffers[0];

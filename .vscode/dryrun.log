@@ -1,8 +1,8 @@
 make.exe --dry-run --keep-going --print-directory
 make.exe: Entering directory `c:/Users/sed49/repos/rotomos-1'
-clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/fs/fifo.c -o kernel/fs/fifo.o
+clang -Wall -Wextra -Os -pipe -Iinclude -I. -std=c17 -ffreestanding -fno-stack-protector -fpie -fPIC -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -mno-red-zone -target x86_64-elf -g -c kernel/mouse.c -o kernel/mouse.o
  
-ld.lld kernel/core/context.o kernel/core/fb.o kernel/flatbinary.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/misc_fun.o kernel/core/mm.o kernel/core/pci.o kernel/core/pic.o kernel/printf.o kernel/core/syscall.o kernel/core/tables.o kernel/fs/fifo.o kernel/fs/tar.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o -Tkernel/linker.ld -nostdlib -static -pie --no-dynamic-linker  -o rotomos.elf
+ld.lld kernel/core/context.o kernel/core/fb.o kernel/flatbinary.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/main.o kernel/misc_fun.o kernel/core/mm.o kernel/mouse.o kernel/core/pci.o kernel/core/pic.o kernel/printf.o kernel/core/syscall.o kernel/core/tables.o kernel/fs/fifo.o kernel/fs/tar.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o -Tkernel/linker.ld -nostdlib -static -pie --no-dynamic-linker  -o rotomos.elf
  
 make.exe: Leaving directory `c:/Users/sed49/repos/rotomos-1'
  

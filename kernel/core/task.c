@@ -23,7 +23,7 @@ void init_task() {
     contexts->pid = next_pid++;
     init_pit(69);
     pic_clear_mask(0);
-    hang_idle();
+    context_switch();
 }
 
 void add_task(size_t rsp, size_t cr3) {

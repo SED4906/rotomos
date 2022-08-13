@@ -15,6 +15,7 @@ extern mmap_handler
 extern munmap_handler
 extern exec_handler
 extern ud2_handler
+extern mouse_handler
 
 global isr_err_stub:function
 isr_err_stub:
@@ -131,6 +132,11 @@ isr_syscall_exec_stub:
     call exec_handler
     iretq
 
+global isr_mouse_stub:function
+isr_mouse_stub:
+    call mouse_handler
+    iretq
+
 global isr_stub_table:data
 isr_stub_table:
     dq isr_no_err_stub wrt ..sym
@@ -177,7 +183,7 @@ isr_stub_table:
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
-    dq isr_irq_stub wrt ..sym
+    dq isr_mouse_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
     dq isr_irq_stub wrt ..sym
