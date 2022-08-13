@@ -42,6 +42,6 @@ Don't forget to close the handle too when you're going to exit!
 The filesystem type used for the tty and keyboard is a FIFO.
 
 Reading begins from wherever the end was when the handle was created.
-Writing always happens at the end at all times.
+Writing always happens at the end.
 
 The position of reading does not change with writes.
