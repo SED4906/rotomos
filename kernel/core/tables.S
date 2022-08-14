@@ -21,7 +21,8 @@ RET
 
 global load_tss:function
 load_tss:
-mov [tss_gdt+4],rsp
+mov rax,tss_gdt wrt ..sym
+mov [rax + 4],rsp
 mov ax,0x28
 ltr ax
 ret
