@@ -19,8 +19,8 @@ void _start() {
     init_pci();
     init_fifo();
     init_tar();
-    init_keyb();
     //init_mouse();
+    init_keyb();
     init_tty();
     init_task();
     exec_handler("init");

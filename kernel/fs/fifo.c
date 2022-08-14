@@ -1,6 +1,7 @@
 #include <kernel/core.h>
 #include <kernel/fs.h>
 #include <kernel/libc.h>
+#include <kernel/list.h>
 
 fifo_header_list* fifos;
 
@@ -64,7 +65,7 @@ size_t read_fifo(file_handle* handle, char* str, size_t len) {
 size_t write_fifo(file_handle* handle, char* str, size_t len) {
     if(!handle) return 0;
     fifo* current=(fifo*)handle->address;
-    while(current->next) current = current->next;
+    current = list_last(current, sizeof(size_t));
     size_t possible = 4096 - (sizeof(fifo) + current->size);
     size_t complete = 0;
     size_t remaining = len;
@@ -102,13 +103,9 @@ file_handle* open_fifo(char* name, char mode) {
     file_handle* handle = kmalloc(sizeof(file_handle));
     handle->address = (char*)current->data.data;
     handle->fstype = 0;
-    while(((fifo*)handle->address)->next) {
-        page_deallocate(handle->address);
-        handle->address = (char*)((fifo*)handle->address)->next;
-    }
+    handle->address = (char*)list_last_callback((void*)handle->address, sizeof(size_t), &page_deallocate);
     handle->pos = ((fifo*)handle->address)->size;
     current->data.data = (fifo*)handle->address;
-    page_allocate(handle->address);
     return handle;
 }
 

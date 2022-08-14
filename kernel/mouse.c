@@ -44,27 +44,39 @@ uint8_t mouse_read() {
 }
 
 void init_mouse() {
-    pic_clear_mask(2);
-    pic_clear_mask(12);
     cursor_x=0;cursor_y=0;
     
-    outb(0x64, 0xA8); // enabling the auxiliary device - mouse
-
     mouse_wait();
-    outb(0x64, 0x20); // tells the keyboard controller that we want to send a command to the mouse
-    mouse_wait_in();
-
-    uint8_t status = inb(0x60) | 2;
+    outb(0x64, 0xAD);
     mouse_wait();
+    outb(0x64, 0xA7);
+    mouse_wait();
+    uint16_t timeout = 1000;
+    while(timeout--) inb(0x60);
     outb(0x64, 0x60);
     mouse_wait();
-    outb(0x60, status); // setting the correct bit is the "compaq" status byte
+    outb(0x60, 0x47);
+    mouse_wait();
+    outb(0x64, 0xA8);
+    mouse_wait();
+    outb(0x64, 0xAE);
 
+    mouse_wait();
     mouse_write(0xF6);
     mouse_read();
 
+    mouse_wait();
+    mouse_write(0xF3);
+    mouse_wait();
+    outb(0x60, 40);
+    mouse_read();
+    
+    mouse_wait();
     mouse_write(0xF4);
     mouse_read();
+
+    pic_clear_mask(2);
+    pic_clear_mask(12);
 }
 
 char mouse_cycle=0;
@@ -83,37 +95,21 @@ void process_mouse_packet() {
     if(cursor_y>=fb_height()) cursor_y=fb_height()-1;
     mouse_ready=0;
 }
-int skip=1;
+uint8_t skip=1;
 __attribute__ ((no_caller_saved_registers))
 void mouse_handler() {
-    uint8_t data=inb(0x60);
+    cursor_color += 99999;
     process_mouse_packet();
+    uint8_t data=inb(0x60);
+    printf("(%X)",(uint64_t)data);
     if(skip) {
         skip=0;
         pic_eoi(12);
         return;
     }
-    switch (mouse_cycle)
-    {
-    case 0:
-
-        if ((data & 0b00001000) == 0)
-            break;
-        mouse_packet[0] = data;
-        mouse_cycle++;
-        break;
-    case 1:
-
-        mouse_packet[1] = data;
-        mouse_cycle++;
-        break;
-    case 2:
-
-        mouse_packet[2] = data;
-        mouse_ready = 1;
-        mouse_cycle = 0;
-        break;
-    }
-    fb_plot((uint16_t)cursor_x, (uint16_t)cursor_y, 0xFFFFFFFF);
+    mouse_packet[mouse_cycle++] = data;
+    mouse_cycle%=3;
+    if(!mouse_cycle) mouse_ready=1;
+    fb_plot((uint16_t)cursor_x, (uint16_t)cursor_y, cursor_color);
     pic_eoi(12);
 }

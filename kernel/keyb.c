@@ -2,6 +2,7 @@
 #include <kernel/cpu.h>
 #include <kernel/fs.h>
 #include <kernel/keyb.h>
+#include <kernel/mouse.h>
 #include <kernel/libc.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -70,5 +71,6 @@ void keyb_handler() {
         write_fifo(keyb_handle,&keyc, 1);
         printf("%c",keyc);
     }
+
     pic_eoi(1);
 }
