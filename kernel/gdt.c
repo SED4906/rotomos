@@ -1,6 +1,6 @@
-#include <kernel/core.h>
+#include <kernel/gdt.h>
 #include <kernel/libc.h>
-
+#include <stdint.h>
 uint64_t gdt[7];
 gdtr gdtr_gdt;
 tss tss_gdt;

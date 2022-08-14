@@ -1,7 +1,8 @@
-#include <kernel/core.h>
+#include <kernel/fb.h>
 #include <kernel/libc.h>
 #include <limine.h>
 #include <4x6.h>
+#include <stddef.h>
 
 const uint64_t side_offh = 96;
 const uint64_t side_offv = 72;

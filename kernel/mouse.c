@@ -1,7 +1,8 @@
-#include <kernel/core.h>
 #include <kernel/cpu.h>
+#include <kernel/fb.h>
 #include <kernel/libc.h>
 #include <kernel/mouse.h>
+#include <kernel/pic.h>
 #include <stdint.h>
 
 int cursor_x,cursor_y;
@@ -43,35 +44,28 @@ uint8_t mouse_read() {
     return inb(0x60);
 }
 
+void mouse_alive() {
+    mouse_write(0xEB);
+    mouse_read();
+}
+
+
 void init_mouse() {
     cursor_x=0;cursor_y=0;
     
+    outb(0x64, 0xA8);
+
     mouse_wait();
-    outb(0x64, 0xAD);
+    outb(0x64, 0x20);
+    uint8_t status=(mouse_read() | 2) &~ 32;
     mouse_wait();
-    outb(0x64, 0xA7);
-    mouse_wait();
-    uint16_t timeout = 1000;
-    while(timeout--) inb(0x60);
     outb(0x64, 0x60);
     mouse_wait();
-    outb(0x60, 0x47);
-    mouse_wait();
-    outb(0x64, 0xA8);
-    mouse_wait();
-    outb(0x64, 0xAE);
+    outb(0x60, status);
 
-    mouse_wait();
     mouse_write(0xF6);
     mouse_read();
-
-    mouse_wait();
-    mouse_write(0xF3);
-    mouse_wait();
-    outb(0x60, 40);
-    mouse_read();
     
-    mouse_wait();
     mouse_write(0xF4);
     mouse_read();
 
@@ -79,7 +73,7 @@ void init_mouse() {
     pic_clear_mask(12);
 }
 
-char mouse_cycle=0;
+uint8_t mouse_cycle=0;
 int mouse_ready=0;
 char mouse_packet[4];
 

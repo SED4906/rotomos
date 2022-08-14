@@ -1,6 +1,6 @@
 #include <kernel/cpu.h>
-#include <kernel/core.h>
 #include <kernel/libc.h>
+#include <kernel/pic.h>
 #include <stdint.h>
 
 void pic_set_mask(unsigned char IRQline) {

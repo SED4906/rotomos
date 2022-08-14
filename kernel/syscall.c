@@ -1,8 +1,9 @@
-#include <kernel/core.h>
+#include <kernel/mm.h>
 #include <kernel/exec.h>
 #include <kernel/fs.h>
 #include <kernel/keyb.h>
 #include <kernel/libc.h>
+#include <kernel/task.h>
 #include <stddef.h>
 
 size_t write_handler(file_handle* fd, char* str, size_t len) {

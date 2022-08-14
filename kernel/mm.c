@@ -1,5 +1,6 @@
+#include <kernel/cpu.h>
 #include <kernel/libc.h>
-#include <kernel/core.h>
+#include <kernel/mm.h>
 #include <limine.h>
 #include <stddef.h>
 typedef void* freelist;
