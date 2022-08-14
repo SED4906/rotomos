@@ -1,9 +1,9 @@
-#include <kernel/core.h>
 #include <kernel/cpu.h>
 #include <kernel/fs.h>
 #include <kernel/keyb.h>
 #include <kernel/mouse.h>
 #include <kernel/libc.h>
+#include <kernel/pic.h>
 #include <stdbool.h>
 #include <stdint.h>
 const char keyscans[96] = "\0\e1234567890-=\b\tqwertyuiop[]\n""\x1E""asdfghjkl;'`\x0E\\zxcvbnm,./\x0F*\x1A \x11\xF1\xF2\xF3\xF5\xF5\xF6\xF7\xF8\xF9\xFA\x12\x13\x37\x38\x39-456+1230.\x00\x00\x00\xFB\xFC\x00\x00\x00\x00\x00\x00\x00";
@@ -66,7 +66,9 @@ char keyb_readnext() {
 
 __attribute__ ((no_caller_saved_registers))
 void keyb_handler() {
-    char keyc = scan2ascii(inb(0x60));
+    uint8_t scan=inb(0x60);
+    char keyc = scan2ascii(scan);
+    //printf("[%X]",(uint64_t)scan);
     if(keyc) {
         write_fifo(keyb_handle,&keyc, 1);
         printf("%c",keyc);

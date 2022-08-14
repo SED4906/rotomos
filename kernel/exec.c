@@ -1,7 +1,9 @@
 
-#include <kernel/core.h>
-#include <kernel/exec.h>
+#include <kernel/cpu.h>
 #include <kernel/libc.h>
+#include <kernel/exec.h>
+#include <kernel/mm.h>
+#include <kernel/task.h>
 #include <stddef.h>
 
 void flatbinary_exec(size_t file, size_t len) {

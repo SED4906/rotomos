@@ -1,4 +1,5 @@
-#include <kernel/core.h>
+#include <kernel/cpu.h>
+#include <kernel/fb.h>
 #include <stdint.h>
 
 uint8_t data_rotom_logo[] = {

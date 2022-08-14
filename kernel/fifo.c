@@ -1,7 +1,7 @@
-#include <kernel/core.h>
 #include <kernel/fs.h>
 #include <kernel/libc.h>
 #include <kernel/list.h>
+#include <kernel/mm.h>
 
 fifo_header_list* fifos;
 
@@ -85,6 +85,8 @@ size_t write_fifo(file_handle* handle, char* str, size_t len) {
     return len;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 file_handle* open_fifo(char* name, char mode) {
     if(!name) return 0;
     fifo_header_list* current = fifos;
@@ -108,6 +110,7 @@ file_handle* open_fifo(char* name, char mode) {
     current->data.data = (fifo*)handle->address;
     return handle;
 }
+#pragma clang diagnostic pop
 
 void close_fifo(file_handle* handle) {
     fifo* current=(fifo*)handle->address;

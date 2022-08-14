@@ -1,6 +1,6 @@
-#include <kernel/core.h>
 #include <kernel/fs.h>
 #include <kernel/libc.h>
+#include <kernel/mm.h>
 #include <limine.h>
 tar_header_list* file_list;
 
@@ -39,6 +39,8 @@ void init_tar() {
     }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 file_handle* open_tar(char* path, char mode) {
     tar_header_list* current = file_list;
     while (current) {
@@ -60,6 +62,7 @@ file_handle* open_tar(char* path, char mode) {
     handle->size = tar_getsize(current->header->size);
     return handle;
 }
+#pragma clang diagnostic pop
 
 size_t read_tar(file_handle* handle, char* str, size_t len) {
     if(handle->size-handle->pos > len) {
@@ -73,9 +76,12 @@ size_t read_tar(file_handle* handle, char* str, size_t len) {
     return bytes;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 size_t write_tar(file_handle* handle, char* str, size_t len) {
     return 0;
 }
+#pragma clang diagnostic pop
 
 void close_tar(file_handle* handle) {
     if(!handle) return;

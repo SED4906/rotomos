@@ -59,7 +59,7 @@ CPPFLAGS +=            \
 	-g
 
 
-OBJ := kernel/core/context.o kernel/core/fb.o kernel/flatbinary.o kernel/core/gdt.o kernel/core/idt.o kernel/core/isr.o kernel/keyb.o kernel/core/libc.o kernel/list.o kernel/main.o kernel/misc_fun.o kernel/core/mm.o kernel/mouse.o kernel/core/pci.o kernel/core/pic.o kernel/printf.o kernel/core/syscall.o kernel/core/tables.o kernel/fs/fifo.o kernel/fs/tar.o kernel/core/task.o kernel/core/tlb.o kernel/tty.o
+OBJ := kernel/context.o kernel/exec.o kernel/fb.o kernel/gdt.o kernel/idt.o kernel/isr.o kernel/keyb.o kernel/libc.o kernel/list.o kernel/main.o kernel/misc_fun.o kernel/mm.o kernel/mouse.o kernel/pci.o kernel/pic.o kernel/printf.o kernel/syscall.o kernel/tables.o kernel/fifo.o kernel/tar.o kernel/task.o kernel/tlb.o kernel/tty.o
 
 # Default target.
 .PHONY: all

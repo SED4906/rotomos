@@ -1,6 +1,9 @@
-#include <kernel/core.h>
+#include <kernel/cpu.h>
+#include <kernel/idt.h>
 #include <kernel/keyb.h>
 #include <kernel/libc.h>
+#include <kernel/pic.h>
+#include <kernel/task.h>
 #include <stddef.h>
 #define GDT_OFFSET_KERNEL_CODE 0x08
 #define IDT_MAX_DESCRIPTORS 256
@@ -32,8 +35,7 @@ void init_idt() {
     }
 
     set_idt_entry(32, isr_stub_table[32], 0x8F);
-    set_idt_entry(44, isr_stub_table[44], 0x8F);
-
+    
     init_pic(32, 40);
     load_idt(&idtr_idt);
 }

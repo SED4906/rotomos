@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <kernel/core.h>
+#include <kernel/fb.h>
 #include <kernel/libc.h>
 #include <kernel/tty.h>
 
