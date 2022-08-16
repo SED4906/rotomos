@@ -106,7 +106,7 @@ void fb_plot_line(uint64_t x0, uint64_t y0, uint64_t x1, uint64_t y1, uint32_t r
 void gfx_scroll_terminal() {
     if(!framebuffer_request.response) return;
     struct limine_framebuffer* fb=framebuffer_request.response->framebuffers[0];
-    memmove(fb->address,&((uint32_t*)fb->address)[(fb->pitch >> 2)*6],fb->pitch*(fb->height-6));
+    memmove(fb->address,&((uint32_t*)fb->address)[(fb->pitch >> 2)*14],fb->pitch*(fb->height-14));
 }
 
 unsigned int rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
@@ -132,10 +132,10 @@ size_t fb_print_string(const char * str, size_t len) {
             for(char k=0;k<14;k++)
             {
                 for(char p=0;p<9;p++) {
-                    size_t pos = p*2 + c*9*14 + k*9;
+                    size_t pos = p*2 + c*9*14*2 + k*9*2;
                     size_t byte = pos >> 3;
-                    size_t bit = pos & 7;
-                    char pixel = bindata_bin[byte] & (3<<bit);
+                    size_t bit = 6-(pos & 7);
+                    char pixel = (bindata_bin[byte] & (3<<bit))>>bit;
                     if(pixel) fb_plot(x+p,y+k,rgba(pixel*64,pixel*64,pixel*64,pixel*64));
                 }
             }

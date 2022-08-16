@@ -53,7 +53,7 @@ void pci_check_function(uint8_t bus, uint8_t device, uint8_t function) {
     printf("%d:%d:%d (%d, %d, %d)\n", bus, device, function, baseClass, subClass, progif);
     if ((baseClass == 0x6) && (subClass == 0x4)) {
         secondaryBus = pci_config_read_byte(bus, device, function, 25);
-        printf("Other bus: %d\n",secondaryBus);
+        //printf("Other bus: %d\n",secondaryBus);
         pci_check_bus(secondaryBus);
     }
 }
@@ -68,7 +68,7 @@ void pci_check_device(uint8_t bus, uint8_t device) {
     pci_check_function(bus, device, function);
     uint8_t headerType = pci_config_read_byte(bus, device, function, 14);
     if( (headerType & 0x80) != 0) {
-        printf("It's multi-function.\n");
+        //printf("It's multi-function.\n");
         // It's a multi-function device, so check remaining functions
         for (function = 1; function < 8; function++) {
             if ((vendor = pci_config_read_word(bus, device, function, 0)) != 0xFFFF) {

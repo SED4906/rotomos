@@ -123,14 +123,16 @@ void init_mm() {
     if(!memmap_request.response) hang_forever();
     if(!hhdm_request.response) hang_forever();
     hhdm = hhdm_request.response->offset;
+    size_t found_kilobytes=0;
 
     for(size_t e=0;e<memmap_request.response->entry_count;e++) {
         struct limine_memmap_entry* en=memmap_request.response->entries[e];
-        printf("%X: %x->%x %X\n", e, en->base, en->base + en->length, en->type);
+        //printf("%X: %x->%x %X\n", e, en->base, en->base + en->length, en->type);
         if(en->type != LIMINE_MEMMAP_USABLE) continue;
         for(size_t o=0;o<en->length;o+=4096) dealloc_page(en->base + o);
+        found_kilobytes += en->length >> 10;
     }
-
+    printf("Usable memory: %dKB\n", found_kilobytes);
     kernel_heap = (heap*)(alloc_page()+hhdm);
     kernel_heap->next=0;kernel_heap->prev=0;
     kernel_blk = 0;
