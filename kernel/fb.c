@@ -2,12 +2,13 @@
 #include <kernel/libc.h>
 #include <limine.h>
 #include <4x6.h>
+#include <9x14.h>
 #include <stddef.h>
 
-const uint64_t side_offh = 96;
-const uint64_t side_offv = 72;
-uint64_t gfx_terminal_col = side_offh/4;
-uint64_t gfx_terminal_row = side_offv/6;
+const uint64_t side_offh = 90;
+const uint64_t side_offv = 70;
+uint64_t gfx_terminal_col = side_offh/9;
+uint64_t gfx_terminal_row = side_offv/14;
 
 struct limine_framebuffer_request framebuffer_request = {
     .id = LIMINE_FRAMEBUFFER_REQUEST,
@@ -120,38 +121,36 @@ unsigned int rgba(unsigned char r, unsigned char g, unsigned char b, unsigned ch
 size_t fb_print_string(const char * str, size_t len) {
     if(!framebuffer_request.response) return 0;
     struct limine_framebuffer* fb=framebuffer_request.response->framebuffers[0];
-    uint64_t x = gfx_terminal_col*4;
-    uint64_t y = gfx_terminal_row*6;
+    uint64_t x = gfx_terminal_col*9;
+    uint64_t y = gfx_terminal_row*14;
     for(uint64_t i=0;i<len;i++)
     {
         char c=str[i];
         if(c == '\r') { x = side_offh; continue; }
-        if(c == '\n') { x = side_offh; y += 6; continue; }
-        if(c < 127 && c >= 32) {
-            for(char k=0;k<6;k++)
+        if(c == '\n') { x = side_offh; y += 14; continue; }
+        if(c) {
+            for(char k=0;k<14;k++)
             {
-                unsigned char group = __4x6_bin[c*6+k];
-                unsigned char p0 = group&0b11000000;
-                unsigned char p1 = (group&0b00110000)<<2;
-                unsigned char p2 = (group&0b00001100)<<4;
-                unsigned char p3 = (group&0b00000011)<<6;
-                if(p0) fb_plot(x,y+k,rgba(p0,p0,p0,p0));
-                if(p1) fb_plot(x+1,y+k,rgba(p1,p1,p1,p1));
-                if(p2) fb_plot(x+2,y+k,rgba(p2,p2,p2,p2));
-                if(p3) fb_plot(x+3,y+k,rgba(p3,p3,p3,p3));
+                for(char p=0;p<9;p++) {
+                    size_t pos = p*2 + c*9*14 + k*9;
+                    size_t byte = pos >> 3;
+                    size_t bit = pos & 7;
+                    char pixel = bindata_bin[byte] & (3<<bit);
+                    if(pixel) fb_plot(x+p,y+k,rgba(pixel*64,pixel*64,pixel*64,pixel*64));
+                }
             }
-            x+=4;
+            x+=9;
         }
         if(x>=fb->width-side_offh) {
             x=side_offh;
-            y+=6;
+            y+=14;
         }
         if(y>=fb->height-side_offv) {
-            y-=6;
+            y-=14;
             gfx_scroll_terminal();
         }
     }
-    gfx_terminal_col = x/4;
-    gfx_terminal_row = y/6;
+    gfx_terminal_col = x/9;
+    gfx_terminal_row = y/14;
     return len;
 }
