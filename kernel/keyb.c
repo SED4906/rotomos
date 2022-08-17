@@ -43,7 +43,7 @@ char scan2ascii(uint8_t code) {
         else if(glyph == 0x13) { scrlock = !scrlock; return 0; }
         else {
             if(modleftshift ^ capslock) return scandecode_shift(code);
-            else return glyph;
+            else return glyph & (modctrl ? 0x1F : 0xFF);
         }
     }
     return 0;
