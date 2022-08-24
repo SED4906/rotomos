@@ -1,6 +1,66 @@
-#include <kernel/cpu.h>
-#include <kernel/fb.h>
+#include <x86-64/cpu.h>
+#include <x86-64/fb.h>
 #include <stdint.h>
+
+void plotlinelow(uint64_t x0, uint64_t y0, uint64_t x1, uint64_t y1, uint32_t rgba) {
+    int dx=x1-x0;
+    int dy=y1-y0;
+    int yi=1;
+    if(dy<0) {
+        yi=-1;
+        dy=-dy;
+    }
+    int D=2*dy-dx;
+    int y=y0;
+    int xd = (x1-x0 > 0 ? 1 : -1);
+    for(uint64_t x=x0;x!=x1;x+=xd) {
+        fb_plot(x,y,rgba);
+        if(D > 0) {
+            y+=yi;
+            D+=2*(dy-dx);
+        }
+        else {
+            D+=2*dy;
+        }
+    }
+}
+
+void plotlinehigh(uint64_t x0, uint64_t y0, uint64_t x1, uint64_t y1, uint32_t rgba) {
+    int dx=x1-x0;
+    int dy=y1-y0;
+    int xi=1;
+    if(dx<0) {
+        xi=-1;
+        dx=-dx;
+    }
+    int D=2*dx-dy;
+    int x=x0;
+    int yd = (y1-y0 > 0 ? 1 : -1);
+    for(uint64_t y=y0;y!=y1;y+=yd) {
+        fb_plot(x,y,rgba);
+        if(D > 0) {
+            x+=xi;
+            D+=2*(dx-dy);
+        }
+        else {
+            D+=2*dx;
+        }
+    }
+}
+
+void fb_plot_line(uint64_t x0, uint64_t y0, uint64_t x1, uint64_t y1, uint32_t rgba) {
+    int y=y1-y0;
+    if(y<0) y=-y;
+    int x=x1-x0;
+    if(x<0) x=-x;
+    if(y<x) {
+        if(x0>x1) plotlinelow(x1,y1,x0,y0,rgba);
+        else plotlinelow(x0,y0,x1,y1,rgba);
+    } else {
+        if(y0>y1) plotlinehigh(x1,y1,x0,y0,rgba);
+        else plotlinehigh(x0,y0,x1,y1,rgba);
+    }
+}
 
 uint8_t data_rotom_logo[] = {
     //Tail
@@ -56,15 +116,15 @@ uint64_t data_rotom_logo_text_len = 160;
 void fb_draw_rotom_logo(uint64_t offset_x,uint64_t offset_y) {
     for(uint64_t i=0; i<data_rotom_logo_len; i+=4) {
         fb_plot_line(offset_x+data_rotom_logo[i],offset_y+data_rotom_logo[i+1],offset_x+data_rotom_logo[i+2],offset_y+data_rotom_logo[i+3],0x00C1FFFF);
-        hang_idle();
+        idle();
     }
-    fb_plot(offset_x+64,offset_y+48,0x00C1FFFF);hang_idle();
-    fb_plot(offset_x+58,offset_y+52,0x00C1FFFF);hang_idle();
+    fb_plot(offset_x+64,offset_y+48,0x00C1FFFF);idle();
+    fb_plot(offset_x+58,offset_y+52,0x00C1FFFF);idle();
 }
 
 void fb_draw_rotom_text(uint64_t offset_x,uint64_t offset_y) {
     for(uint64_t i=0; i<data_rotom_logo_text_len; i+=4) {
         fb_plot_line(offset_x+data_rotom_logo_text[i],offset_y+data_rotom_logo_text[i+1],offset_x+data_rotom_logo_text[i+2],offset_y+data_rotom_logo_text[i+3],0xFF8A00FF);
-        hang_idle();
+        idle();
     }
 }

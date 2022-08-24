@@ -20,7 +20,7 @@ Look at the function prototypes in `testing/rotomos_abi.h` to confirm this (also
 size_t write(void* handle, void* str, size_t len); // int 48
 size_t read(void* handle, void* str, size_t len); // int 49
 void exit(); // int 50
-void* open(char* path, char mode); // int 51
+void* open(char* path); // int 51
 void close(void* handle); // int 52
 void* mmap(void* vaddr); // int 53
 void munmap(void* vaddr); // int 54
@@ -29,7 +29,7 @@ void exec(char* path); // int 55
 
 Arguments are passed like usual C functions.
 ## Writing to the screen or reading from the keyboard
-You'll want to open path "tty" or "keyboard" and use mode... well, the mode doesn't actually matter yet.
+You'll want to open path "tty" or "keyboard" first.
 
 The void* returned is a handle, a pointer to some data in memory sufficient to do file operations.
 

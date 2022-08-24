@@ -1,7 +1,92 @@
-#include <kernel/fs.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <x86-64/fs.h>
 #include <kernel/libc.h>
 #include <kernel/list.h>
-#include <kernel/mm.h>
+#include <x86-64/mm.h>
+#include <limine.h>
+tar_header_list* file_list;
+
+struct limine_module_request module_request = {
+    .id=LIMINE_MODULE_REQUEST,
+    .revision = 0, .response = 0
+};
+
+uint64_t tar_getsize(const char *in)
+{
+    uint64_t size = 0;
+    uint64_t j;
+    uint64_t count = 1;
+ 
+    for (j = 11; j > 0; j--, count *= 8)
+        size += ((in[j - 1] - '0') * count);
+ 
+    return size;
+}
+
+void init_tar() {
+    if(!module_request.response) return;
+    file_list = 0;
+    tar_header* current = module_request.response->modules[0]->address;
+    while (current->filename[0])
+    {
+        size_t size = tar_getsize(current->size);
+        tar_header_list* next = file_list;
+        file_list = heap_allocate(sizeof(tar_header_list));
+        memset(file_list, 0, sizeof(tar_header_list));
+        file_list->next = next;
+        file_list->header = current;
+        printf("File: %s\n",current->filename);
+        current = (tar_header*)(((size_t)current)+(size&~0x1FF) + 512);
+        if(size % 512) current = (tar_header*)(((size_t)current)+512);
+    }
+}
+
+file_handle* open_tar(char* path) {
+    tar_header_list* current = file_list;
+    while (current) {
+        int found=1;
+        for(int i=0;i<strlen(path);i++) {
+            if(current->header->filename[i] != path[i]) {
+                found=0;
+                current = current->next;
+                break;
+            }
+        }
+        if(found) break;
+    }
+    if(!current) return 0;
+    file_handle* handle = heap_allocate(sizeof(file_handle));
+    handle->fstype = 1;
+    handle->address=(char*)(((size_t)current->header)+512);
+    handle->pos = 0;
+    handle->size = tar_getsize(current->header->size);
+    return handle;
+}
+
+size_t read_tar(file_handle* handle, char* str, size_t len) {
+    if(handle->size-handle->pos > len) {
+        memcpy(str,handle->address+handle->pos,len);
+        handle->pos += len;
+        return len;
+    }
+    size_t bytes = handle->size-handle->pos;
+    memcpy(str, handle->address+handle->pos, bytes);
+    handle->pos = handle->size;
+    return bytes;
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+size_t write_tar(file_handle* handle, char* str, size_t len) {
+    return 0;
+}
+#pragma clang diagnostic pop
+
+void close_tar(file_handle* handle) {
+    if(!handle) return;
+    heap_deallocate(handle);
+}
 
 fifo_header_list* fifos;
 
@@ -10,7 +95,7 @@ void init_fifo() {
 }
 
 void create_fifo(char* name) {
-    fifo_header_list* fifo = kmalloc(sizeof(fifo_header_list));
+    fifo_header_list* fifo = heap_allocate(sizeof(fifo_header_list));
     fifo->next = fifos;
     fifo->prev = 0;
     fifo->data.name = name;
@@ -35,7 +120,7 @@ void destroy_fifo(char* name) {
     if(!current) return;
     if(current->next) current->next->prev = current->prev;
     if(current->prev) current->prev->next = current->next;
-    kdemalloc(current);
+    page_deallocate(current);
 }
 
 size_t read_fifo(file_handle* handle, char* str, size_t len) {
@@ -85,9 +170,7 @@ size_t write_fifo(file_handle* handle, char* str, size_t len) {
     return len;
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter"
-file_handle* open_fifo(char* name, char mode) {
+file_handle* open_fifo(char* name) {
     if(!name) return 0;
     fifo_header_list* current = fifos;
     while (current) {
@@ -102,7 +185,7 @@ file_handle* open_fifo(char* name, char mode) {
         if(found) break;
     }
     if(!current) return 0;
-    file_handle* handle = kmalloc(sizeof(file_handle));
+    file_handle* handle = heap_allocate(sizeof(file_handle));
     handle->address = (char*)current->data.data;
     handle->fstype = 0;
     handle->address = (char*)list_last_callback((void*)handle->address, sizeof(size_t), &page_deallocate);
@@ -110,10 +193,9 @@ file_handle* open_fifo(char* name, char mode) {
     current->data.data = (fifo*)handle->address;
     return handle;
 }
-#pragma clang diagnostic pop
 
 void close_fifo(file_handle* handle) {
     fifo* current=(fifo*)handle->address;
     page_deallocate(current);
-    kdemalloc(handle);
+    heap_deallocate(handle);
 }

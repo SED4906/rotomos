@@ -1,6 +1,7 @@
 #include <x86-64/cpu.h>
 #include <x86-64/fs.h>
-#include <x86-64/keyb.h>
+#include <x86-64/task.h>
+#include <x86-64/syscall.h>
 #include <kernel/libc.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -51,26 +52,17 @@ file_handle* keyb_handle;
 
 void init_keyb() {
     create_fifo("keyboard");
-    keyb_handle=open_fifo("keyboard",'a');
-    printf("Type away, your keyboard is now activated.\n");
-    pic_clear_mask(1);
-}
-
-char keyb_readnext() {
-    char ret = 0;
-    read_fifo(keyb_handle,&ret, 1);
-    return ret;
+    keyb_handle=open_fifo("keyboard");
+    install_irq_handler(1,(void*)keyb_interrupt,0x8E);
+    printf("KEYB\n");
 }
 
 __attribute__ ((no_caller_saved_registers))
-void keyb_handler() {
-    uint8_t scan=inb(0x60);
+void keyb_handler(char scan) {
     char keyc = scan2ascii(scan);
     //printf("[%X]",(uint64_t)scan);
     if(keyc) {
         write_fifo(keyb_handle,&keyc, 1);
         printf("%c",keyc);
     }
-
-    pic_eoi(1);
 }

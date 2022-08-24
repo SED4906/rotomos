@@ -1,5 +1,4 @@
 #include <kernel/libc.h>
-#include <kernel/tty.h>
 #include <stddef.h>
 
 void* memcpy(void* dstptr, const void* srcptr, size_t size) {

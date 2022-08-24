@@ -1,8 +1,6 @@
 #pragma once
 #include <stddef.h>
 #include <stdint.h>
-void fb_clear_screen();
-
 void fb_plot(uint16_t x, uint16_t y, uint32_t rgb);
 
 void fb_plot_line(uint64_t x0, uint64_t y0, uint64_t x1, uint64_t y1, uint32_t rgba);

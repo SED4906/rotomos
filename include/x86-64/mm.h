@@ -1,5 +1,7 @@
 #pragma once
 #include <stddef.h>
+#include <stdint.h>
+extern uint64_t hhdm;
 //! @brief Unlink page from freelist.
 //! @return A page-aligned address in physical memory.
 size_t alloc_page();
@@ -26,15 +28,6 @@ size_t map_page(size_t pmap, size_t vaddr, size_t paddr, size_t flags);
 //! @return The page table entry.
 size_t unmap_page(size_t pmap, size_t vaddr);
 
-//! @brief Allocate some bytes.
-//! @param bytes How many bytes to allocate.
-//! @return An address of an allocation.
-void* kmalloc(size_t bytes);
-
-//! @brief Deallocate a pointer.
-//! @param data The address of the allocation.
-void kdemalloc(void* data);
-
 void* heap_allocate(size_t bytes);
 
 void heap_deallocate(void* ptr);
@@ -47,8 +40,6 @@ void page_deallocate(void* address);
 //! @param page An address in virtual memory.
 void tlb_invalidate(size_t page);
 
-size_t get_pmap();
+extern size_t get_pmap();
 
 size_t new_pmap();
-
-size_t get_hhdm();

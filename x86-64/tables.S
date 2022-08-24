@@ -1,3 +1,9 @@
+global load_idt:function
+load_idt:
+lidt [rdi]
+sti
+ret
+
 extern tss_gdt
 
 global load_gdt:function
@@ -25,4 +31,14 @@ mov rax,tss_gdt wrt ..sym
 mov [rax + 4],rsp
 mov ax,0x28
 ltr ax
+ret
+
+global get_pmap:function
+get_pmap:
+mov rax,cr3
+ret
+
+global tlb_invalidate:function
+tlb_invalidate:
+invlpg [rdi]
 ret

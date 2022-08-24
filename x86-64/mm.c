@@ -1,8 +1,9 @@
-#include <kernel/cpu.h>
 #include <kernel/libc.h>
-#include <kernel/mm.h>
-#include <limine.h>
+#include <x86-64/cpu.h>
+#include <x86-64/mm.h>
 #include <stddef.h>
+#include <stdint.h>
+#include <limine.h>
 typedef void* freelist;
 freelist* free_pages;
 uint64_t hhdm;
@@ -120,22 +121,26 @@ void page_deallocate(void* address) {
 }
 
 void init_mm() {
-    if(!memmap_request.response) hang_forever();
-    if(!hhdm_request.response) hang_forever();
+    if(!memmap_request.response) die();
+    if(!hhdm_request.response) die();
     hhdm = hhdm_request.response->offset;
-    size_t found_kilobytes=0;
+    size_t found_bytes=0;
 
     for(size_t e=0;e<memmap_request.response->entry_count;e++) {
         struct limine_memmap_entry* en=memmap_request.response->entries[e];
         //printf("%X: %x->%x %X\n", e, en->base, en->base + en->length, en->type);
         if(en->type != LIMINE_MEMMAP_USABLE) continue;
         for(size_t o=0;o<en->length;o+=4096) dealloc_page(en->base + o);
-        found_kilobytes += en->length >> 10;
+        found_bytes += en->length;
     }
-    printf("Usable memory: %dKB\n", found_kilobytes);
+    printf("x86-64 system    %d bytes free\n", found_bytes);
     kernel_heap = (heap*)(alloc_page()+hhdm);
     kernel_heap->next=0;kernel_heap->prev=0;
     kernel_blk = 0;
+
+    size_t* pmap = (size_t*)get_pmap();
+    pmap[0] = 0;
+    printf("MM\n");
 }
 
 size_t map_page_step(size_t pmap, size_t entry) {
@@ -175,30 +180,13 @@ size_t unmap_page(size_t pmap, size_t vaddr) {
     return ((size_t*)((uint64_t)pml1 + hhdm))[pml1_entry];
 }
 
-void* kmalloc(size_t bytes) {
-    if(bytes <= 4096-514) return heap_allocate(bytes);
-    else if(bytes <= 4096) return page_allocate(0);
-    return 0;
-}
-
-void kdemalloc(void* data) {
-    if((size_t)data & 0xFFF) heap_deallocate(data);
-    else page_deallocate(data);
-}
-
 size_t new_pmap() {
     uint64_t ret=0;
     if(!(ret=alloc_page())) return 0;
     memset((void*)(ret+hhdm),0,4096);
-    uint64_t* retp = (uint64_t*)(ret+get_hhdm());
-    uint64_t* pmap = (uint64_t*)(get_pmap()+get_hhdm());
-    //retp[0] = pmap[0];
-    //retp[4] = pmap[4];
+    uint64_t* retp = (uint64_t*)(ret+hhdm);
+    uint64_t* pmap = (uint64_t*)(get_pmap()+hhdm);
     retp[(hhdm>>39)&0x1FF] = pmap[(hhdm>>39)&0x1FF];
     retp[511] = pmap[511];
     return ret;
-}
-
-size_t get_hhdm() {
-    return hhdm;
 }

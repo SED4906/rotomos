@@ -2,9 +2,8 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <kernel/fb.h>
+#include <x86-64/fb.h>
 #include <kernel/libc.h>
-#include <kernel/tty.h>
 
 char hexmake(unsigned int v) {
 	if(v>9) return v+55;
