@@ -7,4 +7,4 @@ extern void* open(char* path, char mode);
 extern void close(void* fd);
 extern size_t mmap(size_t vaddr);
 extern void munmap(size_t vaddr);
-extern void exec(char* path);
+extern void exec(char* path, char* cmdline);

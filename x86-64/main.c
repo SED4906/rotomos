@@ -15,7 +15,7 @@ void _start() {
     init_task();
     init_syscall();
     init_keyb();
-    exec_handler("init");
+    exec_handler("init", "");
     fb_draw_rotom_logo(0,0);fb_draw_rotom_text(128,0);
     for(;;) {
         idle();

@@ -24,7 +24,7 @@ void* open(char* path); // int 51
 void close(void* handle); // int 52
 void* mmap(void* vaddr); // int 53
 void munmap(void* vaddr); // int 54
-int exec(char* path); // int 55
+int exec(char* path, char* cmdline); // int 55
 ```
 
 Arguments are passed like usual C functions.

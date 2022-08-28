@@ -82,12 +82,16 @@ mov rsp,rdi
 mov cr3,rsi
 ret
 
+extern save_register
+extern load_register
+
 global pit_context_switch:function
 pit_context_switch:
 push rax
 push rbx
 push rcx
 push rdx
+push rbp
 push rsi
 push rdi
 push r8
@@ -98,11 +102,43 @@ push r12
 push r13
 push r14
 push r15
-push rbp
+
+%assign i 0
+%rep 5
+pop rdi
+mov rsi,i
+call save_register
+%assign i i+1
+%endrep
+
+%assign i i+1
+%rep 10
+pop rdi
+mov rsi,i
+call save_register
+%assign i i+1
+%endrep
+
 mov al, 0x20
 out 0x20, al
 call context_switch
-pop rbp
+
+%assign i 0
+%rep 5
+mov rdi,i
+call load_register
+push rax
+%assign i i+1
+%endrep
+
+%assign i i+1
+%rep 10
+mov rdi,i
+call load_register
+push rax
+%assign i i+1
+%endrep
+
 pop r15
 pop r14
 pop r13
@@ -113,6 +149,7 @@ pop r9
 pop r8
 pop rdi
 pop rsi
+pop rbp
 pop rdx
 pop rcx
 pop rbx

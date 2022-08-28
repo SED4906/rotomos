@@ -48,7 +48,7 @@ void munmap_handler(size_t vaddr) {
     size_t page=unmap_page(get_pmap(),vaddr&~0xFFF);
     if(page) dealloc_page(page&~0xFFF);
 }
-int exec_handler(char* path) {
+int exec_handler(char* path, char* cmdline) {
     size_t size=0;
     size_t prev=0;
     file_handle* handle = open_handler(path);
@@ -58,7 +58,7 @@ int exec_handler(char* path) {
     prev=size;
     mmap_handler(((size_t)8<<39)+(4096*(size_t)i));
     } while((size += read_handler(handle,(char*)((size_t)8<<39)+(4096*((size_t)i++)),4096))!=prev);
-    int ret=bin_exec(((size_t)8<<39),size);
+    int ret=bin_exec(((size_t)8<<39),size,cmdline);
     for(;i>=0;i--) munmap_handler(((size_t)8<<39)+(4096*((size_t)i-1)));
     close_handler(handle);
     return ret;
